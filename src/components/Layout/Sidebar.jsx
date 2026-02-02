@@ -80,9 +80,9 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
-                        <NavLink to="/timocom/search" className="submenu-item"><i className="fas fa-search"></i>&nbsp;&nbsp;Fuvar keresés</NavLink>
-                        <NavLink to="/timocom/offers" className="submenu-item"><i className="fas fa-file-contract"></i>&nbsp;&nbsp;Ajánlataim</NavLink>
-                        <NavLink to="/timocom/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;AI Chat</NavLink>
+                        <NavLink to="/app/timocom/search" className="submenu-item"><i className="fas fa-search"></i>&nbsp;&nbsp;Fuvar keresés</NavLink>
+                        <NavLink to="/app/timocom/offers" className="submenu-item"><i className="fas fa-file-contract"></i>&nbsp;&nbsp;Ajánlataim</NavLink>
+                        <NavLink to="/app/timocom/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;AI Chat</NavLink>
                     </div>
                 </div>
 
@@ -99,9 +99,9 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
-                        <NavLink to="/shipments/active" className="submenu-item"><i className="fas fa-road"></i>&nbsp;&nbsp;Aktív fuvarok</NavLink>
-                        <NavLink to="/shipments/planning" className="submenu-item"><i className="fas fa-route"></i>&nbsp;&nbsp;Útvonaltervezés</NavLink>
-                        <NavLink to="/shipments/tracking" className="submenu-item"><i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Nyomon követés</NavLink>
+                        <NavLink to="/app/shipments/active" className="submenu-item"><i className="fas fa-road"></i>&nbsp;&nbsp;Aktív fuvarok</NavLink>
+                        <NavLink to="/app/shipments/planning" className="submenu-item"><i className="fas fa-route"></i>&nbsp;&nbsp;Útvonaltervezés</NavLink>
+                        <NavLink to="/app/shipments/tracking" className="submenu-item"><i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Nyomon követés</NavLink>
                     </div>
                 </div>
 
@@ -118,9 +118,9 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
-                        <NavLink to="/fleet/vehicles" className="submenu-item"><i className="fas fa-truck"></i>&nbsp;&nbsp;Járművek</NavLink>
-                        <NavLink to="/fleet/drivers" className="submenu-item"><i className="fas fa-user-tie"></i>&nbsp;&nbsp;Sofőrök</NavLink>
-                        <NavLink to="/fleet/maintenance" className="submenu-item"><i className="fas fa-tools"></i>&nbsp;&nbsp;Karbantartás</NavLink>
+                        <NavLink to="/app/fleet/vehicles" className="submenu-item"><i className="fas fa-truck"></i>&nbsp;&nbsp;Járművek</NavLink>
+                        <NavLink to="/app/fleet/drivers" className="submenu-item"><i className="fas fa-user-tie"></i>&nbsp;&nbsp;Sofőrök</NavLink>
+                        <NavLink to="/app/fleet/maintenance" className="submenu-item"><i className="fas fa-tools"></i>&nbsp;&nbsp;Karbantartás</NavLink>
                     </div>
                 </div>
 
@@ -137,8 +137,8 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['docs'] ? 'open' : ''}`}>
-                        <NavLink to="/docs/cmr" className="submenu-item"><i className="fas fa-file-invoice"></i>&nbsp;&nbsp;CMR / Szállítólevél</NavLink>
-                        <NavLink to="/docs/contracts" className="submenu-item"><i className="fas fa-file-signature"></i>&nbsp;&nbsp;Szerződések</NavLink>
+                        <NavLink to="/app/docs/cmr" className="submenu-item"><i className="fas fa-file-invoice"></i>&nbsp;&nbsp;CMR / Szállítólevél</NavLink>
+                        <NavLink to="/app/docs/contracts" className="submenu-item"><i className="fas fa-file-signature"></i>&nbsp;&nbsp;Szerződések</NavLink>
                     </div>
                 </div>
 
@@ -155,8 +155,8 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['finance'] ? 'open' : ''}`}>
-                        <NavLink to="/finance/invoices" className="submenu-item"><i className="fas fa-file-invoice-dollar"></i>&nbsp;&nbsp;Számlázás</NavLink>
-                        <NavLink to="/finance/expenses" className="submenu-item"><i className="fas fa-receipt"></i>&nbsp;&nbsp;Kiadások</NavLink>
+                        <NavLink to="/app/finance/invoices" className="submenu-item"><i className="fas fa-file-invoice-dollar"></i>&nbsp;&nbsp;Számlázás</NavLink>
+                        <NavLink to="/app/finance/expenses" className="submenu-item"><i className="fas fa-receipt"></i>&nbsp;&nbsp;Kiadások</NavLink>
                     </div>
                 </div>
 
@@ -173,8 +173,8 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['subcontractors'] ? 'open' : ''}`}>
-                        <NavLink to="/partners/list" className="submenu-item"><i className="fas fa-address-book"></i>&nbsp;&nbsp;Partnerek</NavLink>
-                        <NavLink to="/partners/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;Partner Chat</NavLink>
+                        <NavLink to="/app/partners/list" className="submenu-item"><i className="fas fa-address-book"></i>&nbsp;&nbsp;Partnerek</NavLink>
+                        <NavLink to="/app/partners/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;Partner Chat</NavLink>
                     </div>
                 </div>
 
@@ -191,16 +191,16 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['reports'] ? 'open' : ''}`}>
-                        <NavLink to="/reports/financial" className="submenu-item"><i className="fas fa-euro-sign"></i>&nbsp;&nbsp;Pénzügyi jelentés</NavLink>
-                        <NavLink to="/reports/performance" className="submenu-item"><i className="fas fa-chart-line"></i>&nbsp;&nbsp;Teljesítmény</NavLink>
-                        <NavLink to="/reports/analytics" className="submenu-item"><i className="fas fa-chart-pie"></i>&nbsp;&nbsp;Analitika</NavLink>
-                        <NavLink to="/reports/drivers-time" className="submenu-item"><i className="fas fa-clock"></i>&nbsp;&nbsp;Vezetési Idők</NavLink>
+                        <NavLink to="/app/reports/financial" className="submenu-item"><i className="fas fa-euro-sign"></i>&nbsp;&nbsp;Pénzügyi jelentés</NavLink>
+                        <NavLink to="/app/reports/performance" className="submenu-item"><i className="fas fa-chart-line"></i>&nbsp;&nbsp;Teljesítmény</NavLink>
+                        <NavLink to="/app/reports/analytics" className="submenu-item"><i className="fas fa-chart-pie"></i>&nbsp;&nbsp;Analitika</NavLink>
+                        <NavLink to="/app/reports/drivers-time" className="submenu-item"><i className="fas fa-clock"></i>&nbsp;&nbsp;Vezetési Idők</NavLink>
                     </div>
                 </div>
 
                 {/* AI Asszisztens */}
                 <div className="menu-item">
-                    <NavLink to="/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                    <NavLink to="/app/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
                         <span style={{ display: 'flex', alignItems: 'center' }}>
                             <i className="menu-icon fas fa-robot"></i>
                             AI Asszisztens
@@ -221,9 +221,9 @@ const Sidebar = () => {
                         <i className="fas fa-chevron-down"></i>
                     </button>
                     <div className={`submenu ${openSubmenus['settings'] ? 'open' : ''}`}>
-                        <NavLink to="/settings/profile" className="submenu-item"><i className="fas fa-user"></i>&nbsp;&nbsp;Profil</NavLink>
-                        <NavLink to="/settings/integrations" className="submenu-item"><i className="fas fa-plug"></i>&nbsp;&nbsp;Integrációk</NavLink>
-                        <NavLink to="/settings/notifications" className="submenu-item"><i className="fas fa-bell"></i>&nbsp;&nbsp;Értesítések</NavLink>
+                        <NavLink to="/app/settings/profile" className="submenu-item"><i className="fas fa-user"></i>&nbsp;&nbsp;Profil</NavLink>
+                        <NavLink to="/app/settings/integrations" className="submenu-item"><i className="fas fa-plug"></i>&nbsp;&nbsp;Integrációk</NavLink>
+                        <NavLink to="/app/settings/notifications" className="submenu-item"><i className="fas fa-bell"></i>&nbsp;&nbsp;Értesítések</NavLink>
                     </div>
                 </div>
 
