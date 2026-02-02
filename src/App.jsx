@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './components/Dashboard';
 import SearchPanel from './components/Timocom/SearchPanel'; // Import
+import Integrations from './components/Settings/Integrations';
 import Placeholder from './components/Placeholder';
 import './index.css';
 
@@ -53,7 +54,7 @@ function App() {
 
           {/* Beállítások */}
           <Route path="settings/profile" element={<Placeholder title="Profil" />} />
-          <Route path="settings/integrations" element={<Placeholder title="Integrációk" />} />
+          <Route path="settings/integrations" element={<Integrations />} />
           <Route path="settings/notifications" element={<Placeholder title="Értesítések" />} />
         </Route>
       </Routes>
