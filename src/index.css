@@ -4,6 +4,7 @@
 
 /* Legacy Premium Design Port */
 :root {
+    /* Default (Dark) Theme */
     --primary-color: #00d4aa;
     --secondary-color: #00a0db;
     --accent-color: #ff6b6b;
@@ -18,6 +19,20 @@
     --success: #00ff88;
     --warning: #ffb800;
     --danger: #ff4757;
+}
+
+[data-theme="light"] {
+    /* Light Theme Overrides */
+    --primary-color: #00b395;
+    --secondary-color: #0089bd;
+    --dark-bg: #f4f6f9;
+    --darker-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text-primary: #1a1a3e;
+    --text-secondary: #5a6b7c;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --accent-color: #ff6b6b;
 }
 
 body {

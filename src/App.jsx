@@ -28,10 +28,24 @@ function App() {
           <Route path="fleet/drivers" element={<Placeholder title="Sofőrök" />} />
           <Route path="fleet/maintenance" element={<Placeholder title="Karbantartás" />} />
 
+          {/* Dokumentumok */}
+          <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
+          <Route path="docs/contracts" element={<Placeholder title="Szerződések" />} />
+
+          {/* Pénzügyek */}
+          <Route path="finance/invoices" element={<Placeholder title="Számlázás (Export/Import)" />} />
+          <Route path="finance/expenses" element={<Placeholder title="Kiadások" />} />
+
+          {/* Alvállalkozók */}
+          <Route path="partners/list" element={<Placeholder title="Alvállalkozók & Partnerek" />} />
+          <Route path="partners/chat" element={<Placeholder title="Partner Chat" />} />
+
           {/* Jelentések */}
           <Route path="reports/financial" element={<Placeholder title="Pénzügyi Jelentések" />} />
           <Route path="reports/performance" element={<Placeholder title="Teljesítmény" />} />
           <Route path="reports/analytics" element={<Placeholder title="Analitika" />} />
+          <Route path="reports/drivers-time" element={<Placeholder title="Vezetési Idők (AETR)" />} />
+
 
           {/* AI */}
           <Route path="ai-assistant" element={<Placeholder title="AI Asszisztens" />} />

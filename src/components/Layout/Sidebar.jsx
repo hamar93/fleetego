@@ -124,6 +124,60 @@ const Sidebar = () => {
                     </div>
                 </div>
 
+                {/* Dokumentumok (Roadmap 3. & 7.) */}
+                <div className="menu-item">
+                    <button
+                        className={`menu-toggle ${openSubmenus['docs'] ? 'active' : ''}`}
+                        onClick={() => toggleSubmenu('docs')}
+                    >
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <i className="menu-icon fas fa-folder-open"></i>
+                            Dokumentumtár
+                        </span>
+                        <i className="fas fa-chevron-down"></i>
+                    </button>
+                    <div className={`submenu ${openSubmenus['docs'] ? 'open' : ''}`}>
+                        <NavLink to="/docs/cmr" className="submenu-item"><i className="fas fa-file-invoice"></i>&nbsp;&nbsp;CMR / Szállítólevél</NavLink>
+                        <NavLink to="/docs/contracts" className="submenu-item"><i className="fas fa-file-signature"></i>&nbsp;&nbsp;Szerződések</NavLink>
+                    </div>
+                </div>
+
+                {/* Pénzügyek (Roadmap 7. - Számlázás) */}
+                <div className="menu-item">
+                    <button
+                        className={`menu-toggle ${openSubmenus['finance'] ? 'active' : ''}`}
+                        onClick={() => toggleSubmenu('finance')}
+                    >
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <i className="menu-icon fas fa-wallet"></i>
+                            Pénzügyek
+                        </span>
+                        <i className="fas fa-chevron-down"></i>
+                    </button>
+                    <div className={`submenu ${openSubmenus['finance'] ? 'open' : ''}`}>
+                        <NavLink to="/finance/invoices" className="submenu-item"><i className="fas fa-file-invoice-dollar"></i>&nbsp;&nbsp;Számlázás</NavLink>
+                        <NavLink to="/finance/expenses" className="submenu-item"><i className="fas fa-receipt"></i>&nbsp;&nbsp;Kiadások</NavLink>
+                    </div>
+                </div>
+
+                {/* Alvállalkozók (Roadmap 8.) */}
+                <div className="menu-item">
+                    <button
+                        className={`menu-toggle ${openSubmenus['subcontractors'] ? 'active' : ''}`}
+                        onClick={() => toggleSubmenu('subcontractors')}
+                    >
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <i className="menu-icon fas fa-handshake"></i>
+                            Alvállalkozók
+                        </span>
+                        <i className="fas fa-chevron-down"></i>
+                    </button>
+                    <div className={`submenu ${openSubmenus['subcontractors'] ? 'open' : ''}`}>
+                        <NavLink to="/partners/list" className="submenu-item"><i className="fas fa-address-book"></i>&nbsp;&nbsp;Partnerek</NavLink>
+                        <NavLink to="/partners/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;Partner Chat</NavLink>
+                    </div>
+                </div>
+
                 {/* Jelentések */}
                 <div className="menu-item">
                     <button
@@ -140,6 +194,7 @@ const Sidebar = () => {
                         <NavLink to="/reports/financial" className="submenu-item"><i className="fas fa-euro-sign"></i>&nbsp;&nbsp;Pénzügyi jelentés</NavLink>
                         <NavLink to="/reports/performance" className="submenu-item"><i className="fas fa-chart-line"></i>&nbsp;&nbsp;Teljesítmény</NavLink>
                         <NavLink to="/reports/analytics" className="submenu-item"><i className="fas fa-chart-pie"></i>&nbsp;&nbsp;Analitika</NavLink>
+                        <NavLink to="/reports/drivers-time" className="submenu-item"><i className="fas fa-clock"></i>&nbsp;&nbsp;Vezetési Idők</NavLink>
                     </div>
                 </div>
 
