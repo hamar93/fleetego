@@ -4,35 +4,59 @@
 
 /* Legacy Premium Design Port */
 :root {
-    /* Default (Dark) Theme */
-    --primary-color: #00d4aa;
-    --secondary-color: #00a0db;
-    --accent-color: #ff6b6b;
-    --dark-bg: #0a0e27;
-    --darker-bg: #050816;
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --sidebar-width: 320px;
-    --success: #00ff88;
-    --warning: #ffb800;
-    --danger: #ff4757;
+    /* ========================================================================
+       BUSINESS CYBERPUNK - DARK MODE (Default)
+       Modern, professional, alive. Deep tones with neon accents.
+       ======================================================================== */
+    --primary-color: #00e5c0;
+    /* Neon Cyan - Primary actions */
+    --secondary-color: #8a5cf5;
+    /* Electric Purple - Accents */
+    --accent-color: #ff6b8a;
+    /* Soft Neon Pink - Warnings/Highlights */
+    --dark-bg: #0d1225;
+    /* Deep Space Blue - Main background */
+    --darker-bg: #080c18;
+    /* Darker base - Cards overlay */
+    --card-bg: rgba(15, 25, 45, 0.7);
+    /* Gunmetal Glass */
+    --text-primary: #e8ecf4;
+    /* Soft White - Readable */
+    --text-secondary: rgba(232, 236, 244, 0.65);
+    --glass-bg: rgba(20, 35, 60, 0.6);
+    --glass-border: rgba(0, 229, 192, 0.2);
+    /* Subtle neon border */
+    --sidebar-width: 280px;
+    --success: #00ff9d;
+    --warning: #ffc800;
+    --danger: #ff5a70;
+    /* Glow Effects */
+    --glow-primary: 0 0 15px rgba(0, 229, 192, 0.4);
+    --glow-secondary: 0 0 15px rgba(138, 92, 245, 0.4);
 }
 
 [data-theme="light"] {
-    /* Light Theme Overrides */
-    --primary-color: #00b395;
-    --secondary-color: #0089bd;
-    --dark-bg: #f4f6f9;
-    --darker-bg: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --text-primary: #1a1a3e;
-    --text-secondary: #5a6b7c;
-    --glass-bg: rgba(255, 255, 255, 0.75);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --accent-color: #ff6b6b;
+    /* ========================================================================
+       BUSINESS CYBERPUNK - LIGHT MODE
+       High-tech professional. Silver/Slate with deep accents.
+       ======================================================================== */
+    --primary-color: #009e8c;
+    /* Deep Teal */
+    --secondary-color: #6a4cc9;
+    /* Royal Purple */
+    --dark-bg: #e8ecf4;
+    /* Silver Grey */
+    --darker-bg: #f5f7fa;
+    /* Clean White */
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-primary: #1a2035;
+    /* Deep Slate */
+    --text-secondary: #5a6a80;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 158, 140, 0.25);
+    --accent-color: #e84a6f;
+    --glow-primary: 0 4px 15px rgba(0, 158, 140, 0.15);
+    --glow-secondary: 0 4px 15px rgba(106, 76, 201, 0.15);
 }
 
 body {
@@ -563,4 +587,129 @@ h6 {
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 40px rgba(0, 212, 170, 0.4);
+}
+
+/* ==========================================================================
+   BUSINESS CYBERPUNK - "ALIVE" UTILITIES
+   Pulsing indicators, glow effects, hover transitions.
+   ========================================================================== */
+
+/* Status Indicator - Pulsing Dot */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-indicator.active,
+.status-indicator.on-route {
+    background-color: var(--success);
+    box-shadow: 0 0 8px var(--success), 0 0 20px var(--success);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.status-indicator.idle {
+    background-color: var(--warning);
+    box-shadow: 0 0 8px var(--warning);
+}
+
+.status-indicator.offline,
+.status-indicator.error {
+    background-color: var(--danger);
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.15);
+    }
+}
+
+/* Card Glow on Hover */
+.card.glow-on-hover,
+.glass-effect.glow-on-hover {
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card.glow-on-hover:hover,
+.glass-effect.glow-on-hover:hover {
+    box-shadow: var(--glow-primary);
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+}
+
+/* Neon Text Glow */
+.text-glow {
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+}
+
+/* Gradient Border (for premium feel) */
+.gradient-border {
+    position: relative;
+    border: none !important;
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Button Variants for Business Cyberpunk */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 229, 192, 0.1);
+    box-shadow: var(--glow-primary);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: var(--darker-bg);
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--secondary-color);
+    color: white;
 }

@@ -2,8 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './components/Dashboard';
-import SearchPanel from './components/Timocom/SearchPanel'; // Import
+import SearchPanel from './components/Timocom/SearchPanel';
 import Integrations from './components/Settings/Integrations';
+import VehicleList from './components/Fleet/VehicleList';
+import UserManagement from './pages/Admin/UserManagement';
+import LandingPage from './pages/Landing/LandingPage';
+import Register from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
+import PendingApproval from './pages/Auth/PendingApproval';
 import Placeholder from './components/Placeholder';
 import './index.css';
 
@@ -11,8 +17,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Navigate to="/dashboard" replace />} />
+        {/* Public Routes (No MainLayout) */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/pending" element={<PendingApproval />} />
+
+        {/* Protected App Routes (With MainLayout and Sidebar) */}
+        <Route path="/app" element={<MainLayout />}>
+          <Route index element={<Navigate to="/app/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
 
           {/* Timocom */}
@@ -26,7 +39,7 @@ function App() {
           <Route path="shipments/tracking" element={<Placeholder title="Nyomon követés" />} />
 
           {/* Járműflotta */}
-          <Route path="fleet/vehicles" element={<Placeholder title="Járművek" />} />
+          <Route path="fleet/vehicles" element={<VehicleList />} />
           <Route path="fleet/drivers" element={<Placeholder title="Sofőrök" />} />
           <Route path="fleet/maintenance" element={<Placeholder title="Karbantartás" />} />
 
@@ -48,7 +61,6 @@ function App() {
           <Route path="reports/analytics" element={<Placeholder title="Analitika" />} />
           <Route path="reports/drivers-time" element={<Placeholder title="Vezetési Idők (AETR)" />} />
 
-
           {/* AI */}
           <Route path="ai-assistant" element={<Placeholder title="AI Asszisztens" />} />
 
@@ -56,7 +68,13 @@ function App() {
           <Route path="settings/profile" element={<Placeholder title="Profil" />} />
           <Route path="settings/integrations" element={<Integrations />} />
           <Route path="settings/notifications" element={<Placeholder title="Értesítések" />} />
+
+          {/* Admin */}
+          <Route path="admin/users" element={<UserManagement />} />
         </Route>
+
+        {/* Catch all - redirect to landing */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

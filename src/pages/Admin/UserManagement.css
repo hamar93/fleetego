@@ -1,0 +1,134 @@
+.user-management-container {
+    padding: 1.5rem;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-tab {
+    padding: 0.75rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-tab:hover {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+}
+
+.filter-tab.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: transparent;
+}
+
+/* Table */
+.users-table {
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.users-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 2px solid var(--glass-border);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.users-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+}
+
+.users-table tbody tr {
+    transition: background 0.3s ease;
+}
+
+.users-table tbody tr:hover {
+    background: var(--glass-bg);
+}
+
+.user-company {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-date {
+    font-size: 0.9rem;
+}
+
+/* Badges */
+.role-badge,
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.role-admin {
+    background: rgba(138, 92, 245, 0.2);
+    color: var(--secondary-color);
+}
+
+.role-user {
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+}
+
+.status-pending {
+    background: rgba(255, 200, 0, 0.2);
+    color: var(--warning);
+}
+
+.status-approved {
+    background: rgba(0, 255, 157, 0.2);
+    color: var(--success);
+}
+
+.status-rejected {
+    background: rgba(255, 90, 112, 0.2);
+    color: var(--danger);
+}
+
+/* Actions */
+.user-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.no-actions {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}

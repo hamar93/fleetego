@@ -59,7 +59,7 @@ const Sidebar = () => {
 
                 {/* Dashboard */}
                 <div className="menu-item">
-                    <NavLink to="/dashboard" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                    <NavLink to="/app/dashboard" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
                         <span style={{ display: 'flex', alignItems: 'center' }}>
                             <i className="menu-icon fas fa-tachometer-alt"></i>
                             Dashboard
