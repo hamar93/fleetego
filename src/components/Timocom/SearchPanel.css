@@ -1,0 +1,32 @@
+/* Inheriting global variables from index.css */
+.search-panel-container {
+    padding: 1rem;
+}
+
+.search-form .form-control {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Fallback */
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.search-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.2);
+}
+
+.result-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: var(--secondary-color);
+}

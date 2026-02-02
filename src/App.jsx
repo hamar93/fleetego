@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './components/Dashboard';
+import SearchPanel from './components/Timocom/SearchPanel'; // Import
 import Placeholder from './components/Placeholder';
 import './index.css';
 
@@ -14,8 +15,8 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
 
           {/* Timocom */}
-          <Route path="timocom/search" element={<Placeholder title="Timocom Fuvar Keresés" />} />
-          <Route path="timocom/offers" element={<Placeholder title="Ajánlataim" />} />
+          <Route path="timocom/search" element={<SearchPanel />} />
+          <Route path="timocom/offers" element={<Placeholder title="Timocom Ajánlataim" />} />
           <Route path="timocom/chat" element={<Placeholder title="Timocom AI Chat" />} />
 
           {/* Fuvarkezelés */}
