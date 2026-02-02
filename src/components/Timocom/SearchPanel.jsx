@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../../api/api'; // Import configured API instance
 import './SearchPanel.css'; // We'll assume this inherits from global CSS or create basic styles
 
 const SearchPanel = () => {
@@ -21,14 +22,9 @@ const SearchPanel = () => {
         setLoading(true);
         setResults(null);
         try {
-            // Using logic from backend
-            const response = await fetch('http://localhost:8000/api/timocom/search', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(criteria)
-            });
-            const data = await response.json();
-            setResults(data);
+            // Use axios instance (automatically handles base URL)
+            const response = await api.post('/api/timocom/search', criteria);
+            setResults(response.data);
         } catch (error) {
             console.error("Search failed:", error);
             alert("Hiba történt a keresés során. Győződj meg róla, hogy a Backend fut!");
@@ -39,11 +35,12 @@ const SearchPanel = () => {
 
     const checkConnection = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/timocom/status');
-            const data = await response.json();
+            const response = await api.get('/api/timocom/status');
+            const data = response.data;
             setStatus(data);
             alert(`Státusz: ${data.status}\nMód: ${data.mode}\nÜzenet: ${data.message}`);
         } catch (error) {
+            console.error("Connection check failed:", error);
             alert("Nem sikerült kapcsolódni a szerverhez.");
         }
     };
