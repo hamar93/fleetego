@@ -23,7 +23,11 @@
         "reports": "Berichte",
         "administration": "Verwaltung",
         "users": "Benutzer",
-        "companies": "Firmen"
+        "companies": "Firmen",
+        "settings": "Einstellungen",
+        "profile": "Profil",
+        "integrations": "Integrationen",
+        "chat": "Chat"
     },
     "dashboard": {
         "welcome": "Willkommen im FleetEgo Agent Office",

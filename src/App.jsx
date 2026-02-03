@@ -15,7 +15,10 @@ import PendingApproval from './pages/Auth/PendingApproval';
 import Placeholder from './components/Placeholder';
 import './index.css';
 
+import { useTranslation } from 'react-i18next';
+
 function App() {
+  const { t } = useTranslation();
   return (
     <ThemeProvider>
       <BrowserRouter>
@@ -33,39 +36,39 @@ function App() {
 
             {/* Timocom */}
             <Route path="timocom/search" element={<SearchPanel />} />
-            <Route path="timocom/offers" element={<Placeholder title="Timocom Ajánlataim" />} />
-            <Route path="timocom/chat" element={<Placeholder title="Timocom AI Chat" />} />
+            <Route path="timocom/offers" element={<Placeholder title={t('sidebar.my_offers')} />} />
+            <Route path="timocom/chat" element={<Placeholder title={t('sidebar.ai_chat')} />} />
 
             {/* Fuvarkezelés */}
-            <Route path="shipments/active" element={<Placeholder title="Aktív Fuvarok" />} />
-            <Route path="shipments/planning" element={<Placeholder title="Útvonaltervezés" />} />
-            <Route path="shipments/tracking" element={<Placeholder title="Nyomon követés" />} />
+            <Route path="shipments/active" element={<Placeholder title={t('sidebar.active_shipments')} />} />
+            <Route path="shipments/planning" element={<Placeholder title={t('sidebar.route_planning')} />} />
+            <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
 
             {/* Járműflotta */}
             <Route path="fleet/vehicles" element={<VehicleList />} />
-            <Route path="fleet/drivers" element={<Placeholder title="Sofőrök" />} />
-            <Route path="fleet/maintenance" element={<Placeholder title="Karbantartás" />} />
+            <Route path="fleet/drivers" element={<Placeholder title={t('sidebar.drivers')} />} />
+            <Route path="fleet/maintenance" element={<Placeholder title={t('sidebar.maintenance')} />} />
 
             {/* Dokumentumok */}
             <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
-            <Route path="docs/contracts" element={<Placeholder title="Szerződések" />} />
+            <Route path="docs/contracts" element={<Placeholder title={t('sidebar.documents')} />} />
 
             {/* Pénzügyek */}
-            <Route path="finance/invoices" element={<Placeholder title="Számlázás (Export/Import)" />} />
-            <Route path="finance/expenses" element={<Placeholder title="Kiadások" />} />
+            <Route path="finance/invoices" element={<Placeholder title={t('sidebar.finance')} />} />
+            <Route path="finance/expenses" element={<Placeholder title={t('sidebar.finance')} />} />
 
             {/* Alvállalkozók */}
-            <Route path="partners/list" element={<Placeholder title="Alvállalkozók & Partnerek" />} />
+            <Route path="partners/list" element={<Placeholder title={t('sidebar.subcontractors')} />} />
             <Route path="partners/chat" element={<Placeholder title="Partner Chat" />} />
 
             {/* Jelentések */}
-            <Route path="reports/financial" element={<Placeholder title="Pénzügyi Jelentések" />} />
-            <Route path="reports/performance" element={<Placeholder title="Teljesítmény" />} />
-            <Route path="reports/analytics" element={<Placeholder title="Analitika" />} />
-            <Route path="reports/drivers-time" element={<Placeholder title="Vezetési Idők (AETR)" />} />
+            <Route path="reports/financial" element={<Placeholder title={t('sidebar.reports')} />} />
+            <Route path="reports/performance" element={<Placeholder title={t('sidebar.reports')} />} />
+            <Route path="reports/analytics" element={<Placeholder title={t('sidebar.reports')} />} />
+            <Route path="reports/drivers-time" element={<Placeholder title={t('sidebar.reports')} />} />
 
             {/* AI */}
-            <Route path="ai-assistant" element={<Placeholder title="AI Asszisztens" />} />
+            <Route path="ai-assistant" element={<Placeholder title={t('sidebar.ai_assistant')} />} />
 
             {/* Beállítások */}
             <Route path="settings/profile" element={<Placeholder title="Profil" />} />

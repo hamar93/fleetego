@@ -160,6 +160,23 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                             </NavLink>
                         </div>
 
+                        <div className="menu-item">
+                            <button
+                                className={`menu-toggle ${openSubmenus['settings'] ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('settings')}
+                            >
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-cog" style={{ color: '#9ca3af' }}></i>
+                                    {t('sidebar.settings')}
+                                </span>
+                                <i className={`fas fa-chevron-${openSubmenus['settings'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
+                            </button>
+                            <div className={`submenu ${openSubmenus['settings'] ? 'open' : ''}`}>
+                                <NavLink to="/app/settings/profile" className="submenu-item">{t('sidebar.profile')}</NavLink>
+                                <NavLink to="/app/settings/integrations" className="submenu-item">{t('sidebar.integrations')}</NavLink>
+                            </div>
+                        </div>
+
                         <div className="nav-section-title" style={{ marginTop: '20px' }}>{t('sidebar.administration')}</div>
                         <div className="menu-item">
                             <NavLink to="/app/admin/users" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>

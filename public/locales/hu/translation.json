@@ -23,7 +23,11 @@
         "reports": "Jelentések",
         "administration": "Adminisztráció",
         "users": "Felhasználók",
-        "companies": "Cégek"
+        "companies": "Cégek",
+        "settings": "Beállítások",
+        "profile": "Profil",
+        "integrations": "Integrációk",
+        "chat": "Chat"
     },
     "dashboard": {
         "welcome": "Üdvözöljük a FleetEgo Agent Office-ban",
