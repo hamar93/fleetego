@@ -74,6 +74,41 @@ const Dashboard = () => {
                     <div className="stat-label">Átlag fogyasztás</div>
                 </div>
             </div>
+
+            {/* Quick Actions (Requested Feature) */}
+            <div className="quick-actions" style={{ marginTop: '32px' }}>
+                <div className="section-title" style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Gyors Műveletek</div>
+                <div className="actions-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                    <div className="action-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}>
+                        <div className="action-icon" style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>➕</div>
+                        <div className="action-content">
+                            <div className="action-title" style={{ fontWeight: '600', marginBottom: '2px' }}>Új Fuvar</div>
+                            <div className="action-description" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Fuvar létrehozása</div>
+                        </div>
+                    </div>
+                    <div className="action-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}>
+                        <div className="action-icon" style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>📊</div>
+                        <div className="action-content">
+                            <div className="action-title" style={{ fontWeight: '600', marginBottom: '2px' }}>Jelentés</div>
+                            <div className="action-description" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Riport generálás</div>
+                        </div>
+                    </div>
+                    <div className="action-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}>
+                        <div className="action-icon" style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>🔍</div>
+                        <div className="action-content">
+                            <div className="action-title" style={{ fontWeight: '600', marginBottom: '2px' }}>Timocom</div>
+                            <div className="action-description" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Fuvarok keresése</div>
+                        </div>
+                    </div>
+                    <div className="action-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}>
+                        <div className="action-icon" style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>💬</div>
+                        <div className="action-content">
+                            <div className="action-title" style={{ fontWeight: '600', marginBottom: '2px' }}>AI Chat</div>
+                            <div className="action-description" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Asszisztens indítása</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

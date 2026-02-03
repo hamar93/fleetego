@@ -8,225 +8,145 @@ const Sidebar = () => {
         setOpenSubmenus(prev => ({ ...prev, [menu]: !prev[menu] }));
     };
 
-    const MenuItem = ({ icon, label, to, hasSubmenu = false, submenuId = null }) => {
-        if (hasSubmenu) {
-            return (
-                <div class="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus[submenuId] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu(submenuId)}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className={`menu-icon fas ${icon}`}></i>
-                            {label}
-                        </span>
-                        <i className={`fas fa-chevron-${openSubmenus[submenuId] ? 'up' : 'down'}`}></i>
-                    </button>
-
-                    <div className={`submenu ${openSubmenus[submenuId] ? 'open' : ''}`}>
-                        {/* Children will be passed here, simplified for this structure */}
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div class="menu-item">
-                <NavLink
-                    to={to}
-                    className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}
-                    end
-                >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                        <i className={`menu-icon fas ${icon}`}></i>
-                        {label}
-                    </span>
-                </NavLink>
-            </div>
-        );
-    };
-
     return (
         <aside className="sidebar">
-            <div className="sidebar-header">
+            <div className="logo">
                 <div className="logo-icon">
-                    <i className="fas fa-truck"></i>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                 </div>
-                <div className="logo-text">FleetEgo Agent</div>
+                <div className="logo-text">
+                    <div className="logo-text-main">FleetEgo</div>
+                    <div className="logo-text-sub">Agent</div>
+                </div>
             </div>
 
-            <nav className="sidebar-nav">
+            <nav>
+                {/* Main Section */}
+                <div className="nav-section">
+                    <div className="nav-section-title">Main</div>
 
-                {/* Dashboard */}
-                <div className="menu-item">
-                    <NavLink to="/app/dashboard" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-tachometer-alt"></i>
-                            Dashboard
-                        </span>
+                    <NavLink to="/app/dashboard" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">📊</div>
+                        <span>Dashboard</span>
+                    </NavLink>
+
+                    <NavLink to="/app/ai-assistant" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">🤖</div>
+                        <span>AI Asszisztens</span>
                     </NavLink>
                 </div>
 
-                {/* Timocom */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['timocom'] ? 'active' : ''}`}
+                {/* Operations Section */}
+                <div className="nav-section">
+                    <div className="nav-section-title">Operations</div>
+
+                    {/* Timocom */}
+                    <div
+                        className={`nav-item ${openSubmenus['timocom'] ? 'active' : ''}`}
                         onClick={() => toggleSubmenu('timocom')}
                     >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-search"></i>
-                            Timocom
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
-                        <NavLink to="/app/timocom/search" className="submenu-item"><i className="fas fa-search"></i>&nbsp;&nbsp;Fuvar keresés</NavLink>
-                        <NavLink to="/app/timocom/offers" className="submenu-item"><i className="fas fa-file-contract"></i>&nbsp;&nbsp;Ajánlataim</NavLink>
-                        <NavLink to="/app/timocom/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;AI Chat</NavLink>
+                        <div className="nav-icon">🚚</div>
+                        <span style={{ flex: 1 }}>Timocom</span>
+                        <i className={`fas fa-chevron-${openSubmenus['timocom'] ? 'up' : 'down'}`} style={{ fontSize: '10px', opacity: 0.7 }}></i>
                     </div>
-                </div>
+                    {openSubmenus['timocom'] && (
+                        <div className="submenu" style={{ paddingLeft: '10px' }}>
+                            <NavLink to="/app/timocom/search" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Fuvar keresés</span>
+                            </NavLink>
+                            <NavLink to="/app/timocom/offers" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Ajánlataim</span>
+                            </NavLink>
+                            <NavLink to="/app/timocom/chat" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>AI Chat</span>
+                            </NavLink>
+                        </div>
+                    )}
 
-                {/* Fuvarkezelés */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['shipments'] ? 'active' : ''}`}
+                    {/* Fuvarkezelés */}
+                    <div
+                        className={`nav-item ${openSubmenus['shipments'] ? 'active' : ''}`}
                         onClick={() => toggleSubmenu('shipments')}
                     >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-truck-loading"></i>
-                            Fuvarkezelés
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
-                        <NavLink to="/app/shipments/active" className="submenu-item"><i className="fas fa-road"></i>&nbsp;&nbsp;Aktív fuvarok</NavLink>
-                        <NavLink to="/app/shipments/planning" className="submenu-item"><i className="fas fa-route"></i>&nbsp;&nbsp;Útvonaltervezés</NavLink>
-                        <NavLink to="/app/shipments/tracking" className="submenu-item"><i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Nyomon követés</NavLink>
+                        <div className="nav-icon">🚛</div>
+                        <span style={{ flex: 1 }}>Fuvarkezelés</span>
+                        <i className={`fas fa-chevron-${openSubmenus['shipments'] ? 'up' : 'down'}`} style={{ fontSize: '10px', opacity: 0.7 }}></i>
                     </div>
-                </div>
+                    {openSubmenus['shipments'] && (
+                        <div className="submenu" style={{ paddingLeft: '10px' }}>
+                            <NavLink to="/app/shipments/active" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Aktív fuvarok</span>
+                            </NavLink>
+                            <NavLink to="/app/shipments/planning" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Útvonaltervezés</span>
+                            </NavLink>
+                            <NavLink to="/app/shipments/tracking" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Nyomon követés</span>
+                            </NavLink>
+                        </div>
+                    )}
 
-                {/* Járműflotta */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['fleet'] ? 'active' : ''}`}
+                    {/* Járműflotta */}
+                    <div
+                        className={`nav-item ${openSubmenus['fleet'] ? 'active' : ''}`}
                         onClick={() => toggleSubmenu('fleet')}
                     >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-truck"></i>
-                            Járműflotta
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
-                        <NavLink to="/app/fleet/vehicles" className="submenu-item"><i className="fas fa-truck"></i>&nbsp;&nbsp;Járművek</NavLink>
-                        <NavLink to="/app/fleet/drivers" className="submenu-item"><i className="fas fa-user-tie"></i>&nbsp;&nbsp;Sofőrök</NavLink>
-                        <NavLink to="/app/fleet/maintenance" className="submenu-item"><i className="fas fa-tools"></i>&nbsp;&nbsp;Karbantartás</NavLink>
+                        <div className="nav-icon">🚐</div>
+                        <span style={{ flex: 1 }}>Járműflotta</span>
+                        <i className={`fas fa-chevron-${openSubmenus['fleet'] ? 'up' : 'down'}`} style={{ fontSize: '10px', opacity: 0.7 }}></i>
                     </div>
+                    {openSubmenus['fleet'] && (
+                        <div className="submenu" style={{ paddingLeft: '10px' }}>
+                            <NavLink to="/app/fleet/vehicles" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Járművek</span>
+                            </NavLink>
+                            <NavLink to="/app/fleet/drivers" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Sofőrök</span>
+                            </NavLink>
+                            <NavLink to="/app/fleet/maintenance" className="nav-item small">
+                                <span style={{ fontSize: '12px' }}>Karbantartás</span>
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
 
-                {/* Dokumentumok (Roadmap 3. & 7.) */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['docs'] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu('docs')}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-folder-open"></i>
-                            Dokumentumtár
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['docs'] ? 'open' : ''}`}>
-                        <NavLink to="/app/docs/cmr" className="submenu-item"><i className="fas fa-file-invoice"></i>&nbsp;&nbsp;CMR / Szállítólevél</NavLink>
-                        <NavLink to="/app/docs/contracts" className="submenu-item"><i className="fas fa-file-signature"></i>&nbsp;&nbsp;Szerződések</NavLink>
-                    </div>
-                </div>
+                {/* Management Section */}
+                <div className="nav-section">
+                    <div className="nav-section-title">Management</div>
 
-                {/* Pénzügyek (Roadmap 7. - Számlázás) */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['finance'] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu('finance')}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-wallet"></i>
-                            Pénzügyek
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['finance'] ? 'open' : ''}`}>
-                        <NavLink to="/app/finance/invoices" className="submenu-item"><i className="fas fa-file-invoice-dollar"></i>&nbsp;&nbsp;Számlázás</NavLink>
-                        <NavLink to="/app/finance/expenses" className="submenu-item"><i className="fas fa-receipt"></i>&nbsp;&nbsp;Kiadások</NavLink>
-                    </div>
-                </div>
+                    <NavLink to="/app/docs" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">📄</div>
+                        <span>Dokumentumtár</span>
+                    </NavLink>
 
-                {/* Alvállalkozók (Roadmap 8.) */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['subcontractors'] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu('subcontractors')}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-handshake"></i>
-                            Alvállalkozók
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['subcontractors'] ? 'open' : ''}`}>
-                        <NavLink to="/app/partners/list" className="submenu-item"><i className="fas fa-address-book"></i>&nbsp;&nbsp;Partnerek</NavLink>
-                        <NavLink to="/app/partners/chat" className="submenu-item"><i className="fas fa-comments"></i>&nbsp;&nbsp;Partner Chat</NavLink>
-                    </div>
-                </div>
+                    <NavLink to="/app/finance" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">💰</div>
+                        <span>Pénzügyek</span>
+                    </NavLink>
 
-                {/* Jelentések */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['reports'] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu('reports')}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-chart-bar"></i>
-                            Jelentések
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['reports'] ? 'open' : ''}`}>
-                        <NavLink to="/app/reports/financial" className="submenu-item"><i className="fas fa-euro-sign"></i>&nbsp;&nbsp;Pénzügyi jelentés</NavLink>
-                        <NavLink to="/app/reports/performance" className="submenu-item"><i className="fas fa-chart-line"></i>&nbsp;&nbsp;Teljesítmény</NavLink>
-                        <NavLink to="/app/reports/analytics" className="submenu-item"><i className="fas fa-chart-pie"></i>&nbsp;&nbsp;Analitika</NavLink>
-                        <NavLink to="/app/reports/drivers-time" className="submenu-item"><i className="fas fa-clock"></i>&nbsp;&nbsp;Vezetési Idők</NavLink>
-                    </div>
-                </div>
+                    <NavLink to="/app/partners/list" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">👥</div>
+                        <span>Alvállalkozók</span>
+                    </NavLink>
 
-                {/* AI Asszisztens */}
-                <div className="menu-item">
-                    <NavLink to="/app/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-robot"></i>
-                            AI Asszisztens
-                        </span>
+                    <NavLink to="/app/reports" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">📋</div>
+                        <span>Jelentések</span>
+                    </NavLink>
+
+                    {/* Admin - Only visible to admins in real app */}
+                    <div className="nav-section-title" style={{ marginTop: '20px' }}>Adminisztráció</div>
+                    <NavLink to="/app/admin/users" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">🛡️</div>
+                        <span>Felhasználók</span>
+                    </NavLink>
+                    <NavLink to="/app/admin/companies" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                        <div className="nav-icon">🏢</div>
+                        <span>Cégek</span>
                     </NavLink>
                 </div>
-
-                {/* Beállítások */}
-                <div className="menu-item">
-                    <button
-                        className={`menu-toggle ${openSubmenus['settings'] ? 'active' : ''}`}
-                        onClick={() => toggleSubmenu('settings')}
-                    >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <i className="menu-icon fas fa-cog"></i>
-                            Beállítások
-                        </span>
-                        <i className="fas fa-chevron-down"></i>
-                    </button>
-                    <div className={`submenu ${openSubmenus['settings'] ? 'open' : ''}`}>
-                        <NavLink to="/app/settings/profile" className="submenu-item"><i className="fas fa-user"></i>&nbsp;&nbsp;Profil</NavLink>
-                        <NavLink to="/app/settings/integrations" className="submenu-item"><i className="fas fa-plug"></i>&nbsp;&nbsp;Integrációk</NavLink>
-                        <NavLink to="/app/settings/notifications" className="submenu-item"><i className="fas fa-bell"></i>&nbsp;&nbsp;Értesítések</NavLink>
-                    </div>
-                </div>
-
             </nav>
         </aside>
     );

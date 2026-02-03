@@ -5,7 +5,7 @@ import './UserManagement.css';
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('all'); // all, pending, approved, rejected
+    const [filter, setFilter] = useState('all'); // all, pending, approved, rejected, blocked
 
     useEffect(() => {
         loadUsers();
@@ -25,7 +25,7 @@ const UserManagement = () => {
     const handleApprove = async (userId) => {
         try {
             await api.put(`/api/admin/users/${userId}/approve`);
-            loadUsers(); // Reload
+            loadUsers();
         } catch (error) {
             console.error("Failed to approve user:", error);
             alert("Jóváhagyás sikertelen!");
@@ -35,10 +35,31 @@ const UserManagement = () => {
     const handleReject = async (userId) => {
         try {
             await api.put(`/api/admin/users/${userId}/reject`);
-            loadUsers(); // Reload
+            loadUsers();
         } catch (error) {
             console.error("Failed to reject user:", error);
             alert("Elutasítás sikertelen!");
+        }
+    };
+
+    const handleBlock = async (userId) => {
+        if (!window.confirm("Biztosan blokkolni szeretné ezt a felhasználót?")) return;
+        try {
+            await api.put(`/api/admin/users/${userId}/block`);
+            loadUsers();
+        } catch (error) {
+            console.error("Failed to block user:", error);
+            alert("Blokkolás sikertelen!");
+        }
+    };
+
+    const handleUnblock = async (userId) => {
+        try {
+            await api.put(`/api/admin/users/${userId}/unblock`);
+            loadUsers();
+        } catch (error) {
+            console.error("Failed to unblock user:", error);
+            alert("Feloldás sikertelen!");
         }
     };
 
@@ -47,6 +68,7 @@ const UserManagement = () => {
             case 'pending': return 'status-pending';
             case 'approved': return 'status-approved';
             case 'rejected': return 'status-rejected';
+            case 'blocked': return 'status-blocked';
             default: return '';
         }
     };
@@ -56,6 +78,7 @@ const UserManagement = () => {
             case 'pending': return 'Jóváhagyásra vár';
             case 'approved': return 'Jóváhagyva';
             case 'rejected': return 'Elutasítva';
+            case 'blocked': return 'Blokkolva';
             default: return status;
         }
     };
@@ -79,41 +102,26 @@ const UserManagement = () => {
 
     return (
         <div className="user-management-container fade-in">
-            <div className="page-header">
-                <h2 className="page-title"><i className="fas fa-users-cog"></i> Felhasználók Kezelése</h2>
+            <div className="page-header" style={{ marginBottom: '2rem' }}>
+                <h2 className="page-title header-title" style={{ fontSize: '2rem' }}>Felhasználók Kezelése</h2>
             </div>
 
             {/* Filter Tabs */}
             <div className="filter-tabs">
-                <button
-                    className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
-                    onClick={() => setFilter('all')}
-                >
-                    Összes ({users.length})
-                </button>
-                <button
-                    className={`filter-tab ${filter === 'pending' ? 'active' : ''}`}
-                    onClick={() => setFilter('pending')}
-                >
-                    Függőben ({users.filter(u => u.status === 'pending').length})
-                </button>
-                <button
-                    className={`filter-tab ${filter === 'approved' ? 'active' : ''}`}
-                    onClick={() => setFilter('approved')}
-                >
-                    Jóváhagyva ({users.filter(u => u.status === 'approved').length})
-                </button>
-                <button
-                    className={`filter-tab ${filter === 'rejected' ? 'active' : ''}`}
-                    onClick={() => setFilter('rejected')}
-                >
-                    Elutasítva ({users.filter(u => u.status === 'rejected').length})
-                </button>
+                {['all', 'pending', 'approved', 'rejected', 'blocked'].map(f => (
+                    <button
+                        key={f}
+                        className={`filter-tab ${filter === f ? 'active' : ''}`}
+                        onClick={() => setFilter(f)}
+                    >
+                        {f === 'all' ? 'Összes' : getStatusLabel(f)} ({f === 'all' ? users.length : users.filter(u => u.status === f).length})
+                    </button>
+                ))}
             </div>
 
             {/* User Table */}
-            <div className="users-table card glass-effect">
-                <table>
+            <div className="users-table glass-effect content-card" style={{ padding: '0' }}>
+                <table style={{ width: '100%' }}>
                     <thead>
                         <tr>
                             <th>Cégnév</th>
@@ -126,8 +134,8 @@ const UserManagement = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.map((user) => (
-                            <tr key={user.id}>
-                                <td className="user-company">{user.company_name}</td>
+                            <tr key={user.id} className="glow-on-hover">
+                                <td className="user-company" style={{ fontWeight: '700', color: 'var(--primary-color)' }}>{user.company_name}</td>
                                 <td>{user.email}</td>
                                 <td>
                                     <span className={`role-badge role-${user.role}`}>
@@ -145,23 +153,25 @@ const UserManagement = () => {
                                 <td className="user-actions">
                                     {user.status === 'pending' && (
                                         <>
-                                            <button
-                                                className="btn btn-sm btn-outline-primary"
-                                                onClick={() => handleApprove(user.id)}
-                                            >
-                                                <i className="fas fa-check"></i> Jóváhagy
+                                            <button className="btn-sm btn-outline-primary" onClick={() => handleApprove(user.id)}>
+                                                <i className="fas fa-check"></i>
                                             </button>
-                                            <button
-                                                className="btn btn-sm btn-outline-secondary"
-                                                onClick={() => handleReject(user.id)}
-                                            >
-                                                <i className="fas fa-times"></i> Elutasít
+                                            <button className="btn-sm btn-outline-secondary" onClick={() => handleReject(user.id)}>
+                                                <i className="fas fa-times"></i>
                                             </button>
                                         </>
                                     )}
-                                    {user.status !== 'pending' && (
-                                        <span className="no-actions">—</span>
+                                    {user.status === 'approved' && (
+                                        <button className="btn-sm btn-outline-secondary" onClick={() => handleBlock(user.id)} title="Blokkolás">
+                                            <i className="fas fa-ban"></i>
+                                        </button>
                                     )}
+                                    {user.status === 'blocked' && (
+                                        <button className="btn-sm btn-outline-primary" onClick={() => handleUnblock(user.id)} title="Feloldás">
+                                            <i className="fas fa-unlock"></i>
+                                        </button>
+                                    )}
+                                    {user.status === 'rejected' && <span className="no-actions">—</span>}
                                 </td>
                             </tr>
                         ))}
