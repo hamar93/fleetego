@@ -251,6 +251,36 @@ h6 {
     transition: transform 0.3s ease;
 }
 
+/* Layout Fixes */
+.main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+    width: calc(100% - var(--sidebar-width));
+}
+
+.nav-section {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-section-title {
+    padding: 0 1.5rem 0.5rem 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+}
+
 [data-theme='light'] .sidebar {
     background: #ffffff;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);

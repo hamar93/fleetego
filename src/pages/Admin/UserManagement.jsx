@@ -22,46 +22,25 @@ const UserManagement = () => {
         }
     };
 
-    const handleApprove = async (userId) => {
+    const handleStatusUpdate = async (userId, newStatus) => {
         try {
-            await api.put(`/api/admin/users/${userId}/approve`);
+            await api.put(`/api/admin/users/${userId}/status`, { status: newStatus });
             loadUsers();
         } catch (error) {
-            console.error("Failed to approve user:", error);
-            alert("Jóváhagyás sikertelen!");
+            console.error(`Failed to update user status to ${newStatus}:`, error);
+            alert("Művelet sikertelen!");
         }
     };
 
-    const handleReject = async (userId) => {
-        try {
-            await api.put(`/api/admin/users/${userId}/reject`);
-            loadUsers();
-        } catch (error) {
-            console.error("Failed to reject user:", error);
-            alert("Elutasítás sikertelen!");
-        }
-    };
+    const handleApprove = (userId) => handleStatusUpdate(userId, 'approved');
+    const handleReject = (userId) => handleStatusUpdate(userId, 'rejected');
 
-    const handleBlock = async (userId) => {
+    const handleBlock = (userId) => {
         if (!window.confirm("Biztosan blokkolni szeretné ezt a felhasználót?")) return;
-        try {
-            await api.put(`/api/admin/users/${userId}/block`);
-            loadUsers();
-        } catch (error) {
-            console.error("Failed to block user:", error);
-            alert("Blokkolás sikertelen!");
-        }
+        handleStatusUpdate(userId, 'blocked');
     };
 
-    const handleUnblock = async (userId) => {
-        try {
-            await api.put(`/api/admin/users/${userId}/unblock`);
-            loadUsers();
-        } catch (error) {
-            console.error("Failed to unblock user:", error);
-            alert("Feloldás sikertelen!");
-        }
-    };
+    const handleUnblock = (userId) => handleStatusUpdate(userId, 'approved');
 
     const getStatusClass = (status) => {
         switch (status) {
