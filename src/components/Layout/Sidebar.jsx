@@ -7,22 +7,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const location = useLocation();
     const { t } = useTranslation();
 
-    // internal state for submenu toggles remains
-    // removed internal isOpen state to use prop
-
     const toggleSubmenu = (menu) => {
         setOpenSubmenus(prev => ({ ...prev, [menu]: !prev[menu] }));
     };
 
-    // Listen for mobile toggle event from Header (optional, usually Header implements the button)
-    // For now, let's just make sure Sidebar handles `open` class if passed via props or context.
-    // Assuming we want a self-contained toggle for this example or relying on CSS hover on desktop?
-    // Let's implement a simple mobile toggle button inside Sidebar for "Close" action on mobile.
-
     return (
         <>
             {/* Mobile Overlay */}
-            <div className={`fixed inset-0 bg-black/50 z-[999] transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsOpen(false)}></div>
+            <div
+                className={`fixed inset-0 bg-black/50 z-[999] transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                onClick={() => setIsOpen(false)}
+            ></div>
 
             <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <div className="sidebar-header">
@@ -185,7 +180,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     </div>
                 </nav>
             </aside>
-            );
+        </>
+    );
 };
 
-            export default Sidebar;
+export default Sidebar;
