@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import AddVehicleModal from './AddVehicleModal';
 import AssignDriverModal from './AssignDriverModal';
+import DocumentUploadModal from './DocumentUploadModal';
 import './VehicleList.css';
 
 const VehicleList = () => {
     const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
-    const [assignModalData, setAssignModalData] = useState(null); // stores vehicle object to assign
-
-    useEffect(() => {
-        loadVehicles();
-    }, []);
+    const [assignModalData, setAssignModalData] = useState(null);
+    const [docModalData, setDocModalData] = useState(null);
 
     const loadVehicles = async () => {
         try {

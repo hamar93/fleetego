@@ -49,6 +49,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         </div>
 
                         <div className="menu-item">
+                            <NavLink to="/app/chat" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-comments" style={{ color: '#ec4899' }}></i>
+                                    {t('sidebar.chat')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="menu-item">
                             <NavLink to="/app/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <i className="menu-icon fas fa-robot" style={{ color: '#a855f7' }}></i>
