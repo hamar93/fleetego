@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Menu główne",
+        "dashboard": "Panel sterowania",
+        "ai_assistant": "Asystent AI",
+        "operations": "Operacje",
+        "timocom": "Timocom",
+        "freight_search": "Wyszukiwanie ładunków",
+        "my_offers": "Moje oferty",
+        "ai_chat": "Czat AI",
+        "shipments": "Przesyłki",
+        "active_shipments": "Aktywne przesyłki",
+        "route_planning": "Planowanie trasy",
+        "tracking": "Śledzenie",
+        "fleet": "Flota",
+        "vehicles": "Pojazdy",
+        "drivers": "Kierowcy",
+        "maintenance": "Konserwacja",
+        "management": "Zarządzanie",
+        "documents": "Dokumenty",
+        "finance": "Finanse",
+        "subcontractors": "Podwykonawcy",
+        "reports": "Raporty",
+        "administration": "Administracja",
+        "users": "Użytkownicy",
+        "companies": "Firmy"
+    },
+    "dashboard": {
+        "welcome": "Witamy w FleetEgo Agent Office",
+        "subtitle": "System TMS i planowania transportu oparty na AI",
+        "ai_active": "Asystent AI aktywny",
+        "active_shipments": "Aktywne przesyłki",
+        "monthly_revenue": "Miesięczny przychód",
+        "performance": "Wskaźnik wydajności",
+        "avg_consumption": "Śr. zużycie",
+        "last_week": "Zeszły tydzień",
+        "last_month": "Zeszły miesiąc",
+        "goal": "Cel",
+        "quick_actions": "Szybkie akcje",
+        "new_shipment": "Nowa przesyłka",
+        "create_shipment": "Utwórz przesyłkę",
+        "create_report": "Generuj raport",
+        "search_freight": "Szukaj ładunków",
+        "start_assistant": "Uruchom asystenta"
+    },
+    "header": {
+        "light_mode": "Tryb jasny",
+        "dark_mode": "Tryb ciemny",
+        "admin_user": "Administrator",
+        "super_admin": "Super Admin"
+    }
+}

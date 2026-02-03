@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Hauptmenü",
+        "dashboard": "Instrumententafel",
+        "ai_assistant": "KI Assistent",
+        "operations": "Operationen",
+        "timocom": "Timocom",
+        "freight_search": "Frachtsuche",
+        "my_offers": "Meine Angebote",
+        "ai_chat": "KI Chat",
+        "shipments": "Sendungen",
+        "active_shipments": "Aktive Sendungen",
+        "route_planning": "Routenplanung",
+        "tracking": "Sendungsverfolgung",
+        "fleet": "Fuhrpark",
+        "vehicles": "Fahrzeuge",
+        "drivers": "Fahrer",
+        "maintenance": "Wartung",
+        "management": "Verwaltung",
+        "documents": "Dokumente",
+        "finance": "Finanzen",
+        "subcontractors": "Subunternehmer",
+        "reports": "Berichte",
+        "administration": "Verwaltung",
+        "users": "Benutzer",
+        "companies": "Firmen"
+    },
+    "dashboard": {
+        "welcome": "Willkommen im FleetEgo Agent Office",
+        "subtitle": "KI-gestützte Frachtplanung und TMS-System für effizientes Logistikmanagement",
+        "ai_active": "KI Assistent Aktiv",
+        "active_shipments": "Aktive Sendungen",
+        "monthly_revenue": "Monatlicher Umsatz",
+        "performance": "Leistungsrate",
+        "avg_consumption": "Durchschn. Verbrauch",
+        "last_week": "Letzte Woche",
+        "last_month": "Letzten Monat",
+        "goal": "Ziel",
+        "quick_actions": "Schnellaktionen",
+        "new_shipment": "Neue Sendung",
+        "create_shipment": "Sendung erstellen",
+        "create_report": "Bericht erstellen",
+        "search_freight": "Fracht suchen",
+        "start_assistant": "Assistent starten"
+    },
+    "header": {
+        "light_mode": "Heller Modus",
+        "dark_mode": "Dunkler Modus",
+        "admin_user": "Admin Benutzer",
+        "super_admin": "Super Admin"
+    }
+}

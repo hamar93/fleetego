@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Main",
+        "dashboard": "Dashboard",
+        "ai_assistant": "AI Assistant",
+        "operations": "Operations",
+        "timocom": "Timocom",
+        "freight_search": "Freight Search",
+        "my_offers": "My Offers",
+        "ai_chat": "AI Chat",
+        "shipments": "Shipments",
+        "active_shipments": "Active Shipments",
+        "route_planning": "Route Planning",
+        "tracking": "Tracking",
+        "fleet": "Fleet",
+        "vehicles": "Vehicles",
+        "drivers": "Drivers",
+        "maintenance": "Maintenance",
+        "management": "Management",
+        "documents": "Documents",
+        "finance": "Finance",
+        "subcontractors": "Subcontractors",
+        "reports": "Reports",
+        "administration": "Administration",
+        "users": "Users",
+        "companies": "Companies"
+    },
+    "dashboard": {
+        "welcome": "Welcome to FleetEgo Agent Office",
+        "subtitle": "AI-powered freight planning and TMS system for efficient logistics management",
+        "ai_active": "AI Assistant Active",
+        "active_shipments": "Active Shipments",
+        "monthly_revenue": "Monthly Revenue",
+        "performance": "Performance Rate",
+        "avg_consumption": "Avg. Consumption",
+        "last_week": "Last week",
+        "last_month": "Last month",
+        "goal": "Goal",
+        "quick_actions": "Quick Actions",
+        "new_shipment": "New Shipment",
+        "create_shipment": "Create shipment",
+        "create_report": "Generate report",
+        "search_freight": "Search freights",
+        "start_assistant": "Start assistant"
+    },
+    "header": {
+        "light_mode": "Light Mode",
+        "dark_mode": "Dark Mode",
+        "admin_user": "Admin User",
+        "super_admin": "Super Admin"
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Meniu principal",
+        "dashboard": "Panou de control",
+        "ai_assistant": "Asistent AI",
+        "operations": "Operațiuni",
+        "timocom": "Timocom",
+        "freight_search": "Căutare marfă",
+        "my_offers": "Ofertele mele",
+        "ai_chat": "Chat AI",
+        "shipments": "Expedieri",
+        "active_shipments": "Expedieri active",
+        "route_planning": "Planificare rută",
+        "tracking": "Urmărire",
+        "fleet": "Flotă",
+        "vehicles": "Vehicule",
+        "drivers": "Șoferi",
+        "maintenance": "Mentenanță",
+        "management": "Gestiune",
+        "documents": "Documente",
+        "finance": "Finanțe",
+        "subcontractors": "Subcontractanți",
+        "reports": "Rapoarte",
+        "administration": "Administrare",
+        "users": "Utilizatori",
+        "companies": "Companii"
+    },
+    "dashboard": {
+        "welcome": "Bun venit la FleetEgo Agent Office",
+        "subtitle": "Sistem TMS și de planificare a transportului de marfă bazat pe AI",
+        "ai_active": "Asistent AI activ",
+        "active_shipments": "Expedieri active",
+        "monthly_revenue": "Venit lunar",
+        "performance": "Rata de performanță",
+        "avg_consumption": "Consum mediu",
+        "last_week": "Săptămâna trecută",
+        "last_month": "Luna trecută",
+        "goal": "Obiectiv",
+        "quick_actions": "Acțiuni rapide",
+        "new_shipment": "Expediere nouă",
+        "create_shipment": "Creează expediere",
+        "create_report": "Generează raport",
+        "search_freight": "Caută mărfuri",
+        "start_assistant": "Pornește asistentul"
+    },
+    "header": {
+        "light_mode": "Mod luminos",
+        "dark_mode": "Mod întunecat",
+        "admin_user": "Utilizator Admin",
+        "super_admin": "Super Admin"
+    }
+}

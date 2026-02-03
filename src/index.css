@@ -31,41 +31,101 @@
     --warning: #ffc800;
     --danger: #ff5a70;
     /* Glow Effects */
-    --glow-primary: 0 0 15px rgba(0, 229, 192, 0.4);
-    --glow-secondary: 0 0 15px rgba(138, 92, 245, 0.4);
+    /* Target Design Palette */
+    --bg-primary: #0b1120;
+    /* Very dark blue background */
+    --bg-secondary: #0f172a;
+    /* Slightly lighter sidebar/header */
+    --card-bg: #1e293b;
+    /* Card background */
+
+    --primary-color: #3b82f6;
+    /* Bright Blue */
+    --primary-glow: rgba(59, 130, 246, 0.5);
+
+    --secondary-color: #6366f1;
+    /* Indigo */
+
+    --accent-success: #10b981;
+    /* Green for badges/positive */
+    --accent-warning: #f59e0b;
+    /* Orange/Yellow */
+    --accent-danger: #ef4444;
+    /* Red */
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(30, 41, 59, 0.7);
+
+    --sidebar-width: 260px;
+    --header-height: 70px;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
 }
 
-[data-theme="light"] {
-    /* ========================================================================
-       BUSINESS CYBERPUNK - LIGHT MODE
-       High-tech professional. Silver/Slate with deep accents.
-       ======================================================================== */
-    --primary-color: #009e8c;
-    /* Deep Teal */
-    --secondary-color: #6a4cc9;
-    /* Royal Purple */
-    --dark-bg: #e8ecf4;
-    /* Silver Grey */
-    --darker-bg: #f5f7fa;
-    /* Clean White */
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --text-primary: #1a2035;
-    /* Deep Slate */
-    --text-secondary: #5a6a80;
-    --glass-bg: rgba(255, 255, 255, 0.9);
-    --glass-border: rgba(0, 158, 140, 0.25);
-    --accent-color: #e84a6f;
-    --glow-primary: 0 4px 15px rgba(0, 158, 140, 0.15);
-    --glow-secondary: 0 4px 15px rgba(106, 76, 201, 0.15);
+[data-theme='light'] {
+    --bg-primary: #f1f5f9;
+    --bg-secondary: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--darker-bg);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-x: hidden;
-    margin: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-bg);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
 }
 
 /* Animated Background */
@@ -266,17 +326,8 @@ h6 {
 
 .submenu-item.active {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    box-shadow: 0 8px 30px rgba(0, 212, 170, 0.4);
-    transform: translateX(12px);
-}
-
-/* Main Content */
-.main-content {
-    margin-left: var(--sidebar-width);
-    flex: 1;
-    min-height: 100vh;
-    transition: margin-left 0.4s ease;
+    color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
 }
 
 /* Header */

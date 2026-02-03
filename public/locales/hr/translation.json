@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Glavni izbornik",
+        "dashboard": "Nadzorna ploča",
+        "ai_assistant": "AI Asistent",
+        "operations": "Operacije",
+        "timocom": "Timocom",
+        "freight_search": "Traženje tereta",
+        "my_offers": "Moje ponude",
+        "ai_chat": "AI Chat",
+        "shipments": "Pošiljke",
+        "active_shipments": "Aktivne pošiljke",
+        "route_planning": "Planiranje rute",
+        "tracking": "Praćenje",
+        "fleet": "Vozni park",
+        "vehicles": "Vozila",
+        "drivers": "Vozači",
+        "maintenance": "Održavanje",
+        "management": "Upravljanje",
+        "documents": "Dokumenti",
+        "finance": "Financije",
+        "subcontractors": "Podizvođači",
+        "reports": "Izvještaji",
+        "administration": "Administracija",
+        "users": "Korisnici",
+        "companies": "Tvrtke"
+    },
+    "dashboard": {
+        "welcome": "Dobrodošli u FleetEgo Agent Office",
+        "subtitle": "Sustav za planiranje tereta i TMS temeljen na umjetnoj inteligenciji",
+        "ai_active": "AI Asistent aktivan",
+        "active_shipments": "Aktivne pošiljke",
+        "monthly_revenue": "Mjesečni prihod",
+        "performance": "Stopa učinka",
+        "avg_consumption": "Prosj. potrošnja",
+        "last_week": "Prošli tjedan",
+        "last_month": "Prošli mjesec",
+        "goal": "Cilj",
+        "quick_actions": "Brze radnje",
+        "new_shipment": "Nova pošiljka",
+        "create_shipment": "Kreiraj pošiljku",
+        "create_report": "Generiraj izvještaj",
+        "search_freight": "Traži teret",
+        "start_assistant": "Pokreni asistenta"
+    },
+    "header": {
+        "light_mode": "Svijetli način",
+        "dark_mode": "Tamni način",
+        "admin_user": "Admin korisnik",
+        "super_admin": "Super Admin"
+    }
+}

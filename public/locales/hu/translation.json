@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Főmenü",
+        "dashboard": "Vezérlőpult",
+        "ai_assistant": "AI Asszisztens",
+        "operations": "Műveletek",
+        "timocom": "Timocom",
+        "freight_search": "Fuvar keresés",
+        "my_offers": "Ajánlataim",
+        "ai_chat": "AI Chat",
+        "shipments": "Fuvarkezelés",
+        "active_shipments": "Aktív fuvarok",
+        "route_planning": "Útvonaltervezés",
+        "tracking": "Nyomon követés",
+        "fleet": "Járműflotta",
+        "vehicles": "Járművek",
+        "drivers": "Sofőrök",
+        "maintenance": "Karbantartás",
+        "management": "Menedzsment",
+        "documents": "Dokumentumtár",
+        "finance": "Pénzügyek",
+        "subcontractors": "Alvállalkozók",
+        "reports": "Jelentések",
+        "administration": "Adminisztráció",
+        "users": "Felhasználók",
+        "companies": "Cégek"
+    },
+    "dashboard": {
+        "welcome": "Üdvözöljük a FleetEgo Agent Office-ban",
+        "subtitle": "AI-alapú fuvarszervező és TMS rendszer a hatékony logisztikai menedzsmentért",
+        "ai_active": "AI Asszisztens aktív",
+        "active_shipments": "Aktív Fuvarok",
+        "monthly_revenue": "Havi Bevétel",
+        "performance": "Teljesítési Arány",
+        "avg_consumption": "Átlag Fogyasztás",
+        "last_week": "Múlt hét",
+        "last_month": "Előző hónap",
+        "goal": "Cél",
+        "quick_actions": "Gyors Műveletek",
+        "new_shipment": "Új Fuvar",
+        "create_shipment": "Fuvar létrehozása",
+        "create_report": "Riport generálás",
+        "search_freight": "Fuvarok keresése",
+        "start_assistant": "Asszisztens indítása"
+    },
+    "header": {
+        "light_mode": "Világos Mód",
+        "dark_mode": "Sötét Mód",
+        "admin_user": "Admin Felhasználó",
+        "super_admin": "Super Admin"
+    }
+}

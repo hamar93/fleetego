@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Hlavní menu",
+        "dashboard": "Přístrojová deska",
+        "ai_assistant": "AI Asistent",
+        "operations": "Operace",
+        "timocom": "Timocom",
+        "freight_search": "Hledání nákladu",
+        "my_offers": "Moje nabídky",
+        "ai_chat": "AI Chat",
+        "shipments": "Zásilky",
+        "active_shipments": "Aktivní zásilky",
+        "route_planning": "Plánování trasy",
+        "tracking": "Sledování",
+        "fleet": "Flotila",
+        "vehicles": "Vozidla",
+        "drivers": "Řidiči",
+        "maintenance": "Údržba",
+        "management": "Správa",
+        "documents": "Dokumenty",
+        "finance": "Finance",
+        "subcontractors": "Subdodavatelé",
+        "reports": "Výkazy",
+        "administration": "Administrace",
+        "users": "Uživatelé",
+        "companies": "Společnosti"
+    },
+    "dashboard": {
+        "welcome": "Vítejte ve FleetEgo Agent Office",
+        "subtitle": "Systém pro plánování nákladní dopravy a TMS s umělou inteligencí",
+        "ai_active": "AI Asistent aktivní",
+        "active_shipments": "Aktivní zásilky",
+        "monthly_revenue": "Měsíční tržby",
+        "performance": "Výkonnost",
+        "avg_consumption": "Prům. spotřeba",
+        "last_week": "Minulý týden",
+        "last_month": "Minulý měsíc",
+        "goal": "Cíl",
+        "quick_actions": "Rychlé akce",
+        "new_shipment": "Nová zásilka",
+        "create_shipment": "Vytvořit zásilku",
+        "create_report": "Generovat výkaz",
+        "search_freight": "Hledat náklady",
+        "start_assistant": "Spustit asistenta"
+    },
+    "header": {
+        "light_mode": "Světlý režim",
+        "dark_mode": "Tmavý režim",
+        "admin_user": "Admin uživatel",
+        "super_admin": "Super Admin"
+    }
+}

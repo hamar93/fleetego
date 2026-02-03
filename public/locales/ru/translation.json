@@ -1,0 +1,52 @@
+{
+    "sidebar": {
+        "main": "Главное меню",
+        "dashboard": "Панель управления",
+        "ai_assistant": "AI Ассистент",
+        "operations": "Операции",
+        "timocom": "Timocom",
+        "freight_search": "Поиск грузов",
+        "my_offers": "Мои предложения",
+        "ai_chat": "AI Чат",
+        "shipments": "Грузоперевозки",
+        "active_shipments": "Активные перевозки",
+        "route_planning": "Планирование маршрута",
+        "tracking": "Отслеживание",
+        "fleet": "Автопарк",
+        "vehicles": "Транспорт",
+        "drivers": "Водители",
+        "maintenance": "Обслуживание",
+        "management": "Управление",
+        "documents": "Документы",
+        "finance": "Финансы",
+        "subcontractors": "Субподрядчики",
+        "reports": "Отчеты",
+        "administration": "Администрирование",
+        "users": "Пользователи",
+        "companies": "Компании"
+    },
+    "dashboard": {
+        "welcome": "Добро пожаловать в FleetEgo Agent Office",
+        "subtitle": "Система планирования грузоперевозок и TMS на базе искусственного интеллекта",
+        "ai_active": "AI Ассистент активен",
+        "active_shipments": "Активные перевозки",
+        "monthly_revenue": "Ежемесячный доход",
+        "performance": "Эффективность",
+        "avg_consumption": "Ср. расход",
+        "last_week": "Прошлая неделя",
+        "last_month": "Прошлый месяц",
+        "goal": "Цель",
+        "quick_actions": "Быстрые действия",
+        "new_shipment": "Новая перевозка",
+        "create_shipment": "Создать перевозку",
+        "create_report": "Создать отчет",
+        "search_freight": "Найти грузы",
+        "start_assistant": "Запустить ассистента"
+    },
+    "header": {
+        "light_mode": "Светлый режим",
+        "dark_mode": "Темный режим",
+        "admin_user": "Администратор",
+        "super_admin": "Супер Админ"
+    }
+}
