@@ -24,7 +24,21 @@ const Header = ({ title = "Dashboard", onToggleSidebar }) => {
 
     return (
         <header className="header">
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                {/* Mobile Menu Toggle */}
+                <button
+                    className="md:hidden"
+                    onClick={onToggleSidebar}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        color: 'var(--text-primary)',
+                        fontSize: '1.5rem',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <i className="fas fa-bars"></i>
+                </button>
                 <h1 className="header-title">{title}</h1>
             </div>
 

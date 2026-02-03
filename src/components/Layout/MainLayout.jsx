@@ -22,7 +22,7 @@ const MainLayout = () => {
         <div className="dashboard">
             <div className="bg-animation"></div>
 
-            <Sidebar />
+            <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
             <main className={`main-content ${sidebarOpen ? 'expanded' : ''}`}>
                 <Header

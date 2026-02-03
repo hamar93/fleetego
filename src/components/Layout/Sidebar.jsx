@@ -2,174 +2,190 @@ import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
     const [openSubmenus, setOpenSubmenus] = useState({});
     const location = useLocation();
     const { t } = useTranslation();
+
+    // internal state for submenu toggles remains
+    // removed internal isOpen state to use prop
 
     const toggleSubmenu = (menu) => {
         setOpenSubmenus(prev => ({ ...prev, [menu]: !prev[menu] }));
     };
 
+    // Listen for mobile toggle event from Header (optional, usually Header implements the button)
+    // For now, let's just make sure Sidebar handles `open` class if passed via props or context.
+    // Assuming we want a self-contained toggle for this example or relying on CSS hover on desktop?
+    // Let's implement a simple mobile toggle button inside Sidebar for "Close" action on mobile.
+
     return (
-        <aside className="sidebar">
-            <div className="sidebar-header">
-                <div className="logo-icon">
-                    <i className="fas fa-bolt"></i>
-                </div>
-                <div className="logo-text">
-                    FleetEgo
-                    <span>AGENT</span>
-                </div>
-            </div>
+        <>
+            {/* Mobile Overlay */}
+            <div className={`fixed inset-0 bg-black/50 z-[999] transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsOpen(false)}></div>
 
-            <nav className="sidebar-nav">
-                {/* Main Section */}
-                <div className="nav-section">
-                    <div className="nav-section-title">{t('sidebar.main')}</div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/dashboard" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-chart-pie" style={{ color: '#3b82f6' }}></i>
-                                {t('sidebar.dashboard')}
-                            </span>
-                        </NavLink>
+            <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+                <div className="sidebar-header">
+                    <div className="logo-icon">
+                        <i className="fas fa-bolt"></i>
                     </div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-robot" style={{ color: '#a855f7' }}></i>
-                                {t('sidebar.ai_assistant')}
-                            </span>
-                        </NavLink>
+                    <div className="logo-text">
+                        FleetEgo
+                        <span>AGENT</span>
                     </div>
+                    {/* Mobile Close Button */}
+                    <button className="md:hidden ml-auto text-gray-500 hover:text-white" onClick={() => setIsOpen(false)}>
+                        <i className="fas fa-times text-xl"></i>
+                    </button>
                 </div>
 
-                {/* Operations Section */}
-                <div className="nav-section">
-                    <div className="nav-section-title">{t('sidebar.operations')}</div>
+                <nav className="sidebar-nav">
+                    {/* Main Section */}
+                    <div className="nav-section">
+                        <div className="nav-section-title">{t('sidebar.main')}</div>
 
-                    {/* Timocom */}
-                    <div className="menu-item">
-                        <button
-                            className={`menu-toggle ${openSubmenus['timocom'] ? 'active' : ''}`}
-                            onClick={() => toggleSubmenu('timocom')}
-                        >
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-search" style={{ color: '#f59e0b' }}></i>
-                                {t('sidebar.timocom')}
-                            </span>
-                            <i className={`fas fa-chevron-${openSubmenus['timocom'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
-                        </button>
-                        <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
-                            <NavLink to="/app/timocom/search" className="submenu-item">{t('sidebar.freight_search')}</NavLink>
-                            <NavLink to="/app/timocom/offers" className="submenu-item">{t('sidebar.my_offers')}</NavLink>
-                            <NavLink to="/app/timocom/chat" className="submenu-item">{t('sidebar.ai_chat')}</NavLink>
+                        <div className="menu-item">
+                            <NavLink to="/app/dashboard" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-chart-pie" style={{ color: '#3b82f6' }}></i>
+                                    {t('sidebar.dashboard')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="menu-item">
+                            <NavLink to="/app/ai-assistant" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-robot" style={{ color: '#a855f7' }}></i>
+                                    {t('sidebar.ai_assistant')}
+                                </span>
+                            </NavLink>
                         </div>
                     </div>
 
-                    {/* Fuvarkezelés */}
-                    <div className="menu-item">
-                        <button
-                            className={`menu-toggle ${openSubmenus['shipments'] ? 'active' : ''}`}
-                            onClick={() => toggleSubmenu('shipments')}
-                        >
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-shipping-fast" style={{ color: '#10b981' }}></i>
-                                {t('sidebar.shipments')}
-                            </span>
-                            <i className={`fas fa-chevron-${openSubmenus['shipments'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
-                        </button>
-                        <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
-                            <NavLink to="/app/shipments/active" className="submenu-item">{t('sidebar.active_shipments')}</NavLink>
-                            <NavLink to="/app/shipments/planning" className="submenu-item">{t('sidebar.route_planning')}</NavLink>
-                            <NavLink to="/app/shipments/tracking" className="submenu-item">{t('sidebar.tracking')}</NavLink>
+                    {/* Operations Section */}
+                    <div className="nav-section">
+                        <div className="nav-section-title">{t('sidebar.operations')}</div>
+
+                        {/* Timocom */}
+                        <div className="menu-item">
+                            <button
+                                className={`menu-toggle ${openSubmenus['timocom'] ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('timocom')}
+                            >
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-search" style={{ color: '#f59e0b' }}></i>
+                                    {t('sidebar.timocom')}
+                                </span>
+                                <i className={`fas fa-chevron-${openSubmenus['timocom'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
+                            </button>
+                            <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
+                                <NavLink to="/app/timocom/search" className="submenu-item">{t('sidebar.freight_search')}</NavLink>
+                                <NavLink to="/app/timocom/offers" className="submenu-item">{t('sidebar.my_offers')}</NavLink>
+                                <NavLink to="/app/timocom/chat" className="submenu-item">{t('sidebar.ai_chat')}</NavLink>
+                            </div>
+                        </div>
+
+                        {/* Fuvarkezelés */}
+                        <div className="menu-item">
+                            <button
+                                className={`menu-toggle ${openSubmenus['shipments'] ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('shipments')}
+                            >
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-shipping-fast" style={{ color: '#10b981' }}></i>
+                                    {t('sidebar.shipments')}
+                                </span>
+                                <i className={`fas fa-chevron-${openSubmenus['shipments'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
+                            </button>
+                            <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
+                                <NavLink to="/app/shipments/active" className="submenu-item">{t('sidebar.active_shipments')}</NavLink>
+                                <NavLink to="/app/shipments/planning" className="submenu-item">{t('sidebar.route_planning')}</NavLink>
+                                <NavLink to="/app/shipments/tracking" className="submenu-item">{t('sidebar.tracking')}</NavLink>
+                            </div>
+                        </div>
+
+                        {/* Járműflotta */}
+                        <div className="menu-item">
+                            <button
+                                className={`menu-toggle ${openSubmenus['fleet'] ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('fleet')}
+                            >
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-truck" style={{ color: '#6366f1' }}></i>
+                                    {t('sidebar.fleet')}
+                                </span>
+                                <i className={`fas fa-chevron-${openSubmenus['fleet'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
+                            </button>
+                            <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
+                                <NavLink to="/app/fleet/vehicles" className="submenu-item">{t('sidebar.vehicles')}</NavLink>
+                                <NavLink to="/app/fleet/drivers" className="submenu-item">{t('sidebar.drivers')}</NavLink>
+                                <NavLink to="/app/fleet/maintenance" className="submenu-item">{t('sidebar.maintenance')}</NavLink>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Járműflotta */}
-                    <div className="menu-item">
-                        <button
-                            className={`menu-toggle ${openSubmenus['fleet'] ? 'active' : ''}`}
-                            onClick={() => toggleSubmenu('fleet')}
-                        >
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-truck" style={{ color: '#6366f1' }}></i>
-                                {t('sidebar.fleet')}
-                            </span>
-                            <i className={`fas fa-chevron-${openSubmenus['fleet'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
-                        </button>
-                        <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
-                            <NavLink to="/app/fleet/vehicles" className="submenu-item">{t('sidebar.vehicles')}</NavLink>
-                            <NavLink to="/app/fleet/drivers" className="submenu-item">{t('sidebar.drivers')}</NavLink>
-                            <NavLink to="/app/fleet/maintenance" className="submenu-item">{t('sidebar.maintenance')}</NavLink>
+                    {/* Management Section */}
+                    <div className="nav-section">
+                        <div className="nav-section-title">{t('sidebar.management')}</div>
+
+                        <div className="menu-item">
+                            <NavLink to="/app/docs" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-file-alt" style={{ color: '#94a3b8' }}></i>
+                                    {t('sidebar.documents')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="menu-item">
+                            <NavLink to="/app/finance" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-coins" style={{ color: '#eab308' }}></i>
+                                    {t('sidebar.finance')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="menu-item">
+                            <NavLink to="/app/partners/list" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-users" style={{ color: '#be185d' }}></i>
+                                    {t('sidebar.subcontractors')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="menu-item">
+                            <NavLink to="/app/reports" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-chart-bar" style={{ color: '#ec4899' }}></i>
+                                    {t('sidebar.reports')}
+                                </span>
+                            </NavLink>
+                        </div>
+
+                        <div className="nav-section-title" style={{ marginTop: '20px' }}>{t('sidebar.administration')}</div>
+                        <div className="menu-item">
+                            <NavLink to="/app/admin/users" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-user-shield" style={{ color: '#3b82f6' }}></i>
+                                    {t('sidebar.users')}
+                                </span>
+                            </NavLink>
+                        </div>
+                        <div className="menu-item">
+                            <NavLink to="/app/admin/companies" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <i className="menu-icon fas fa-building" style={{ color: '#8b5cf6' }}></i>
+                                    {t('sidebar.companies')}
+                                </span>
+                            </NavLink>
                         </div>
                     </div>
-                </div>
-
-                {/* Management Section */}
-                <div className="nav-section">
-                    <div className="nav-section-title">{t('sidebar.management')}</div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/docs" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-file-alt" style={{ color: '#94a3b8' }}></i>
-                                {t('sidebar.documents')}
-                            </span>
-                        </NavLink>
-                    </div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/finance" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-coins" style={{ color: '#eab308' }}></i>
-                                {t('sidebar.finance')}
-                            </span>
-                        </NavLink>
-                    </div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/partners/list" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-users" style={{ color: '#be185d' }}></i>
-                                {t('sidebar.subcontractors')}
-                            </span>
-                        </NavLink>
-                    </div>
-
-                    <div className="menu-item">
-                        <NavLink to="/app/reports" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-chart-bar" style={{ color: '#ec4899' }}></i>
-                                {t('sidebar.reports')}
-                            </span>
-                        </NavLink>
-                    </div>
-
-                    <div className="nav-section-title" style={{ marginTop: '20px' }}>{t('sidebar.administration')}</div>
-                    <div className="menu-item">
-                        <NavLink to="/app/admin/users" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-user-shield" style={{ color: '#3b82f6' }}></i>
-                                {t('sidebar.users')}
-                            </span>
-                        </NavLink>
-                    </div>
-                    <div className="menu-item">
-                        <NavLink to="/app/admin/companies" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
-                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="menu-icon fas fa-building" style={{ color: '#8b5cf6' }}></i>
-                                {t('sidebar.companies')}
-                            </span>
-                        </NavLink>
-                    </div>
-                </div>
-            </nav>
-        </aside>
-    );
+                </nav>
+            </aside>
+            );
 };
 
-export default Sidebar;
+            export default Sidebar;
