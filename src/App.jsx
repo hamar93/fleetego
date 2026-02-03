@@ -12,6 +12,7 @@ import LandingPage from './pages/Landing/LandingPage';
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import PendingApproval from './pages/Auth/PendingApproval';
+import ChatPage from './pages/Chat/ChatPage';
 import Placeholder from './components/Placeholder';
 import './index.css';
 
@@ -33,7 +34,7 @@ function App() {
           <Route path="/app" element={<MainLayout />}>
             <Route index element={<Navigate to="/app/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
-
+            <Route path="chat" element={<ChatPage />} />
             {/* Timocom */}
             <Route path="timocom/search" element={<SearchPanel />} />
             <Route path="timocom/offers" element={<Placeholder title={t('sidebar.my_offers')} />} />
