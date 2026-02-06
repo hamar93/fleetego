@@ -17,6 +17,7 @@ import Login from './pages/Auth/Login';
 import PendingApproval from './pages/Auth/PendingApproval';
 import ChatPage from './pages/Chat/ChatPage';
 import Placeholder from './components/Placeholder';
+import GlobalDocuments from './pages/Documents/GlobalDocuments';
 import './index.css';
 
 import { useTranslation } from 'react-i18next';
@@ -54,12 +55,6 @@ function App() {
             <Route path="fleet/drivers" element={<Placeholder title={t('sidebar.drivers')} />} />
             <Route path="fleet/logs" element={<DriverLogs />} />
             <Route path="fleet/maintenance" element={<Placeholder title={t('sidebar.maintenance')} />} />
-
-            {/* Dokumentumok */}
-            <Route path="docs" element={<Navigate to="contracts" replace />} />
-            <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
-            import GlobalDocuments from './pages/Documents/GlobalDocuments';
-            // ... imports
 
             {/* Dokumentumok */}
             <Route path="docs" element={<Navigate to="contracts" replace />} />
