@@ -93,10 +93,10 @@
     --sidebar-bg: #ffffff;
 
     /* Clean Premium Background - Light */
-    --bg-primary: #f8fafc;
+    --bg-primary: #f1f5f9;
     --bg-secondary: #ffffff;
     --card-bg: #ffffff;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #e2e8f0, #f8fafc);
+    --bg-gradient: radial-gradient(circle at 50% 0%, #cbd5e1, #f1f5f9);
 }
 
 /* Mobile Responsive Styles */
