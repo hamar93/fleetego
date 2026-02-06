@@ -109,7 +109,11 @@ const OrdersPage = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                                 {filteredOrders.map(order => (
-                                    <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <tr
+                                        key={order.id}
+                                        onClick={() => window.location.href = `/app/shipments/${order.id}`}
+                                        className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+                                    >
                                         <td className="p-4 font-medium text-[var(--text-primary)]">
                                             {order.order_number}
                                         </td>
