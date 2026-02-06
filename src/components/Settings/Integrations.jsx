@@ -7,6 +7,7 @@ const Integrations = () => {
         timocom_id: "",
         timocom_api_key: "",
         timocom_customer_ref: "",
+        timocom_company_name: "",
         invoice_webhook_url: "",
         invoice_auth_type: "api_key_header",
         invoice_auth_token: "",
@@ -35,6 +36,7 @@ const Integrations = () => {
                 timocom_id: data.timocom_id || "",
                 timocom_api_key: "",
                 timocom_customer_ref: data.timocom_customer_ref || "",
+                timocom_company_name: data.timocom_company_name || "",
                 invoice_webhook_url: data.invoice_webhook_url || "",
                 invoice_auth_type: data.invoice_auth_type || "api_key_header",
                 invoice_auth_token: "",
@@ -65,6 +67,7 @@ const Integrations = () => {
             const payload = {
                 timocom_id: settings.timocom_id,
                 timocom_customer_ref: settings.timocom_customer_ref,
+                timocom_company_name: settings.timocom_company_name,
                 invoice_webhook_url: settings.invoice_webhook_url,
                 invoice_auth_type: settings.invoice_auth_type,
                 invoice_api_key_header: settings.invoice_api_key_header,
@@ -138,6 +141,17 @@ const Integrations = () => {
                             onChange={handleChange}
                             className="form-control"
                             placeholder="pl. 902717"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Timocom Company Name</label>
+                        <input
+                            type="text"
+                            name="timocom_company_name"
+                            value={settings.timocom_company_name}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="pl. FleetEgo Kft."
                         />
                     </div>
 
