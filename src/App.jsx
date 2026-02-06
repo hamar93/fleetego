@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import SearchPanel from './components/Timocom/SearchPanel';
 import Integrations from './components/Settings/Integrations';
 import VehicleList from './components/Fleet/VehicleList';
+import OrdersPage from './pages/Orders/OrdersPage';
 import UserManagement from './pages/Admin/UserManagement';
 import CompanyManagement from './pages/Admin/CompanyManagement';
 import LandingPage from './pages/Landing/LandingPage';
@@ -41,7 +42,7 @@ function App() {
             <Route path="timocom/chat" element={<Placeholder title={t('sidebar.ai_chat')} />} />
 
             {/* Fuvarkezelés */}
-            <Route path="shipments/active" element={<Placeholder title={t('sidebar.active_shipments')} />} />
+            <Route path="shipments/active" element={<OrdersPage />} />
             <Route path="shipments/planning" element={<Placeholder title={t('sidebar.route_planning')} />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
 
