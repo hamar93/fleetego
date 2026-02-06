@@ -58,7 +58,13 @@ function App() {
             {/* Dokumentumok */}
             <Route path="docs" element={<Navigate to="contracts" replace />} />
             <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
-            <Route path="docs/contracts" element={<Placeholder title={t('sidebar.documents')} />} />
+            import GlobalDocuments from './pages/Documents/GlobalDocuments';
+            // ... imports
+
+            {/* Dokumentumok */}
+            <Route path="docs" element={<Navigate to="contracts" replace />} />
+            <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
+            <Route path="docs/contracts" element={<GlobalDocuments />} />
 
             {/* Pénzügyek */}
             <Route path="finance" element={<Navigate to="invoices" replace />} />
