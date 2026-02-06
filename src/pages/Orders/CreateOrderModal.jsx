@@ -101,8 +101,8 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
         }
     };
 
-    const inputClasses = "w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-[var(--text-primary)] focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500";
-    const labelClasses = "block text-sm font-medium text-[var(--text-primary)] mb-1";
+    const inputClasses = "w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-500 dark:placeholder-gray-400";
+    const labelClasses = "block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1";
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -124,7 +124,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-8 grow overflow-y-auto">
+                <form onSubmit={handleSubmit} className="p-6 space-y-8 grow overflow-y-auto pt-8">
                     {/* Basic Info & Assignments */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 dark:bg-gray-800/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
                         <div>
