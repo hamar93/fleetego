@@ -10,6 +10,15 @@
 
 ## 2. Időalapú nyomon követés és tervezés
 - [ ] Heti / 2 heti vezetési idő nyilvántartás (EU 561/2006)
+- [ ] **Tachográf Integráció (Magas Komplexitás)**:
+    - [ ] **Fázis 1: Manuális Napló** (Kész): Vezetés/Pihenő rögzítése.
+    - [ ] **Fázis 2: .DDD Fájl Feldolgozás**:
+        - [ ] Proprietary bináris formátum visszafejtése (Python library).
+        - [ ] Digitális aláírás ellenőrzése.
+        - [ ] Adatpontok kinyerése: Sebesség, Aktivitás, Események (Hibák).
+    - [ ] **Fázis 3: Telematika API (Webfleet/Samsara)**:
+        - [ ] API Fragmentáció kezelése (Minden gyártó más struktúrát ad).
+        - [ ] Valós idejű szinkronizáció (WebSocket/Polling).
 - [ ] Fuvarok igazságos elosztása a vezetési idők alapján
 - [ ] Fuvartervezés a pihenőidőkkel és szabadságokkal kalkulálva
 - [ ] Heti / kétheti tervek automatikus generálása

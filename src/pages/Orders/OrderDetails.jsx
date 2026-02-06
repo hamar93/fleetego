@@ -6,45 +6,28 @@ const OrderDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [order, setOrder] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [uploading, setUploading] = useState(false);
+    const [activeTab, setActiveTab] = useState('details'); // details, documents, matching
+    const [matches, setMatches] = useState([]);
+    const [loadingMatches, setLoadingMatches] = useState(false);
 
-    const fetchOrder = async () => {
+    const fetchMatches = async () => {
+        setLoadingMatches(true);
         try {
-            const response = await api.get(`/api/orders/${id}`);
-            setOrder(response.data);
+            const res = await api.get(`/api/matches/${id}`);
+            setMatches(res.data);
         } catch (error) {
-            console.error("Failed to fetch order", error);
+            console.error("Failed to fetch matches", error);
         } finally {
-            setLoading(false);
+            setLoadingMatches(false);
         }
     };
 
+    // Auto-load matches when tab is switched
     useEffect(() => {
-        fetchOrder();
-    }, [id]);
-
-    const handleFileUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        setUploading(true);
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('type', 'cmr'); // Default to CMR for now, could be a dropdown
-
-        try {
-            await api.post(`/api/orders/${id}/documents`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            await fetchOrder(); // Refresh to show new doc
-        } catch (error) {
-            console.error("Upload failed", error);
-            alert("Sikertelen feltöltés!");
-        } finally {
-            setUploading(false);
+        if (activeTab === 'matching') {
+            fetchMatches();
         }
-    };
+    }, [activeTab]);
 
     if (loading) return <div className="p-12 text-center text-gray-500">Betöltés...</div>;
     if (!order) return <div className="p-12 text-center text-gray-500">Fuvar nem található.</div>;
@@ -52,151 +35,258 @@ const OrderDetails = () => {
     return (
         <div className="p-6 max-w-7xl mx-auto">
             {/* Header */}
-            <div className="flex justify-between items-start mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
                 <div>
                     <button onClick={() => navigate(-1)} className="text-sm text-gray-500 hover:text-blue-600 mb-2">← Vissza a listához</button>
-                    <h1 className="text-3xl font-bold text-[var(--text-primary)]">{order.order_number}</h1>
-                    <span className="inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                        {order.status.toUpperCase()}
-                    </span>
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-3xl font-bold text-[var(--text-primary)]">{order.order_number}</h1>
+                        <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                            {order.status.toUpperCase()}
+                        </span>
+                    </div>
                 </div>
                 <div className="flex gap-2">
                     <button className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                         Szerkesztés
                     </button>
-                    <button className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
-                        Törlés
-                    </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Left Column: Details */}
-                <div className="lg:col-span-2 space-y-6">
-                    {/* Route Card */}
-                    <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Útvonal</h3>
-                        <div className="relative pl-8 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-8">
-                            {/* Pickup */}
-                            <div className="relative">
-                                <div className="absolute -left-[39px] top-1 bg-blue-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
-                                <p className="text-sm text-gray-500 mb-1">Felrakó • {new Date(order.pickup_time).toLocaleString()}</p>
-                                <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup.name}</h4>
-                                <p className="text-gray-600 dark:text-gray-400">{order.pickup.address}</p>
-                                {order.pickup.contact_name && (
-                                    <p className="text-sm text-gray-500 mt-1">📞 {order.pickup.contact_name} ({order.pickup.contact_phone})</p>
-                                )}
-                            </div>
+            {/* Tabs */}
+            <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+                <button
+                    onClick={() => setActiveTab('details')}
+                    className={`px-6 py-3 font-medium text-sm transition-colors border-b-2 ${activeTab === 'details' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'}`}
+                >
+                    Részletek
+                </button>
+                <button
+                    onClick={() => setActiveTab('matching')}
+                    className={`px-6 py-3 font-medium text-sm transition-colors border-b-2 flex items-center gap-2 ${activeTab === 'matching' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'}`}
+                >
+                    🤖 Intelligens Ajánló
+                </button>
+            </div>
 
-                            {/* Delivery */}
-                            <div className="relative">
-                                <div className="absolute -left-[39px] top-1 bg-green-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
-                                <p className="text-sm text-gray-500 mb-1">Lerakó • {new Date(order.delivery_time).toLocaleString()}</p>
-                                <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery.name}</h4>
-                                <p className="text-gray-600 dark:text-gray-400">{order.delivery.address}</p>
-                                {order.delivery.contact_name && (
-                                    <p className="text-sm text-gray-500 mt-1">📞 {order.delivery.contact_name} ({order.delivery.contact_phone})</p>
-                                )}
+            {/* Tab Content: Details */}
+            {activeTab === 'details' && (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fadeIn">
+                    {/* Left Column: Details */}
+                    <div className="lg:col-span-2 space-y-6">
+                        {/* Route Card */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Útvonal</h3>
+                            <div className="relative pl-8 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-8">
+                                {/* Pickup */}
+                                <div className="relative">
+                                    <div className="absolute -left-[39px] top-1 bg-blue-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
+                                    <p className="text-sm text-gray-500 mb-1">Felrakó • {new Date(order.pickup_time).toLocaleString()}</p>
+                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup.name}</h4>
+                                    <p className="text-gray-600 dark:text-gray-400">{order.pickup.address}</p>
+                                    {order.pickup.contact_name && (
+                                        <p className="text-sm text-gray-500 mt-1">📞 {order.pickup.contact_name} ({order.pickup.contact_phone})</p>
+                                    )}
+                                </div>
+
+                                {/* Delivery */}
+                                <div className="relative">
+                                    <div className="absolute -left-[39px] top-1 bg-green-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
+                                    <p className="text-sm text-gray-500 mb-1">Lerakó • {new Date(order.delivery_time).toLocaleString()}</p>
+                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery.name}</h4>
+                                    <p className="text-gray-600 dark:text-gray-400">{order.delivery.address}</p>
+                                    {order.delivery.contact_name && (
+                                        <p className="text-sm text-gray-500 mt-1">📞 {order.delivery.contact_name} ({order.delivery.contact_phone})</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Cargo Card */}
-                    <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Rakomány</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                <p className="text-xs text-gray-500">Megnevezés</p>
-                                <p className="font-medium text-[var(--text-primary)]">{order.cargo.description}</p>
+                        {/* Cargo Card */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Rakomány</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                    <p className="text-xs text-gray-500">Megnevezés</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.description}</p>
+                                </div>
+                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                    <p className="text-xs text-gray-500">Súly</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.weight} kg</p>
+                                </div>
+                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                    <p className="text-xs text-gray-500">Térfogat</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.volume} m³</p>
+                                </div>
+                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                    <p className="text-xs text-gray-500">LDM</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.loading_meters || '-'} LDM</p>
+                                </div>
                             </div>
-                            <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                <p className="text-xs text-gray-500">Súly</p>
-                                <p className="font-medium text-[var(--text-primary)]">{order.cargo.weight} kg</p>
-                            </div>
-                            <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                <p className="text-xs text-gray-500">Térfogat</p>
-                                <p className="font-medium text-[var(--text-primary)]">{order.cargo.volume} m³</p>
-                            </div>
-                            <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                <p className="text-xs text-gray-500">Darab</p>
-                                <p className="font-medium text-[var(--text-primary)]">{order.cargo.quantity} db</p>
-                            </div>
-                        </div>
-                        {order.notes && (
-                            <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/10 text-yellow-800 dark:text-yellow-200 rounded-lg text-sm border border-yellow-100 dark:border-yellow-900/30">
-                                📝 <strong>Megjegyzés:</strong> {order.notes}
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                {/* Right Column: Docs & Assignment */}
-                <div className="space-y-6">
-                    {/* Documents */}
-                    <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Dokumentumok</h3>
-
-                        {/* File List */}
-                        <div className="space-y-3 mb-6">
-                            {order.documents && order.documents.length > 0 ? (
-                                order.documents.map((doc) => (
-                                    <div key={doc.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700 group">
-                                        <div className="flex items-center gap-3 overflow-hidden">
-                                            <div className="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold uppercase shrink-0">
-                                                {doc.type}
-                                            </div>
-                                            <div className="min-w-0">
-                                                <p className="text-sm font-medium text-[var(--text-primary)] truncate">{doc.filename}</p>
-                                                <p className="text-xs text-gray-500">{new Date(doc.uploaded_at).toLocaleDateString()}</p>
-                                            </div>
-                                        </div>
-                                        <button className="text-gray-400 hover:text-blue-600 p-1">
-                                            ⬇
-                                        </button>
+                            {/* ADR Badge if Applicable */}
+                            {order.cargo.is_adr && (
+                                <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50 rounded-lg flex items-center gap-3">
+                                    <span className="text-2xl">☢️</span>
+                                    <div>
+                                        <p className="text-sm font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</p>
+                                        <p className="text-xs text-red-600 dark:text-red-300">Osztály: {order.cargo.adr_class} • UN: {order.cargo.adr_un_number}</p>
                                     </div>
-                                ))
-                            ) : (
-                                <p className="text-sm text-gray-500 text-center py-4 italic">Nincs feltöltött dokumentum.</p>
+                                </div>
+                            )}
+                            {order.notes && (
+                                <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/10 text-yellow-800 dark:text-yellow-200 rounded-lg text-sm border border-yellow-100 dark:border-yellow-900/30">
+                                    📝 <strong>Megjegyzés:</strong> {order.notes}
+                                </div>
                             )}
                         </div>
-
-                        {/* Upload Button */}
-                        <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                <p className="text-2xl mb-2">📎</p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Kattints a feltöltéshez</span> vagy húzd ide</p>
-                                <p className="text-xs text-gray-400">CMR, Szállítólevél, Fotó</p>
-                            </div>
-                            <input type="file" className="hidden" onChange={handleFileUpload} disabled={uploading} />
-                        </label>
-                        {uploading && <p className="text-sm text-blue-500 text-center mt-2">Feltöltés folyamatban...</p>}
                     </div>
 
-                    {/* Assignment */}
-                    <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Erőforrás</h3>
-                        <div className="space-y-4">
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Jármű</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                    <span className="font-medium text-[var(--text-primary)]">
-                                        {order.assigned_vehicle_id ? "Rendszám betöltése..." : "Nincs hozzárendelve"}
-                                        {/* TODO: Resolve Vehicle ID to Plate Number using Fleet Context or separate fetch */}
-                                    </span>
+                    {/* Right Column: Docs & Assignment */}
+                    <div className="space-y-6">
+                        {/* Assignment */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Erőforrás</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <p className="text-xs text-gray-500 mb-1">Jármű</p>
+                                    <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                        <span className="font-medium text-[var(--text-primary)]">
+                                            {order.assigned_vehicle_id ? "Rendszám betöltése..." : "Nincs hozzárendelve"}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Sofőr</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                    <span className="font-medium text-[var(--text-primary)]">
-                                        {order.assigned_driver_id ? "Sofőr betöltése..." : "Nincs hozzárendelve"}
-                                    </span>
+                                <div>
+                                    <p className="text-xs text-gray-500 mb-1">Sofőr</p>
+                                    <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                        <span className="font-medium text-[var(--text-primary)]">
+                                            {order.assigned_driver_id ? "Sofőr betöltése..." : "Nincs hozzárendelve"}
+                                        </span>
+                                    </div>
                                 </div>
+                                <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
+                                    🤖 Intelligens Ajánló Megnyitása
+                                </button>
                             </div>
+                        </div>
+
+                        {/* Documents */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Dokumentumok</h3>
+
+                            <div className="space-y-3 mb-6">
+                                {order.documents && order.documents.length > 0 ? (
+                                    order.documents.map((doc) => (
+                                        <div key={doc.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700 group">
+                                            <div className="flex items-center gap-3 overflow-hidden">
+                                                <div className="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold uppercase shrink-0">
+                                                    {doc.type}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p className="text-sm font-medium text-[var(--text-primary)] truncate">{doc.filename}</p>
+                                                    <p className="text-xs text-gray-500">{new Date(doc.uploaded_at).toLocaleDateString()}</p>
+                                                </div>
+                                            </div>
+                                            <button className="text-gray-400 hover:text-blue-600 p-1">⬇</button>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-gray-500 text-center py-4 italic">Nincs feltöltött dokumentum.</p>
+                                )}
+                            </div>
+
+                            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <p className="text-2xl mb-2">📎</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Feltöltés</span></p>
+                                </div>
+                                <input type="file" className="hidden" onChange={handleFileUpload} disabled={uploading} />
+                            </label>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
+
+            {/* Tab Content: Matching */}
+            {activeTab === 'matching' && (
+                <div className="animate-fadeIn space-y-6">
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-xl">
+                        <h2 className="text-2xl font-bold mb-2">🤖 Auto-Match Segéd</h2>
+                        <p className="opacity-90 max-w-2xl">
+                            Az algoritmus elemzi a járművek kapacitását (Súly, LDM, ADR) és a sofőrök vezetési idejét (561/2006/EK), hogy megtalálja a legoptimálisabb párosítást.
+                        </p>
+                    </div>
+
+                    {loadingMatches ? (
+                        <div className="p-12 text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                            <p className="text-gray-500">Járművek és sofőrök elemzése...</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {matches.map((match, idx) => (
+                                <div key={idx} className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                                    {/* Score Header */}
+                                    <div className={`p-4 flex justify-between items-center ${match.score >= 80 ? 'bg-green-50/50 dark:bg-green-900/20' :
+                                            match.score >= 50 ? 'bg-yellow-50/50 dark:bg-yellow-900/20' :
+                                                'bg-red-50/50 dark:bg-red-900/20'
+                                        }`}>
+                                        <span className="font-bold text-lg text-[var(--text-primary)]">
+                                            {match.vehicle.plate}
+                                        </span>
+                                        <div className={`px-3 py-1 rounded-full text-sm font-bold ${match.score >= 80 ? 'bg-green-100 text-green-700' :
+                                                match.score >= 50 ? 'bg-yellow-100 text-yellow-700' :
+                                                    'bg-red-100 text-red-700'
+                                            }`}>
+                                            {match.score}% Egyezés
+                                        </div>
+                                    </div>
+
+                                    <div className="p-5 space-y-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
+                                                🚛
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-medium text-[var(--text-primary)]">{match.vehicle.type}</p>
+                                                <p className="text-xs text-gray-500">Jármű</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
+                                                👨‍✈️
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-medium text-[var(--text-primary)]">{match.driver.name}</p>
+                                                <p className="text-xs text-gray-500">Sofőr</p>
+                                            </div>
+                                        </div>
+
+                                        {match.warnings.length > 0 && (
+                                            <div className="p-3 bg-red-50 dark:bg-red-900/10 rounded-lg text-xs space-y-1">
+                                                {match.warnings.map((w, i) => (
+                                                    <p key={i} className="text-red-600 dark:text-red-400 flex gap-2">
+                                                        ⚠️ {w}
+                                                    </p>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        <button className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all">
+                                            Kiválasztás
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+
+                            {matches.length === 0 && (
+                                <div className="col-span-full p-12 text-center text-gray-500 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+                                    Nincs elérhető jármű, amely megfelelne a szűrőknek.
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
