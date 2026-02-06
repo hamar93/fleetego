@@ -141,54 +141,70 @@ const DriverLogs = () => {
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* List */}
-                <div className="lg:col-span-2 bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-900 dark:text-white">
-                        Tevékenységek Listája
-                    </div>
-                    <div className="p-0">
-                        {logs.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">Nincs rögzített adat erre a napra.</div>
-                        ) : (
-                            <table className="w-full text-left bg-white dark:bg-[#1e293b]">
-                                <thead>
-                                    <tr className="bg-gray-50 dark:bg-gray-800 text-xs uppercase text-gray-500">
-                                        <th className="px-6 py-3">Kezdés</th>
-                                        <th className="px-6 py-3">Tevékenység</th>
-                                        <th className="px-6 py-3">Időtartam</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                                    {logs.map(log => (
-                                        <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                                            <td className="px-6 py-3 text-sm text-gray-900 dark:text-gray-200">
-                                                {new Date(log.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </td>
-                                            <td className="px-6 py-3">
-                                                <span className={`px-2 py-1 text-xs rounded-full font-medium 
-                                                    ${log.activity === 'drive' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
-                                                        log.activity === 'rest' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
-                                                            'bg-gray-100 text-gray-600'}`}>
-                                                    {log.activity === 'drive' ? 'Vezetés' : log.activity === 'rest' ? 'Pihenő' : 'Egyéb'}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-3 text-sm text-gray-900 dark:text-gray-200">
-                                                {log.duration_minutes} perc
-                                            </td>
+                {/* Left Column: Logs & Files */}
+                <div className="lg:col-span-2 space-y-8">
+
+                    {/* Activity List */}
+                    <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                        <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-900 dark:text-white">
+                            Tevékenységek Listája
+                        </div>
+                        <div className="p-0">
+                            {logs.length === 0 ? (
+                                <div className="p-8 text-center text-gray-500">Nincs rögzített adat erre a napra.</div>
+                            ) : (
+                                <table className="w-full text-left bg-white dark:bg-[#1e293b]">
+                                    <thead>
+                                        <tr className="bg-gray-50 dark:bg-gray-800 text-xs uppercase text-gray-500">
+                                            <th className="px-6 py-3">Kezdés</th>
+                                            <th className="px-6 py-3">Tevékenység</th>
+                                            <th className="px-6 py-3">Időtartam</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        )}
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                                        {logs.map(log => (
+                                            <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                                                <td className="px-6 py-3 text-sm text-gray-900 dark:text-gray-200">
+                                                    {new Date(log.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </td>
+                                                <td className="px-6 py-3">
+                                                    <span className={`px-2 py-1 text-xs rounded-full font-medium 
+                                                        ${log.activity === 'drive' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
+                                                            log.activity === 'rest' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
+                                                                'bg-gray-100 text-gray-600'}`}>
+                                                        {log.activity === 'drive' ? 'Vezetés' : log.activity === 'rest' ? 'Pihenő' : 'Egyéb'}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-3 text-sm text-gray-900 dark:text-gray-200">
+                                                    {log.duration_minutes} perc
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
+                        </div>
                     </div>
+
+                    {/* File Upload Section */}
+                    <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                        <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-900 dark:text-white flex justify-between">
+                            <span>Tachográf Fájlok (.DDD)</span>
+                        </div>
+                        <div className="p-6">
+                            <TachographUploader driverId={selectedDriver} />
+                        </div>
+                    </div>
+
                 </div>
 
-                {/* Form */}
+                {/* Right Column: Form */}
                 <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 h-fit">
                     <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-900 dark:text-white">
                         Új Tevékenység Rögzítése
                     </div>
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        {/* ... form content ... */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tevékenység</label>
                             <div className="grid grid-cols-3 gap-2">
@@ -230,6 +246,84 @@ const DriverLogs = () => {
                         </button>
                     </form>
                 </div>
+            </div>
+        </div>
+    );
+};
+
+const TachographUploader = ({ driverId }) => {
+    const [files, setFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
+
+    useEffect(() => {
+        if (driverId) loadFiles();
+    }, [driverId]);
+
+    const loadFiles = async () => {
+        try {
+            const res = await api.get(`/api/driver-logs/files/${driverId}`);
+            setFiles(res.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setUploading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            await api.post(`/api/driver-logs/upload?driver_id=${driverId}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            loadFiles();
+        } catch (error) {
+            alert('Hiba a feltöltés során!');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    return (
+        <div>
+            <div className="flex items-center gap-4 mb-4">
+                <input
+                    type="file"
+                    accept=".ddd,.tgd,.v1b,.c1b"
+                    onChange={handleUpload}
+                    className="hidden"
+                    id="ddd-upload"
+                    disabled={!driverId || uploading}
+                />
+                <label
+                    htmlFor="ddd-upload"
+                    className={`px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer font-medium text-gray-700 dark:text-gray-300 transition-colors ${(!driverId || uploading) ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                    {uploading ? 'Feltöltés...' : '+ Fájl Feltöltése'}
+                </label>
+                <div className="text-xs text-gray-500">Támogatott: .DDD, .TGD, .V1B</div>
+            </div>
+
+            <div className="space-y-2">
+                {files.length === 0 ? (
+                    <div className="text-sm text-gray-500 italic">Nincs feltöltött fájl.</div>
+                ) : (
+                    files.map(f => (
+                        <div key={f.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                            <div>
+                                <div className="font-medium text-gray-900 dark:text-white text-sm">{f.filename}</div>
+                                <div className="text-xs text-gray-500">{new Date(f.upload_date).toLocaleDateString()}</div>
+                            </div>
+                            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                                {f.status}
+                            </span>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );
