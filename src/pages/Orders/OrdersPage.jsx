@@ -59,7 +59,7 @@ const OrdersPage = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Fuvarok Kezelése</h1>
+                    <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">Fuvarok Kezelése</h1>
                     <p className="text-gray-500 dark:text-gray-400">Aktív megbízások és szállítások áttekintése</p>
                 </div>
                 <button
@@ -77,8 +77,8 @@ const OrdersPage = () => {
                         key={status}
                         onClick={() => setFilter(status)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${filter === status
-                                ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm border border-gray-200 dark:border-gray-600'
-                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                            ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm border border-gray-200 dark:border-gray-600'
+                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                             }`}
                     >
                         {status === 'all' ? 'Összes' : status.charAt(0).toUpperCase() + status.slice(1)}
@@ -110,16 +110,16 @@ const OrdersPage = () => {
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                                 {filteredOrders.map(order => (
                                     <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                                        <td className="p-4 font-medium text-gray-900 dark:text-white">
+                                        <td className="p-4 font-medium text-[var(--text-primary)]">
                                             {order.order_number}
                                         </td>
                                         <td className="p-4">
-                                            <div className="font-medium text-gray-900 dark:text-white">{order.pickup.name}</div>
+                                            <div className="font-medium text-[var(--text-primary)]">{order.pickup.name}</div>
                                             <div className="text-xs text-gray-500">{new Date(order.pickup_time).toLocaleDateString()}</div>
                                             <div className="text-xs text-gray-400 max-w-[150px] truncate">{order.pickup.address}</div>
                                         </td>
                                         <td className="p-4">
-                                            <div className="font-medium text-gray-900 dark:text-white">{order.delivery.name}</div>
+                                            <div className="font-medium text-[var(--text-primary)]">{order.delivery.name}</div>
                                             <div className="text-xs text-gray-500">{new Date(order.delivery_time).toLocaleDateString()}</div>
                                             <div className="text-xs text-gray-400 max-w-[150px] truncate">{order.delivery.address}</div>
                                         </td>

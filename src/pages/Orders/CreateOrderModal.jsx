@@ -101,8 +101,8 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
         }
     };
 
-    const inputClasses = "w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500";
-    const labelClasses = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+    const inputClasses = "w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-[var(--text-primary)] focus:ring-2 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-gray-500";
+    const labelClasses = "block text-sm font-medium text-[var(--text-primary)] mb-1";
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -116,7 +116,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
             <div className="relative bg-white dark:bg-[#1e293b] rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center sticky top-0 bg-white dark:bg-[#1e293b] z-10 shrink-0">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Új Fuvar Rögzítése</h2>
+                        <h2 className="text-xl font-bold text-[var(--text-primary)]">Új Fuvar Rögzítése</h2>
                         <p className="text-sm text-gray-500">Azonosító automatikusan generálódik mentéskor.</p>
                     </div>
                     <button onClick={onClose} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white text-xl">
@@ -134,11 +134,10 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                                 name="order_number"
                                 value={formData.order_number}
                                 onChange={handleChange}
-                                className={`${inputClasses} bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-70`}
-                                placeholder="Automatikusan generálás..."
-                                disabled
+                                className={inputClasses}
+                                placeholder="Automatikusan generálás (vagy írja be kézzel)"
                             />
-                            <p className="text-xs text-gray-500 mt-1">Hagyja üresen az automatikus generáláshoz.</p>
+                            <p className="text-xs text-gray-500 mt-1">Hagyja üresen az automatikus generáláshoz, vagy írja be külső megbízásnál.</p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
