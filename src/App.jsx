@@ -8,6 +8,7 @@ import Integrations from './components/Settings/Integrations';
 import VehicleList from './components/Fleet/VehicleList';
 import OrdersPage from './pages/Orders/OrdersPage';
 import OrderDetails from './pages/Orders/OrderDetails';
+import DriverLogs from './pages/Fleet/DriverLogs';
 import UserManagement from './pages/Admin/UserManagement';
 import CompanyManagement from './pages/Admin/CompanyManagement';
 import LandingPage from './pages/Landing/LandingPage';
@@ -51,6 +52,7 @@ function App() {
             {/* Járműflotta */}
             <Route path="fleet/vehicles" element={<VehicleList />} />
             <Route path="fleet/drivers" element={<Placeholder title={t('sidebar.drivers')} />} />
+            <Route path="fleet/logs" element={<DriverLogs />} />
             <Route path="fleet/maintenance" element={<Placeholder title={t('sidebar.maintenance')} />} />
 
             {/* Dokumentumok */}

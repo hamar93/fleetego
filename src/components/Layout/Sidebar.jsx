@@ -124,6 +124,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                             <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
                                 <NavLink to="/app/fleet/vehicles" className="submenu-item">{t('sidebar.vehicles')}</NavLink>
                                 <NavLink to="/app/fleet/drivers" className="submenu-item">{t('sidebar.drivers')}</NavLink>
+                                <NavLink to="/app/fleet/logs" className="submenu-item">Vezetési Napló</NavLink>
                                 <NavLink to="/app/fleet/maintenance" className="submenu-item">{t('sidebar.maintenance')}</NavLink>
                             </div>
                         </div>
