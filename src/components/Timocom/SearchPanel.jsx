@@ -7,7 +7,9 @@ const SearchPanel = () => {
         origin: 'Budapest',
         destination: 'MÃ¼nchen',
         date: '',
-        cargo_type: ''
+        cargo_type: '',
+        origin_country: 'HU',
+        destination_country: 'DE'
     });
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -61,11 +63,19 @@ const SearchPanel = () => {
                         <input type="text" name="origin" value={criteria.origin} onChange={handleChange} className="form-control" placeholder="pl. Budapest" />
                     </div>
                     <div className="form-group">
+                        <label>Ország (ISO2):</label>
+                        <input type="text" name="origin_country" value={criteria.origin_country} onChange={handleChange} className="form-control" placeholder="pl. HU" />
+                    </div>
+                    <div className="form-group">
                         <label>Hova (City/Zip):</label>
                         <input type="text" name="destination" value={criteria.destination} onChange={handleChange} className="form-control" placeholder="pl. Berlin" />
                     </div>
                     <div className="form-group">
-                        <label>DÃ¡tum:</label>
+                        <label>Ország (ISO2):</label>
+                        <input type="text" name="destination_country" value={criteria.destination_country} onChange={handleChange} className="form-control" placeholder="pl. DE" />
+                    </div>
+                    <div className="form-group">
+                        <label>Dátum:</label>
                         <input type="date" name="date" value={criteria.date} onChange={handleChange} className="form-control" />
                     </div>
                     <div className="form-group" style={{ display: 'flex', alignItems: 'flex-end' }}>

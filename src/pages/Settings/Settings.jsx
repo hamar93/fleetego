@@ -5,7 +5,8 @@ import './Settings.css';
 const Settings = () => {
     const [settings, setSettings] = useState({
         timocom_id: '',
-        timocom_api_key: ''
+        timocom_api_key: '',
+        timocom_customer_ref: ''
     });
     const [status, setStatus] = useState(null); // connected, disconnected, loading
     const [saving, setSaving] = useState(false);
@@ -20,7 +21,8 @@ const Settings = () => {
             const response = await api.get('/api/settings/integrations');
             setSettings({
                 timocom_id: response.data.timocom_id || '',
-                timocom_api_key: '' // Don't show the masked key, just empty for security or placeholder
+                timocom_api_key: '', // Don't show the masked key, just empty for security or placeholder
+                timocom_customer_ref: response.data.timocom_customer_ref || ''
             });
 
             // Check connection status
@@ -51,7 +53,8 @@ const Settings = () => {
         try {
             // Only send api key if it has value (to update it)
             const payload = {
-                timocom_id: settings.timocom_id
+                timocom_id: settings.timocom_id,
+                timocom_customer_ref: settings.timocom_customer_ref
             };
             if (settings.timocom_api_key) {
                 payload.timocom_api_key = settings.timocom_api_key;
@@ -107,6 +110,26 @@ const Settings = () => {
                             onChange={handleChange}
                             className="form-control"
                             placeholder="pl. 123456"
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                borderRadius: '8px',
+                                border: '1px solid var(--glass-border)',
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'var(--text-primary)'
+                            }}
+                        />
+                    </div>
+
+                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Customer Reference</label>
+                        <input
+                            type="text"
+                            name="timocom_customer_ref"
+                            value={settings.timocom_customer_ref}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="pl. 902717"
                             style={{
                                 width: '100%',
                                 padding: '10px',
