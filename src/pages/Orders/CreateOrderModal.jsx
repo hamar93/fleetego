@@ -229,7 +229,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                                 <label className={labelClasses}>Megnevezés</label>
                                 <input type="text" placeholder="Pl. Autóalkatrészek" value={formData.cargo.description} onChange={(e) => handleChange(e, 'cargo', 'description')} className={inputClasses} required />
                             </div>
-                            <div className="grid grid-cols-3 gap-3 col-span-2">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 col-span-2">
                                 <div>
                                     <label className={labelClasses}>Súly (kg)</label>
                                     <input type="number" placeholder="0" value={formData.cargo.weight} onChange={(e) => handleChange(e, 'cargo', 'weight')} className={inputClasses} />
@@ -239,11 +239,54 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                                     <input type="number" placeholder="0" value={formData.cargo.volume} onChange={(e) => handleChange(e, 'cargo', 'volume')} className={inputClasses} />
                                 </div>
                                 <div>
+                                    <label className={labelClasses}>LDM (Ládaméter)</label>
+                                    <input type="number" step="0.1" placeholder="pl. 13.6" value={formData.cargo.loading_meters || ''} onChange={(e) => handleChange(e, 'cargo', 'loading_meters')} className={inputClasses} />
+                                </div>
+                                <div>
                                     <label className={labelClasses}>Darab</label>
                                     <input type="number" placeholder="1" value={formData.cargo.quantity} onChange={(e) => handleChange(e, 'cargo', 'quantity')} className={inputClasses} />
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* ADR Section */}
+                    <div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/30">
+                        <label className="flex items-center space-x-2 cursor-pointer mb-2">
+                            <input
+                                type="checkbox"
+                                name="cargo.is_adr"
+                                checked={formData.cargo.is_adr || false}
+                                onChange={(e) => handleChange({ target: { name: 'cargo.is_adr', value: e.target.checked } })}
+                                className="w-5 h-5 text-red-600 rounded border-gray-300 focus:ring-red-500"
+                            />
+                            <span className="font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</span>
+                        </label>
+
+                        {formData.cargo.is_adr && (
+                            <div className="grid grid-cols-2 gap-4 mt-3 animate-fadeIn">
+                                <div>
+                                    <label className={labelClasses}>ADR Osztály</label>
+                                    <input
+                                        type="text"
+                                        value={formData.cargo.adr_class || ''}
+                                        onChange={(e) => handleChange(e, 'cargo', 'adr_class')}
+                                        className={inputClasses}
+                                        placeholder="pl. 3 (Gyúlékony)"
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClasses}>UN Szám</label>
+                                    <input
+                                        type="text"
+                                        value={formData.cargo.adr_un_number || ''}
+                                        onChange={(e) => handleChange(e, 'cargo', 'adr_un_number')}
+                                        className={inputClasses}
+                                        placeholder="pl. 1203"
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700 sticky bottom-0 bg-white dark:bg-[#1e293b] pb-2">
