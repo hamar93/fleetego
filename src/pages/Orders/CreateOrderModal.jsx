@@ -250,43 +250,63 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                         </div>
                     </div>
 
-                    {/* ADR Section */}
-                    <div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/30">
-                        <label className="flex items-center space-x-2 cursor-pointer mb-2">
-                            <input
-                                type="checkbox"
-                                name="cargo.is_adr"
-                                checked={formData.cargo.is_adr || false}
-                                onChange={(e) => handleChange({ target: { name: 'cargo.is_adr', value: e.target.checked } })}
-                                className="w-5 h-5 text-red-600 rounded border-gray-300 focus:ring-red-500"
-                            />
-                            <span className="font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</span>
-                        </label>
+                    {/* ADR & Stackable Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* ADR */}
+                        <div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/30">
+                            <label className="flex items-center space-x-2 cursor-pointer mb-2">
+                                <input
+                                    type="checkbox"
+                                    name="cargo.is_adr"
+                                    checked={formData.cargo.is_adr || false}
+                                    onChange={(e) => handleChange({ target: { name: 'cargo.is_adr', value: e.target.checked } })}
+                                    className="w-5 h-5 text-red-600 rounded border-gray-300 focus:ring-red-500"
+                                />
+                                <span className="font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</span>
+                            </label>
 
-                        {formData.cargo.is_adr && (
-                            <div className="grid grid-cols-2 gap-4 mt-3 animate-fadeIn">
-                                <div>
-                                    <label className={labelClasses}>ADR Osztály</label>
-                                    <input
-                                        type="text"
-                                        value={formData.cargo.adr_class || ''}
-                                        onChange={(e) => handleChange(e, 'cargo', 'adr_class')}
-                                        className={inputClasses}
-                                        placeholder="pl. 3 (Gyúlékony)"
-                                    />
+                            {formData.cargo.is_adr && (
+                                <div className="grid grid-cols-2 gap-4 mt-3 animate-fadeIn">
+                                    <div>
+                                        <label className={labelClasses}>ADR Osztály</label>
+                                        <input
+                                            type="text"
+                                            value={formData.cargo.adr_class || ''}
+                                            onChange={(e) => handleChange(e, 'cargo', 'adr_class')}
+                                            className={inputClasses}
+                                            placeholder="pl. 3 (Gyúlékony)"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className={labelClasses}>UN Szám</label>
+                                        <input
+                                            type="text"
+                                            value={formData.cargo.adr_un_number || ''}
+                                            onChange={(e) => handleChange(e, 'cargo', 'adr_un_number')}
+                                            className={inputClasses}
+                                            placeholder="pl. 1203"
+                                        />
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className={labelClasses}>UN Szám</label>
-                                    <input
-                                        type="text"
-                                        value={formData.cargo.adr_un_number || ''}
-                                        onChange={(e) => handleChange(e, 'cargo', 'adr_un_number')}
-                                        className={inputClasses}
-                                        placeholder="pl. 1203"
-                                    />
+                            )}
+                        </div>
+
+                        {/* Stackable */}
+                        <div className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/30 flex items-center">
+                            <label className="flex items-center space-x-2 cursor-pointer w-full">
+                                <input
+                                    type="checkbox"
+                                    name="cargo.is_stackable"
+                                    checked={formData.cargo.is_stackable || false}
+                                    onChange={(e) => handleChange({ target: { name: 'cargo.is_stackable', value: e.target.checked } })}
+                                    className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                />
+                                <div className="ml-2">
+                                    <span className="font-bold text-blue-700 dark:text-blue-400 block">Rakatolható</span>
+                                    <span className="text-xs text-blue-600/70 dark:text-blue-400/70">Az áru egymásra rakható (Stackable)</span>
                                 </div>
-                            </div>
-                        )}
+                            </label>
+                        </div>
                     </div>
 
                     <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700 sticky bottom-0 bg-white dark:bg-[#1e293b] pb-2">

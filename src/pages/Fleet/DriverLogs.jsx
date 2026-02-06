@@ -99,8 +99,12 @@ const DriverLogs = () => {
                         value={selectedDriver}
                         onChange={(e) => setSelectedDriver(e.target.value)}
                     >
+                        <option value="" disabled>Válassz sofőrt...</option>
+                        {drivers.length === 0 && <option value="" disabled>Nincs elérhető sofőr</option>}
                         {drivers.map(d => (
-                            <option key={d.id} value={d.id}>{d.name}</option>
+                            <option key={d.id} value={d.id}>
+                                {d.name} {d.email && d.email !== d.name ? `(${d.email})` : ''}
+                            </option>
                         ))}
                     </select>
                     <input
