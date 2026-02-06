@@ -54,10 +54,12 @@ function App() {
             <Route path="fleet/maintenance" element={<Placeholder title={t('sidebar.maintenance')} />} />
 
             {/* Dokumentumok */}
+            <Route path="docs" element={<Navigate to="contracts" replace />} />
             <Route path="docs/cmr" element={<Placeholder title="CMR / Szállítólevél" />} />
             <Route path="docs/contracts" element={<Placeholder title={t('sidebar.documents')} />} />
 
             {/* Pénzügyek */}
+            <Route path="finance" element={<Navigate to="invoices" replace />} />
             <Route path="finance/invoices" element={<Placeholder title={t('sidebar.finance')} />} />
             <Route path="finance/expenses" element={<Placeholder title={t('sidebar.finance')} />} />
 
@@ -66,6 +68,7 @@ function App() {
             <Route path="partners/chat" element={<Placeholder title="Partner Chat" />} />
 
             {/* Jelentések */}
+            <Route path="reports" element={<Navigate to="financial" replace />} />
             <Route path="reports/financial" element={<Placeholder title={t('sidebar.reports')} />} />
             <Route path="reports/performance" element={<Placeholder title={t('sidebar.reports')} />} />
             <Route path="reports/analytics" element={<Placeholder title={t('sidebar.reports')} />} />
@@ -75,6 +78,7 @@ function App() {
             <Route path="ai-assistant" element={<Placeholder title={t('sidebar.ai_assistant')} />} />
 
             {/* Beállítások */}
+            <Route path="settings" element={<Navigate to="profile" replace />} />
             <Route path="settings/profile" element={<Placeholder title="Profil" />} />
             <Route path="settings/integrations" element={<Integrations />} />
             <Route path="settings/notifications" element={<Placeholder title="Értesítések" />} />
