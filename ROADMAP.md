@@ -9,10 +9,11 @@
 - [ ] Lerakás / felrakás státusz jelentése
 
 ## 2. Időalapú nyomon követés és tervezés
-- [ ] Heti / 2 heti vezetési idő nyilvántartás (EU 561/2006)
+- [x] Heti / 2 heti vezetési idő nyilvántartás (EU 561/2006)
 - [ ] **Tachográf Integráció (Magas Komplexitás)**:
-    - [ ] **Fázis 1: Manuális Napló** (Kész): Vezetés/Pihenő rögzítése.
+    - [x] **Fázis 1: Manuális Napló** (Kész): Vezetés/Pihenő rögzítése.
     - [ ] **Fázis 2: .DDD Fájl Feldolgozás**:
+        - [x] Fájl feltöltés és tárolás (Biztonságos tárhely).
         - [ ] Proprietary bináris formátum visszafejtése (Python library).
         - [ ] Digitális aláírás ellenőrzése.
         - [ ] Adatpontok kinyerése: Sebesség, Aktivitás, Események (Hibák).
@@ -25,7 +26,7 @@
 
 ## 3. Fuvar státusz és dokumentáció
 - [ ] Fuvar státusz nyomon követése (felvételre vár / felvéve / úton / lerakva)
-- [ ] CMR / szállítólevél feltöltése sofőr részéről (fénykép)
+- [x] CMR / szállítólevél feltöltése sofőr részéről (fénykép/fájl)
 - [ ] Automatikus párosítás a fuvarmegbízással
 - [ ] Automatikus számlakészítés a dokumentum alapján
 
@@ -49,9 +50,9 @@
 
 ## 7. Adminisztratív és pénzügyi funkciók
 - [ ] Számlázás modul
-- [ ] Dokumentumkezelő modul
+- [x] Dokumentumkezelő modul (BYOS, Multi-tenant)
 - [ ] Statisztikai riportok (fuvar, bevétel, idő)
-- [ ] Útvonaltervező modul (OpenRouteService)
+- [x] Útvonaltervező modul (OpenRouteService előkészítve)
 - [ ] Javítási naptár + automatikus emlékeztetők
 
 ## 8. Alvállalkozók kezelése
@@ -77,7 +78,7 @@
 - [x] Frontend: React + Vite (Design Renderelve & Helyreállítva + Új "High-Tech Road" Háttér)
 - [x] UI/UX: Light Mode javítva, Sidebar, Reszponzivitás, Dinamikus Háttér
 - [x] AI Core: OpenAI (GPT-5 / GPT-4o) + Mistral (Opcionális)
-- [ ] Dokumentumtár: Lokális vagy S3-kompatibilis
+- [x] Dokumentumtár: Lokális vagy S3-kompatibilis (BYOS)
 
 ---
 
@@ -92,7 +93,7 @@
 - [ ] Tervezés (útvonal, kapacitás, időablak, pihenőidő)
 - [x] Fuvarbörze (Timocom + tender + ajánlat)
 - [ ] Számlázás (számlák, kintlévőség, export)
-- [ ] Dokumentumtár (CMR, POD, fuvarlevél)
+- [x] Dokumentumtár (CMR, POD, fuvarlevél)
 - [ ] Partnerek (megbízó, alvállalkozó, kontakt)
 - [ ] Beállítások (integrációk, jogosultságok, cégadatok)
 
@@ -100,7 +101,7 @@
 - [x] Megbízás létrehozás (manuális + API)
 - [x] Fuvar hozzárendelés (sofőr/jármű/alvállalkozó)
 - [ ] Végrehajtás (felrakás/lerakás státusz)
-- [ ] Dokumentálás (CMR/POD)
+- [x] Dokumentálás (CMR/POD)
 - [ ] Számlázás (automatikus a dokumentumok alapján)
 - [ ] Kintlévőség kezelés (státusz + értesítések)
 
