@@ -7,6 +7,7 @@ const OrderDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('details'); // details, documents, matching
     const [matches, setMatches] = useState([]);
     const [loadingMatches, setLoadingMatches] = useState(false);
@@ -107,10 +108,13 @@ const OrderDetails = () => {
 
     const fetchOrder = async () => {
         try {
+            setLoading(true);
             const res = await api.get(`/api/orders/${id}`);
             setOrder(res.data);
         } catch (error) {
             console.error("Failed to fetch order", error);
+        } finally {
+            setLoading(false);
         }
     };
 
