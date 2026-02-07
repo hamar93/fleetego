@@ -25,10 +25,10 @@
 - [ ] Heti / kétheti tervek automatikus generálása
 
 ## 3. Fuvar státusz és dokumentáció
-- [ ] Fuvar státusz nyomon követése (felvételre vár / felvéve / úton / lerakva)
+- [x] Fuvar státusz nyomon követése (felvételre vár / felvéve / úton / lerakva)
 - [x] CMR / szállítólevél feltöltése sofőr részéről (fénykép/fájl)
 - [ ] Automatikus párosítás a fuvarmegbízással
-- [ ] Automatikus számlakészítés a dokumentum alapján
+- [x] Automatikus számlakészítés a dokumentum alapján (Stub / Mock implementáció)
 
 ## 4. Kommunikáció és visszajelzés
 - [x] Chat alapú kommunikáció sofőr és iroda között
@@ -100,9 +100,9 @@
 ## 13. Order‑to‑Cash (végigvezetett üzleti folyamat)
 - [x] Megbízás létrehozás (manuális + API)
 - [x] Fuvar hozzárendelés (sofőr/jármű/alvállalkozó)
-- [ ] Végrehajtás (felrakás/lerakás státusz)
+- [x] Végrehajtás (felrakás/lerakás státusz)
 - [x] Dokumentálás (CMR/POD)
-- [ ] Számlázás (automatikus a dokumentumok alapján)
+- [/] Számlázás (automatikus a dokumentumok alapján) - (Stub, később finomhangolva)
 - [ ] Kintlévőség kezelés (státusz + értesítések)
 
 ## 14. Ár‑ és költségmodell (KKV‑barát, EU‑kompatibilis)

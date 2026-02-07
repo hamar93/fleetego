@@ -431,268 +431,269 @@ const OrderDetails = () => {
                             )}
                         </div>
                     </div>
-                </div>
-
                     {/* Right Column: Docs & Assignment */}
-            <div className="space-y-6">
-                {/* Assignment */}
-                <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Erőforrás</h3>
+                    <div className="space-y-6">
+                        {/* Assignment */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Erőforrás</h3>
 
-                    {order.subcontractor_name ? (
-                        <div className="space-y-4">
-                            <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-900/30">
-                                <span className="text-xs font-bold text-purple-700 dark:text-purple-400 uppercase">Alvállalkozó</span>
-                                <p className="font-bold text-lg text-[var(--text-primary)]">{order.subcontractor_name}</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Rendszám</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                    <span className="font-medium text-[var(--text-primary)]">{order.subcontractor_plate || '-'}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Sofőr / Kontakt</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                                    <p className="font-medium text-[var(--text-primary)]">{order.subcontractor_driver || '-'}</p>
-                                    <p className="text-xs text-gray-500">{order.subcontractor_contact}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="space-y-4">
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Jármű</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                    <span className="font-medium text-[var(--text-primary)]">
-                                        {order.assigned_vehicle_id ? (order.assigned_vehicle_id) : "Nincs hozzárendelve"}
-                                    </span>
-                                </div>
-                            </div>
-                            <div>
-                                <p className="text-xs text-gray-500 mb-1">Sofőr</p>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                    <span className="font-medium text-[var(--text-primary)]">
-                                        {order.assigned_driver_id ? (order.assigned_driver_id) : "Nincs hozzárendelve"}
-                                    </span>
-                                </div>
-                            </div>
-                            <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
-                                🤖 Intelligens Ajánló
-                            </button>
-                        </div>
-                    )}
-                </div>
-
-                {/* Pricing Card */}
-                <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">💰 Árazás</h3>
-                    {order.price_value > 0 ? (
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center">
-                                <span className="text-gray-500 text-sm">Típus:</span>
-                                <span className="font-medium bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">
-                                    {order.price_type === 'FIX' ? 'Fix Díj' : 'Díj / Km'}
-                                </span>
-                            </div>
-                            <div className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
-                                {order.price_value} {order.currency}
-                            </div>
-                            {order.price_type === 'PER_KM' && (
-                                <p className="text-xs text-gray-400">A végösszeg a megtett távolság alapján kerül kiszámításra.</p>
-                            )}
-                        </div>
-                    ) : (
-                        <p className="text-sm text-gray-500 italic">Nincs ár megadva.</p>
-                    )}
-                </div>
-            </div>
-        </div>
-    )
-}
-
-{/* Tab Content: Documents */ }
-{
-    activeTab === 'documents' && (
-        <div className="space-y-6 animate-fadeIn">
-            <div className="flex justify-between items-center bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Fuvar Dokumentumok</h3>
-                    <p className="text-sm text-gray-500">CMR, Szállítólevél, POD és egyéb fájlok kezelése.</p>
-                </div>
-
-                <div className="flex gap-3 items-center">
-                    <select
-                        value={docType}
-                        onChange={(e) => setDocType(e.target.value)}
-                        className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="CMR">CMR</option>
-                        <option value="POD">POD (Igazolás)</option>
-                        <option value="INVOICE">Számla</option>
-                        <option value="OTHER">Egyéb</option>
-                    </select>
-
-                    <div className="relative">
-                        <input
-                            type="file"
-                            onChange={handleFileUpload}
-                            className="hidden"
-                            id="doc-upload"
-                            disabled={uploadingDoc}
-                        />
-                        <label
-                            htmlFor="doc-upload"
-                            className={`px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 ${uploadingDoc ? 'opacity-50 pointer-events-none' : ''}`}
-                        >
-                            {uploadingDoc ? 'Feltöltés...' : (
-                                <>
-                                    <span>+</span> Feltöltés
-                                </>
-                            )}
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                {documents.length === 0 ? (
-                    <div className="p-16 text-center">
-                        <div className="text-4xl mb-4">📂</div>
-                        <p className="text-gray-500 text-lg">Nincs feltöltött dokumentum ehhez a fuvarhoz.</p>
-                        <p className="text-gray-400 text-sm">Töltsd fel a CMR-t vagy a teljesítés igazolását.</p>
-                    </div>
-                ) : (
-                    <table className="w-full text-left">
-                        <thead className="bg-gray-50 dark:bg-gray-800 text-xs uppercase text-gray-500">
-                            <tr>
-                                <th className="px-6 py-4">Fájlnév</th>
-                                <th className="px-6 py-4">Típus</th>
-                                <th className="px-6 py-4">Feltöltve</th>
-                                <th className="px-6 py-4 text-right">Művelet</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                            {documents.map(doc => (
-                                <tr key={doc.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
-                                                📄
-                                            </div>
-                                            <span className="font-medium text-gray-900 dark:text-white">{doc.original_filename}</span>
+                            {order.subcontractor_name ? (
+                                <div className="space-y-4">
+                                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-900/30">
+                                        <span className="text-xs font-bold text-purple-700 dark:text-purple-400 uppercase">Alvállalkozó</span>
+                                        <p className="font-bold text-lg text-[var(--text-primary)]">{order.subcontractor_name}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Rendszám</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                            <span className="font-medium text-[var(--text-primary)]">{order.subcontractor_plate || '-'}</span>
                                         </div>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-500">
-                                        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-semibold">
-                                            {doc.type}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-500">
-                                        {new Date(doc.uploaded_at).toLocaleDateString()}
-                                        <span className="text-gray-400 text-xs ml-2">
-                                            ({new Date(doc.uploaded_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <button
-                                            onClick={() => downloadDocument(doc.id, doc.original_filename)}
-                                            className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium text-sm"
-                                        >
-                                            ⬇ Letöltés
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-        </div>
-    )
-}
-
-{/* Tab Content: Matching */ }
-{
-    activeTab === 'matching' && (
-        <div className="animate-fadeIn space-y-6">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-xl">
-                <h2 className="text-2xl font-bold mb-2">🤖 Auto-Match Segéd</h2>
-                <p className="opacity-90 max-w-2xl">
-                    Az algoritmus elemzi a járművek kapacitását (Súly, LDM, ADR) és a sofőrök vezetési idejét (561/2006/EK), hogy megtalálja a legoptimálisabb párosítást.
-                </p>
-            </div>
-
-            {loadingMatches ? (
-                <div className="p-12 text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-gray-500">Járművek és sofőrök elemzése...</p>
-                </div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {matches.map((match, idx) => (
-                        <div key={idx} className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                            {/* Score Header */}
-                            <div className={`p-4 flex justify-between items-center ${match.score >= 80 ? 'bg-green-50/50 dark:bg-green-900/20' :
-                                match.score >= 50 ? 'bg-yellow-50/50 dark:bg-yellow-900/20' :
-                                    'bg-red-50/50 dark:bg-red-900/20'
-                                }`}>
-                                <span className="font-bold text-lg text-[var(--text-primary)]">
-                                    {match.vehicle.plate}
-                                </span>
-                                <div className={`px-3 py-1 rounded-full text-sm font-bold ${match.score >= 80 ? 'bg-green-100 text-green-700' :
-                                    match.score >= 50 ? 'bg-yellow-100 text-yellow-700' :
-                                        'bg-red-100 text-red-700'
-                                    }`}>
-                                    {match.score}% Egyezés
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Sofőr / Kontakt</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                            <p className="font-medium text-[var(--text-primary)]">{order.subcontractor_driver || '-'}</p>
+                                            <p className="text-xs text-gray-500">{order.subcontractor_contact}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Jármű</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                            <span className="font-medium text-[var(--text-primary)]">
+                                                {order.assigned_vehicle_id ? (order.assigned_vehicle_id) : "Nincs hozzárendelve"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Sofőr</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                            <span className="font-medium text-[var(--text-primary)]">
+                                                {order.assigned_driver_id ? (order.assigned_driver_id) : "Nincs hozzárendelve"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
+                                        🤖 Intelligens Ajánló
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Pricing Card */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">💰 Árazás</h3>
+                            {order.price_value > 0 ? (
+                                <div className="space-y-2">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-500 text-sm">Típus:</span>
+                                        <span className="font-medium bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">
+                                            {order.price_type === 'FIX' ? 'Fix Díj' : 'Díj / Km'}
+                                        </span>
+                                    </div>
+                                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
+                                        {order.price_value} {order.currency}
+                                    </div>
+                                    {order.price_type === 'PER_KM' && (
+                                        <p className="text-xs text-gray-400">A végösszeg a megtett távolság alapján kerül kiszámításra.</p>
+                                    )}
+                                </div>
+                            ) : (
+                                <p className="text-sm text-gray-500 italic">Nincs ár megadva.</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )
+            }
+
+            {/* Tab Content: Documents */}
+            {
+                activeTab === 'documents' && (
+                    <div className="space-y-6 animate-fadeIn">
+                        <div className="flex justify-between items-center bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                            <div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Fuvar Dokumentumok</h3>
+                                <p className="text-sm text-gray-500">CMR, Szállítólevél, POD és egyéb fájlok kezelése.</p>
                             </div>
 
-                            <div className="p-5 space-y-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
-                                        🚛
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-medium text-[var(--text-primary)]">{match.vehicle.type}</p>
-                                        <p className="text-xs text-gray-500">Jármű</p>
-                                    </div>
-                                </div>
+                            <div className="flex gap-3 items-center">
+                                <select
+                                    value={docType}
+                                    onChange={(e) => setDocType(e.target.value)}
+                                    className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="CMR">CMR</option>
+                                    <option value="POD">POD (Igazolás)</option>
+                                    <option value="INVOICE">Számla</option>
+                                    <option value="OTHER">Egyéb</option>
+                                </select>
 
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
-                                        👨‍✈️
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-medium text-[var(--text-primary)]">{match.driver.name}</p>
-                                        <p className="text-xs text-gray-500">Sofőr</p>
-                                    </div>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        onChange={handleFileUpload}
+                                        className="hidden"
+                                        id="doc-upload"
+                                        disabled={uploadingDoc}
+                                    />
+                                    <label
+                                        htmlFor="doc-upload"
+                                        className={`px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 ${uploadingDoc ? 'opacity-50 pointer-events-none' : ''}`}
+                                    >
+                                        {uploadingDoc ? 'Feltöltés...' : (
+                                            <>
+                                                <span>+</span> Feltöltés
+                                            </>
+                                        )}
+                                    </label>
                                 </div>
+                            </div>
+                        </div>
 
-                                {match.warnings.length > 0 && (
-                                    <div className="p-3 bg-red-50 dark:bg-red-900/10 rounded-lg text-xs space-y-1">
-                                        {match.warnings.map((w, i) => (
-                                            <p key={i} className="text-red-600 dark:text-red-400 flex gap-2">
-                                                ⚠️ {w}
-                                            </p>
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                            {documents.length === 0 ? (
+                                <div className="p-16 text-center">
+                                    <div className="text-4xl mb-4">📂</div>
+                                    <p className="text-gray-500 text-lg">Nincs feltöltött dokumentum ehhez a fuvarhoz.</p>
+                                    <p className="text-gray-400 text-sm">Töltsd fel a CMR-t vagy a teljesítés igazolását.</p>
+                                </div>
+                            ) : (
+                                <table className="w-full text-left">
+                                    <thead className="bg-gray-50 dark:bg-gray-800 text-xs uppercase text-gray-500">
+                                        <tr>
+                                            <th className="px-6 py-4">Fájlnév</th>
+                                            <th className="px-6 py-4">Típus</th>
+                                            <th className="px-6 py-4">Feltöltve</th>
+                                            <th className="px-6 py-4 text-right">Művelet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                                        {documents.map(doc => (
+                                            <tr key={doc.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
+                                                            📄
+                                                        </div>
+                                                        <span className="font-medium text-gray-900 dark:text-white">{doc.original_filename}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-500">
+                                                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-semibold">
+                                                        {doc.type}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-500">
+                                                    {new Date(doc.uploaded_at).toLocaleDateString()}
+                                                    <span className="text-gray-400 text-xs ml-2">
+                                                        ({new Date(doc.uploaded_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4 text-right">
+                                                    <button
+                                                        onClick={() => downloadDocument(doc.id, doc.original_filename)}
+                                                        className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium text-sm"
+                                                    >
+                                                        ⬇ Letöltés
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         ))}
+                                    </tbody>
+                                </table>
+                            )}
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* Tab Content: Matching */}
+            {
+                activeTab === 'matching' && (
+                    <div className="animate-fadeIn space-y-6">
+                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-xl">
+                            <h2 className="text-2xl font-bold mb-2">🤖 Auto-Match Segéd</h2>
+                            <p className="opacity-90 max-w-2xl">
+                                Az algoritmus elemzi a járművek kapacitását (Súly, LDM, ADR) és a sofőrök vezetési idejét (561/2006/EK), hogy megtalálja a legoptimálisabb párosítást.
+                            </p>
+                        </div>
+
+                        {loadingMatches ? (
+                            <div className="p-12 text-center">
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                                <p className="text-gray-500">Járművek és sofőrök elemzése...</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {matches.map((match, idx) => (
+                                    <div key={idx} className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                                        {/* Score Header */}
+                                        <div className={`p-4 flex justify-between items-center ${match.score >= 80 ? 'bg-green-50/50 dark:bg-green-900/20' :
+                                            match.score >= 50 ? 'bg-yellow-50/50 dark:bg-yellow-900/20' :
+                                                'bg-red-50/50 dark:bg-red-900/20'
+                                            }`}>
+                                            <span className="font-bold text-lg text-[var(--text-primary)]">
+                                                {match.vehicle.plate}
+                                            </span>
+                                            <div className={`px-3 py-1 rounded-full text-sm font-bold ${match.score >= 80 ? 'bg-green-100 text-green-700' :
+                                                match.score >= 50 ? 'bg-yellow-100 text-yellow-700' :
+                                                    'bg-red-100 text-red-700'
+                                                }`}>
+                                                {match.score}% Egyezés
+                                            </div>
+                                        </div>
+
+                                        <div className="p-5 space-y-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
+                                                    🚛
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-[var(--text-primary)]">{match.vehicle.type}</p>
+                                                    <p className="text-xs text-gray-500">Jármű</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
+                                                    👨‍✈️
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-[var(--text-primary)]">{match.driver.name}</p>
+                                                    <p className="text-xs text-gray-500">Sofőr</p>
+                                                </div>
+                                            </div>
+
+                                            {match.warnings.length > 0 && (
+                                                <div className="p-3 bg-red-50 dark:bg-red-900/10 rounded-lg text-xs space-y-1">
+                                                    {match.warnings.map((w, i) => (
+                                                        <p key={i} className="text-red-600 dark:text-red-400 flex gap-2">
+                                                            ⚠️ {w}
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            <button className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all">
+                                                Kiválasztás
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {matches.length === 0 && (
+                                    <div className="col-span-full p-12 text-center text-gray-500 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+                                        Nincs elérhető jármű, amely megfelelne a szűrőknek.
                                     </div>
                                 )}
-
-                                <button className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all">
-                                    Kiválasztás
-                                </button>
                             </div>
-                        </div>
-                    ))}
-
-                    {matches.length === 0 && (
-                        <div className="col-span-full p-12 text-center text-gray-500 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
-                            Nincs elérhető jármű, amely megfelelne a szűrőknek.
-                        </div>
-                    )}
-                </div>
-            )}
+                        )}
+                    </div>
+                )
+            }
         </div>
     );
 };
