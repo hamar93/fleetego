@@ -334,19 +334,19 @@ const OrderDetails = () => {
                                             </div>
                                         )}
                                     </div>
-                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup.name}</h4>
+                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup?.name || "Nincs megadva"}</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
                                         {order.pickup?.zip_code} {order.pickup?.city}, {order.pickup?.address}
                                     </p>
                                     <div className="mt-2 space-y-1">
                                         {order.pickup?.time_window && (
                                             <p className="text-sm text-gray-500">
-                                                🕒 <span className="font-semibold">Időkapu:</span> {order.pickup.time_window}
+                                                🕒 <span className="font-semibold">Időkapu:</span> {order.pickup?.time_window}
                                             </p>
                                         )}
                                         {order.pickup?.reference_number && (
                                             <p className="text-sm text-gray-500">
-                                                🔢 <span className="font-semibold">Ref:</span> {order.pickup.reference_number}
+                                                🔢 <span className="font-semibold">Ref:</span> {order.pickup?.reference_number}
                                             </p>
                                         )}
                                         {order.pickup?.contact_name && (
@@ -370,19 +370,19 @@ const OrderDetails = () => {
                                             </div>
                                         )}
                                     </div>
-                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery?.name}</h4>
+                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery?.name || "Nincs megadva"}</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
                                         {order.delivery?.zip_code} {order.delivery?.city}, {order.delivery?.address}
                                     </p>
                                     <div className="mt-2 space-y-1">
                                         {order.delivery?.time_window && (
                                             <p className="text-sm text-gray-500">
-                                                🕒 <span className="font-semibold">Időkapu:</span> {order.delivery.time_window}
+                                                🕒 <span className="font-semibold">Időkapu:</span> {order.delivery?.time_window}
                                             </p>
                                         )}
                                         {order.delivery?.reference_number && (
                                             <p className="text-sm text-gray-500">
-                                                🔢 <span className="font-semibold">Ref:</span> {order.delivery.reference_number}
+                                                🔢 <span className="font-semibold">Ref:</span> {order.delivery?.reference_number}
                                             </p>
                                         )}
                                         {order.delivery?.contact_name && (
