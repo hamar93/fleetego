@@ -364,6 +364,10 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                                 <input type="text" placeholder="Ipari Park u. 1." value={formData.pickup.address} onChange={(e) => handleChange(e, 'pickup', 'address')} className={inputClasses} required />
                             </div>
                             <div className="grid grid-cols-2 gap-3">
+                                <input type="text" placeholder="Referencia szám (Pl. REF-123)" value={formData.pickup.reference_number || ''} onChange={(e) => handleChange(e, 'pickup', 'reference_number')} className={inputClasses} />
+                                <input type="text" placeholder="Időkapu (Pl. 08:00-16:00)" value={formData.pickup.time_window || ''} onChange={(e) => handleChange(e, 'pickup', 'time_window')} className={inputClasses} />
+                            </div>
+                            <div className="grid grid-cols-2 gap-3">
                                 <input type="text" placeholder="Kapcsolattartó" value={formData.pickup.contact_name} onChange={(e) => handleChange(e, 'pickup', 'contact_name')} className={inputClasses} />
                                 <input type="text" placeholder="Telefon" value={formData.pickup.contact_phone} onChange={(e) => handleChange(e, 'pickup', 'contact_phone')} className={inputClasses} />
                             </div>
@@ -395,6 +399,10 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                             <div>
                                 <label className={labelClasses}>Utca, Házszám</label>
                                 <input type="text" placeholder="Gewerbepark Str. 5" value={formData.delivery.address} onChange={(e) => handleChange(e, 'delivery', 'address')} className={inputClasses} required />
+                            </div>
+                            <div className="grid grid-cols-2 gap-3">
+                                <input type="text" placeholder="Referencia szám (Pl. PO-456)" value={formData.delivery.reference_number || ''} onChange={(e) => handleChange(e, 'delivery', 'reference_number')} className={inputClasses} />
+                                <input type="text" placeholder="Időkapu (Pl. 09:00-17:00)" value={formData.delivery.time_window || ''} onChange={(e) => handleChange(e, 'delivery', 'time_window')} className={inputClasses} />
                             </div>
                             <div className="grid grid-cols-2 gap-3">
                                 <input type="text" placeholder="Kapcsolattartó" value={formData.delivery.contact_name} onChange={(e) => handleChange(e, 'delivery', 'contact_name')} className={inputClasses} />
