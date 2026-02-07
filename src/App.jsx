@@ -19,6 +19,12 @@ import PendingApproval from './pages/Auth/PendingApproval';
 import ChatPage from './pages/Chat/ChatPage';
 import Placeholder from './components/Placeholder';
 import GlobalDocuments from './pages/Documents/GlobalDocuments';
+
+// Admin Pages
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminLayout from './layouts/AdminLayout';
+
 import './index.css';
 
 import { useTranslation } from 'react-i18next';
@@ -35,6 +41,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/pending" element={<PendingApproval />} />
 
+          {/* Admin Routes (Dedicated Layout) */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            {/* Additional admin routes can go here */}
+            <Route path="users" element={<UserManagement />} />
+            <Route path="companies" element={<CompanyManagement />} />
+          </Route>
+
           {/* Protected App Routes (With MainLayout and Sidebar) */}
           <Route path="/app" element={<MainLayout />}>
             <Route index element={<Navigate to="/app/dashboard" replace />} />
@@ -47,6 +63,7 @@ function App() {
 
             {/* Fuvarkezelés */}
             <Route path="shipments/active" element={<OrdersPage />} />
+            <Route path="shipments/new" element={<OrderDetails />} /> {/* Fix route for new order */}
             <Route path="shipments/:id" element={<OrderDetails />} />
             <Route path="shipments/planning" element={<DispatchBoard />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
@@ -86,10 +103,6 @@ function App() {
             <Route path="settings/profile" element={<Placeholder title="Profil" />} />
             <Route path="settings/integrations" element={<Integrations />} />
             <Route path="settings/notifications" element={<Placeholder title="Értesítések" />} />
-
-            {/* Admin */}
-            <Route path="admin/users" element={<UserManagement />} />
-            <Route path="admin/companies" element={<CompanyManagement />} />
           </Route>
 
           {/* Catch all - redirect to landing */}

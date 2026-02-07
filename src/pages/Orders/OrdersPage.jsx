@@ -96,7 +96,8 @@ const OrdersPage = () => {
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        {/* Desktop Table */}
+                        <table className="hidden md:table w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 text-sm uppercase tracking-wider">
                                     <th className="p-4 font-semibold">Azonosító</th>
@@ -145,6 +146,47 @@ const OrdersPage = () => {
                                 ))}
                             </tbody>
                         </table>
+
+                        {/* Mobile Cards */}
+                        <div className="md:hidden space-y-4 p-4">
+                            {filteredOrders.map(order => (
+                                <div
+                                    key={order.id}
+                                    onClick={() => window.location.href = `/app/shipments/${order.id}`}
+                                    className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700 active:scale-95 transition-transform"
+                                >
+                                    <div className="flex justify-between items-start mb-3">
+                                        <div>
+                                            <span className="text-sm font-bold text-[var(--text-primary)]">{order.order_number}</span>
+                                            <div className="text-xs text-gray-500">{new Date(order.created_at).toLocaleDateString()}</div>
+                                        </div>
+                                        {getStatusBadge(order.status)}
+                                    </div>
+
+                                    <div className="space-y-3 relative pl-4 border-l-2 border-dashed border-gray-300 dark:border-gray-600 ml-1">
+                                        <div className="relative">
+                                            <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-blue-500 ring-2 ring-white dark:ring-gray-800"></div>
+                                            <div className="text-sm font-medium text-[var(--text-primary)]">{order.pickup.city}</div>
+                                            <div className="text-xs text-gray-500">{new Date(order.pickup_time).toLocaleDateString()}</div>
+                                        </div>
+                                        <div className="relative">
+                                            <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-gray-800"></div>
+                                            <div className="text-sm font-medium text-[var(--text-primary)]">{order.delivery.city}</div>
+                                            <div className="text-xs text-gray-500">{new Date(order.delivery_time).toLocaleDateString()}</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                                        <div className="text-xs text-gray-500">
+                                            {order.cargo.weight} kg • {order.cargo.volume} m³
+                                        </div>
+                                        <div className="text-xs text-blue-600 dark:text-blue-400">
+                                            Részletek →
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

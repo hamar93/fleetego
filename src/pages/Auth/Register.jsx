@@ -6,9 +6,12 @@ import './Auth.css';
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
+        full_name: '',
+        company_name: '',
         email: '',
-        password: '',
-        company_name: ''
+        phone: '',
+        fleet_size: '',
+        password: ''
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -24,7 +27,12 @@ const Register = () => {
         setError(null);
 
         try {
-            await api.post('/api/auth/register', formData);
+            // Convert fleet_size to int
+            const payload = {
+                ...formData,
+                fleet_size: parseInt(formData.fleet_size, 10)
+            };
+            await api.post('/api/auth/register', payload);
             setSuccess(true);
             setTimeout(() => navigate('/pending'), 2000);
         } catch (err) {
@@ -66,6 +74,19 @@ const Register = () => {
 
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
+                        <label><i className="fas fa-user"></i> Teljes Név</label>
+                        <input
+                            type="text"
+                            name="full_name"
+                            value={formData.full_name}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="Pl. Kovács János"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
                         <label><i className="fas fa-building"></i> Cégnév</label>
                         <input
                             type="text"
@@ -87,6 +108,33 @@ const Register = () => {
                             onChange={handleChange}
                             className="form-control"
                             placeholder="email@ceg.hu"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label><i className="fas fa-phone"></i> Telefonszám</label>
+                        <input
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="+36 30 123 4567"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label><i className="fas fa-truck"></i> Flotta Mérete (db)</label>
+                        <input
+                            type="number"
+                            name="fleet_size"
+                            value={formData.fleet_size}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="Járművek száma"
+                            min="0"
                             required
                         />
                     </div>

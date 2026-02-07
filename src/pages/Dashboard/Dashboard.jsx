@@ -39,14 +39,14 @@ const Dashboard = () => {
             <div className="max-w-7xl mx-auto space-y-8">
 
                 {/* Header */}
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Vezérlőpult</h1>
-                        <p className="text-gray-500 dark:text-gray-400">Üdvözöljük újra a FleetEgo rendszerben!</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Vezérlőpult</h1>
+                        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">Üdvözöljük újra a FleetEgo rendszerben!</p>
                     </div>
                     <Link
                         to="/orders/new"
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2"
+                        className="w-full md:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
                     >
                         <span>+</span> Új Fuvar
                     </Link>
