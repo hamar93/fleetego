@@ -88,6 +88,42 @@ const OrderDetails = () => {
         }
     }, [activeTab]);
 
+    const updateStatus = async (newStatus) => {
+        if (!confirm('Biztosan módosítod a fuvar státuszát?')) return;
+
+        try {
+            await api.put(`/api/orders/${id}/status`, { status_update: newStatus });
+            // Refresh order
+            const res = await api.get(`/api/orders/${id}`);
+            setOrder(res.data);
+        } catch (error) {
+            console.error(error);
+            alert("Hiba a státusz módosításakor: " + (error.response?.data?.detail || "Ismeretlen hiba"));
+        }
+    };
+
+    const getStatusStep = (status) => {
+        const steps = ['created', 'assigned', 'pickup', 'transit', 'delivered'];
+        return steps.indexOf(status);
+    };
+
+    const getStatusProgress = (status) => {
+        const step = getStatusStep(status);
+        return step * 25; // 4 intervals (0, 25, 50, 75, 100)
+    };
+
+    const getStatusLabel = (status) => {
+        const labels = {
+            created: 'Létrehozva',
+            assigned: 'Kiosztva',
+            pickup: 'Felvétel',
+            transit: 'Úton',
+            delivered: 'Lerakva',
+            cancelled: 'Törölve'
+        };
+        return labels[status] || status;
+    };
+
     if (loading) return <div className="p-12 text-center text-gray-500">Betöltés...</div>;
     if (!order) return <div className="p-12 text-center text-gray-500">Fuvar nem található.</div>;
 
@@ -105,9 +141,76 @@ const OrderDetails = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
+                    {/* Action Buttons based on Status */}
+                    {order.status === 'created' && (
+                        <button
+                            disabled // Needs assignment first
+                            className="px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed"
+                        >
+                            Várakozás járműre
+                        </button>
+                    )}
+                    {order.status === 'assigned' && (
+                        <button
+                            onClick={() => updateStatus('pickup')}
+                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-colors"
+                        >
+                            Jármű elindult (→ Felvétel)
+                        </button>
+                    )}
+                    {order.status === 'pickup' && (
+                        <button
+                            onClick={() => updateStatus('transit')}
+                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-sm transition-colors"
+                        >
+                            Áru felvéve (→ Úton)
+                        </button>
+                    )}
+                    {order.status === 'transit' && (
+                        <button
+                            onClick={() => updateStatus('delivered')}
+                            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium shadow-sm transition-colors"
+                        >
+                            Áru lerakva (→ Kész)
+                        </button>
+                    )}
+
                     <button className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                         Szerkesztés
                     </button>
+                </div>
+            </div>
+
+            {/* Status Stepper */}
+            <div className="mb-8 overflow-x-auto">
+                <div className="min-w-[700px] flex justify-between items-center relative">
+                    {/* Progress Bar Background */}
+                    <div className="absolute left-0 top-1/2 w-full h-1 bg-gray-200 dark:bg-gray-700 -z-10 rounded-full"></div>
+
+                    {/* Progress Bar Fill */}
+                    <div
+                        className="absolute left-0 top-1/2 h-1 bg-green-500 -z-10 rounded-full transition-all duration-500"
+                        style={{ width: `${getStatusProgress(order.status)}%` }}
+                    ></div>
+
+                    {['created', 'assigned', 'pickup', 'transit', 'delivered'].map((step, index) => {
+                        const isCompleted = getStatusStep(order.status) > index;
+                        const isCurrent = getStatusStep(order.status) === index;
+
+                        return (
+                            <div key={step} className="flex flex-col items-center gap-2 bg-white dark:bg-[#0f172a] px-2 py-1">
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all
+                                    ${isCompleted ? 'bg-green-500 border-green-500 text-white' :
+                                        isCurrent ? 'bg-white dark:bg-gray-800 border-blue-500 text-blue-500 ring-4 ring-blue-100 dark:ring-blue-900/30' :
+                                            'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-400'}`}>
+                                    {isCompleted ? '✓' : index + 1}
+                                </div>
+                                <span className={`text-xs font-medium uppercase tracking-wider ${isCurrent || isCompleted ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
+                                    {getStatusLabel(step)}
+                                </span>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
 

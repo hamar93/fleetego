@@ -43,11 +43,11 @@ const GlobalDocuments = () => {
             <div className="flex justify-between items-center mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-[var(--text-primary)]">Dokumentumtár</h1>
-                    <p className="text-gray-500">Az összes fuvarhoz kapcsolódó és egyéb céges dokumentum.</p>
+                    <p className="text-gray-700 dark:text-gray-300">Az összes fuvarhoz kapcsolódó és egyéb céges dokumentum.</p>
                 </div>
                 <button
                     onClick={fetchDocuments}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm font-medium transition-colors"
+                    className="px-4 py-2 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg text-sm font-bold text-gray-700 dark:text-gray-200 transition-colors shadow-sm"
                 >
                     🔄 Frissítés
                 </button>
@@ -62,8 +62,8 @@ const GlobalDocuments = () => {
                 ) : documents.length === 0 ? (
                     <div className="p-16 text-center">
                         <div className="text-4xl mb-4">📂</div>
-                        <p className="text-gray-500 text-lg">Még nincs feltöltött dokumentum a rendszerben.</p>
-                        <p className="text-gray-400 text-sm">A dokumentumokat a Fuvarok részleteinél töltheted fel.</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-lg font-medium">Még nincs feltöltött dokumentum a rendszerben.</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">A dokumentumokat a <b>Fuvarok részleteinél</b> töltheted fel.</p>
                     </div>
                 ) : (
                     <table className="w-full text-left">

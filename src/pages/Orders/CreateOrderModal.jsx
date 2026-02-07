@@ -259,7 +259,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                                     type="checkbox"
                                     name="cargo.is_adr"
                                     checked={formData.cargo.is_adr || false}
-                                    onChange={(e) => handleChange({ target: { name: 'cargo.is_adr', value: e.target.checked } })}
+                                    onChange={(e) => handleChange({ target: { value: e.target.checked } }, 'cargo', 'is_adr')}
                                     className="w-5 h-5 text-red-600 rounded border-gray-300 focus:ring-red-500"
                                 />
                                 <span className="font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</span>
@@ -298,7 +298,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated }) => {
                                     type="checkbox"
                                     name="cargo.is_stackable"
                                     checked={formData.cargo.is_stackable || false}
-                                    onChange={(e) => handleChange({ target: { name: 'cargo.is_stackable', value: e.target.checked } })}
+                                    onChange={(e) => handleChange({ target: { value: e.target.checked } }, 'cargo', 'is_stackable')}
                                     className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                                 />
                                 <div className="ml-2">

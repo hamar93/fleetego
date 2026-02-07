@@ -288,9 +288,29 @@ const TachographUploader = ({ driverId }) => {
         }
     };
 
+    const analyzeFile = async (fileId) => {
+        try {
+            const res = await api.post(`/api/driver-logs/analyze/${fileId}`);
+            if (res.data.success) {
+                const activities = res.data.activities;
+                let msg = `Elemzés sikeres!\nFájl méret: ${res.data.file_size} bájt\nTalált napi rekordok: ${activities.length}\n`;
+                activities.forEach(act => {
+                    msg += `\nDátum: ${act.date}, Km: ${act.distance_km}`;
+                });
+                alert(msg);
+            } else {
+                alert(`Hiba: ${res.data.error || 'Ismeretlen hiba'}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Hiba az elemzés során");
+        }
+    };
+
     return (
         <div>
             <div className="flex items-center gap-4 mb-4">
+                {/* ... existing upload button ... */}
                 <input
                     type="file"
                     accept=".ddd,.tgd,.v1b,.c1b"
@@ -318,9 +338,17 @@ const TachographUploader = ({ driverId }) => {
                                 <div className="font-medium text-gray-900 dark:text-white text-sm">{f.filename}</div>
                                 <div className="text-xs text-gray-500">{new Date(f.upload_date).toLocaleDateString()}</div>
                             </div>
-                            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                                {f.status}
-                            </span>
+                            <div className="flex items-center gap-2">
+                                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                                    {f.status}
+                                </span>
+                                <button
+                                    onClick={() => analyzeFile(f.id)}
+                                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs rounded-lg transition-colors font-medium"
+                                >
+                                    🔍 Elemzés
+                                </button>
+                            </div>
                         </div>
                     ))
                 )}
