@@ -254,6 +254,9 @@ const DriverLogs = () => {
 const TachographUploader = ({ driverId }) => {
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
+    const [analysisResult, setAnalysisResult] = useState(null);
+    const [analyzing, setAnalyzing] = useState(false);
+    const [isDragOver, setIsDragOver] = useState(false);
 
     useEffect(() => {
         if (driverId) loadFiles();
@@ -268,9 +271,8 @@ const TachographUploader = ({ driverId }) => {
         }
     };
 
-    const handleUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    const uploadFile = async (file) => {
+        if (!file || !driverId) return;
 
         setUploading(true);
         const formData = new FormData();
@@ -288,49 +290,88 @@ const TachographUploader = ({ driverId }) => {
         }
     };
 
-    const analyzeFile = async (fileId) => {
+    const handleUpload = (e) => {
+        const file = e.target.files[0];
+        uploadFile(file);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = () => {
+        setIsDragOver(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (['ddd', 'tgd', 'v1b', 'c1b'].includes(ext)) {
+                uploadFile(file);
+            } else {
+                alert('Csak .DDD, .TGD, .V1B, .C1B fájlok támogatottak!');
+            }
+        }
+    };
+
+    const analyzeFile = async (fileId, filename) => {
+        setAnalyzing(true);
+        setAnalysisResult(null);
         try {
             const res = await api.post(`/api/driver-logs/analyze/${fileId}`);
             if (res.data.success) {
-                const activities = res.data.activities;
-                let msg = `Elemzés sikeres!\nFájl méret: ${res.data.file_size} bájt\nTalált napi rekordok: ${activities.length}\n`;
-                activities.forEach(act => {
-                    msg += `\nDátum: ${act.date}, Km: ${act.distance_km}`;
+                setAnalysisResult({
+                    filename: res.data.filename,
+                    fileSize: res.data.file_size,
+                    activities: res.data.activities
                 });
-                alert(msg);
             } else {
                 alert(`Hiba: ${res.data.error || 'Ismeretlen hiba'}`);
             }
         } catch (error) {
             console.error(error);
             alert("Hiba az elemzés során");
+        } finally {
+            setAnalyzing(false);
         }
     };
 
     return (
-        <div>
-            <div className="flex items-center gap-4 mb-4">
-                {/* ... existing upload button ... */}
+        <div className="space-y-4">
+            {/* Drag & Drop Zone */}
+            <div
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={`border-2 border-dashed rounded-xl p-6 text-center transition-all 
+                    ${isDragOver ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-300 dark:border-gray-600'}
+                    ${!driverId || uploading ? 'opacity-50 pointer-events-none' : 'cursor-pointer hover:border-blue-400'}
+                `}
+                onClick={() => document.getElementById('ddd-upload-enhanced').click()}
+            >
                 <input
                     type="file"
                     accept=".ddd,.tgd,.v1b,.c1b"
                     onChange={handleUpload}
                     className="hidden"
-                    id="ddd-upload"
+                    id="ddd-upload-enhanced"
                     disabled={!driverId || uploading}
                 />
-                <label
-                    htmlFor="ddd-upload"
-                    className={`px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer font-medium text-gray-700 dark:text-gray-300 transition-colors ${(!driverId || uploading) ? 'opacity-50 pointer-events-none' : ''}`}
-                >
-                    {uploading ? 'Feltöltés...' : '+ Fájl Feltöltése'}
-                </label>
-                <div className="text-xs text-gray-500">Támogatott: .DDD, .TGD, .V1B</div>
+                <div className="text-3xl mb-2">{uploading ? '⏳' : '📄'}</div>
+                <div className="text-gray-600 dark:text-gray-300 font-medium">
+                    {uploading ? 'Feltöltés folyamatban...' : 'Húzza ide a fájlt, vagy kattintson'}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">Támogatott: .DDD, .TGD, .V1B, .C1B</div>
             </div>
 
+            {/* Files List */}
             <div className="space-y-2">
                 {files.length === 0 ? (
-                    <div className="text-sm text-gray-500 italic">Nincs feltöltött fájl.</div>
+                    <div className="text-sm text-gray-500 italic text-center py-4">Nincs feltöltött fájl.</div>
                 ) : (
                     files.map(f => (
                         <div key={f.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -339,20 +380,66 @@ const TachographUploader = ({ driverId }) => {
                                 <div className="text-xs text-gray-500">{new Date(f.upload_date).toLocaleDateString()}</div>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                                <span className="px-2 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs rounded-full">
                                     {f.status}
                                 </span>
                                 <button
-                                    onClick={() => analyzeFile(f.id)}
-                                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs rounded-lg transition-colors font-medium"
+                                    onClick={() => analyzeFile(f.id, f.filename)}
+                                    disabled={analyzing}
+                                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs rounded-lg transition-colors font-medium disabled:opacity-50"
                                 >
-                                    🔍 Elemzés
+                                    {analyzing ? '⏳' : '🔍'} Elemzés
                                 </button>
                             </div>
                         </div>
                     ))
                 )}
             </div>
+
+            {/* Analysis Results Panel */}
+            {analysisResult && (
+                <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800/50">
+                    <div className="flex justify-between items-center mb-3">
+                        <h4 className="font-bold text-blue-900 dark:text-blue-100">
+                            📊 Elemzési Eredmények
+                        </h4>
+                        <button
+                            onClick={() => setAnalysisResult(null)}
+                            className="text-blue-500 hover:text-blue-700 text-lg"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                        <span className="font-medium">{analysisResult.filename}</span> • {analysisResult.fileSize} bájt
+                    </div>
+
+                    {analysisResult.activities.length === 0 ? (
+                        <div className="text-gray-500 text-sm">Nem található napi rekord a fájlban.</div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="text-left text-blue-600 dark:text-blue-400 border-b border-blue-200 dark:border-blue-800">
+                                        <th className="py-2 pr-4">Dátum</th>
+                                        <th className="py-2 pr-4">Távolság</th>
+                                        <th className="py-2">Offset</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-blue-100 dark:divide-blue-900">
+                                    {analysisResult.activities.map((act, idx) => (
+                                        <tr key={idx} className="text-blue-900 dark:text-blue-100">
+                                            <td className="py-2 pr-4 font-medium">{act.date}</td>
+                                            <td className="py-2 pr-4">{act.distance_km} km</td>
+                                            <td className="py-2 text-gray-500 text-xs">0x{act.raw_offset?.toString(16)}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

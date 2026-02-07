@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import { ThemeProvider } from './context/ThemeContext';
-import Dashboard from './components/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
+import DispatchBoard from './pages/Dispatch/DispatchBoard';
 import SearchPanel from './components/Timocom/SearchPanel';
 import Integrations from './components/Settings/Integrations';
 import VehicleList from './components/Fleet/VehicleList';
@@ -47,7 +48,7 @@ function App() {
             {/* Fuvarkezelés */}
             <Route path="shipments/active" element={<OrdersPage />} />
             <Route path="shipments/:id" element={<OrderDetails />} />
-            <Route path="shipments/planning" element={<Placeholder title={t('sidebar.route_planning')} />} />
+            <Route path="shipments/planning" element={<DispatchBoard />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
 
             {/* Járműflotta */}
