@@ -17,11 +17,13 @@ export const ThemeProvider = ({ children }) => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('fleetego-theme', theme);
 
-        // Optional: Update body class for specific overrides if needed
+        // Tailwind check: Add 'dark' class to html element
         if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
             document.body.classList.add('dark-theme');
             document.body.classList.remove('light-theme');
         } else {
+            document.documentElement.classList.remove('dark');
             document.body.classList.add('light-theme');
             document.body.classList.remove('dark-theme');
         }

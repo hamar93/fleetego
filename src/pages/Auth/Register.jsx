@@ -8,6 +8,7 @@ const Register = () => {
     const [formData, setFormData] = useState({
         full_name: '',
         company_name: '',
+        tax_number: '',
         email: '',
         phone: '',
         fleet_size: '',
@@ -96,6 +97,18 @@ const Register = () => {
                             className="form-control"
                             placeholder="Pl. FleetEgo Kft."
                             required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label><i className="fas fa-file-invoice"></i> Adószám</label>
+                        <input
+                            type="text"
+                            name="tax_number"
+                            value={formData.tax_number}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="Pl. 12345678-1-42"
                         />
                     </div>
 

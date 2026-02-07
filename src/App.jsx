@@ -19,6 +19,8 @@ import PendingApproval from './pages/Auth/PendingApproval';
 import ChatPage from './pages/Chat/ChatPage';
 import Placeholder from './components/Placeholder';
 import GlobalDocuments from './pages/Documents/GlobalDocuments';
+import PartnerList from './pages/Partners/PartnerList';
+import UserList from './pages/Company/UserList';
 
 // Admin Pages
 import AdminLogin from './pages/Admin/AdminLogin';
@@ -84,9 +86,16 @@ function App() {
             <Route path="finance/invoices" element={<Placeholder title={t('sidebar.finance')} />} />
             <Route path="finance/expenses" element={<Placeholder title={t('sidebar.finance')} />} />
 
-            {/* Alvállalkozók */}
-            <Route path="partners/list" element={<Placeholder title={t('sidebar.subcontractors')} />} />
-            <Route path="partners/chat" element={<Placeholder title="Partner Chat" />} />
+            import PartnerList from './pages/Partners/PartnerList';
+            import UserList from './pages/Company/UserList';
+
+            // ... insideRoutes ...
+            {/* Alvállalkozók / Partnerek */}
+            <Route path="partners/list" element={<PartnerList />} />
+            <Route path="partners/chat" element={<ChatPage />} />
+
+            {/* Céges Felhasználók */}
+            <Route path="company/users" element={<UserList />} />
 
             {/* Jelentések */}
             <Route path="reports" element={<Navigate to="financial" replace />} />

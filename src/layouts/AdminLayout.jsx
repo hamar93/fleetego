@@ -45,11 +45,18 @@ const AdminLayout = () => {
                 </div>
 
                 <nav className="flex-1 px-4 space-y-2">
-                    <Link to="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-800 text-white">
-                        <i className="fas fa-users-cog"></i>
-                        Dashboard
+                    <Link to="/admin/dashboard" className={`flex items-center gap-3 px-4 py-3 rounded-lg text-white ${location.pathname === '/admin/dashboard' ? 'bg-blue-600' : 'bg-gray-800 hover:bg-gray-700'}`}>
+                        <i className="fas fa-chart-line"></i>
+                        Vezérlőpult
                     </Link>
-                    {/* Add more admin links here */}
+                    <Link to="/admin/users" className={`flex items-center gap-3 px-4 py-3 rounded-lg text-white ${location.pathname === '/admin/users' ? 'bg-blue-600' : 'bg-gray-800 hover:bg-gray-700'}`}>
+                        <i className="fas fa-users"></i>
+                        Felhasználók
+                    </Link>
+                    <Link to="/admin/companies" className={`flex items-center gap-3 px-4 py-3 rounded-lg text-white ${location.pathname === '/admin/companies' ? 'bg-blue-600' : 'bg-gray-800 hover:bg-gray-700'}`}>
+                        <i className="fas fa-building"></i>
+                        Cégek
+                    </Link>
                 </nav>
 
                 <div className="p-4 border-t border-gray-800">
