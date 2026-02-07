@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../api/api';
+import CreateOrderModal from './CreateOrderModal';
 
 const OrderDetails = () => {
     const { id } = useParams();
@@ -9,6 +10,9 @@ const OrderDetails = () => {
     const [activeTab, setActiveTab] = useState('details'); // details, documents, matching
     const [matches, setMatches] = useState([]);
     const [loadingMatches, setLoadingMatches] = useState(false);
+
+    // Edit Modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     // --- Documents State ---
     const [documents, setDocuments] = useState([]);
@@ -94,12 +98,52 @@ const OrderDetails = () => {
         try {
             await api.put(`/api/orders/${id}/status`, { status_update: newStatus });
             // Refresh order
-            const res = await api.get(`/api/orders/${id}`);
-            setOrder(res.data);
+            fetchOrder();
         } catch (error) {
             console.error(error);
             alert("Hiba a státusz módosításakor: " + (error.response?.data?.detail || "Ismeretlen hiba"));
         }
+    };
+
+    const fetchOrder = async () => {
+        try {
+            const res = await api.get(`/api/orders/${id}`);
+            setOrder(res.data);
+        } catch (error) {
+            console.error("Failed to fetch order", error);
+        }
+    };
+
+    // Initial fetch
+    useEffect(() => {
+        fetchOrder();
+    }, [id]);
+
+    const handleDownloadPdf = async () => {
+        try {
+            // Open in new tab
+            const token = localStorage.getItem('token');
+            // We can use a direct link if we handle auth via cookie or query param, 
+            // but for Bearer token we might need to fetch blob or use a special tailored link.
+            // Simplest for now: fetch blob and open.
+            const response = await api.get(`/api/orders/${id}/pdf`, {
+                responseType: 'blob',
+            });
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'text/html' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('target', '_blank'); // Open in new tab
+            // For HTML usually we just want to open it
+            window.open(url, '_blank');
+        } catch (error) {
+            console.error(error);
+            alert("Hiba a PDF letöltésekor.");
+        }
+    };
+
+    const handleOrderUpdated = () => {
+        fetchOrder();
+        setIsEditModalOpen(false);
     };
 
     const getStatusStep = (status) => {
@@ -175,11 +219,29 @@ const OrderDetails = () => {
                         </button>
                     )}
 
-                    <button className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        Szerkesztés
+                    <button
+                        onClick={handleDownloadPdf}
+                        className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+                    >
+                        📄 PDF
+                    </button>
+
+                    <button
+                        onClick={() => setIsEditModalOpen(true)}
+                        className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                        ✏️ Szerkesztés
                     </button>
                 </div>
             </div>
+
+            {/* Edit Modal */}
+            <CreateOrderModal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                onOrderCreated={handleOrderUpdated}
+                orderToEdit={order}
+            />
 
             {/* Status Stepper */}
             <div className="mb-8 overflow-x-auto">
@@ -250,7 +312,9 @@ const OrderDetails = () => {
                                     <div className="absolute -left-[39px] top-1 bg-blue-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
                                     <p className="text-sm text-gray-500 mb-1">Felrakó • {new Date(order.pickup_time).toLocaleString()}</p>
                                     <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup.name}</h4>
-                                    <p className="text-gray-600 dark:text-gray-400">{order.pickup.address}</p>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                        {order.pickup.zip_code} {order.pickup.city}, {order.pickup.address}
+                                    </p>
                                     {order.pickup.contact_name && (
                                         <p className="text-sm text-gray-500 mt-1">📞 {order.pickup.contact_name} ({order.pickup.contact_phone})</p>
                                     )}
@@ -261,7 +325,9 @@ const OrderDetails = () => {
                                     <div className="absolute -left-[39px] top-1 bg-green-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
                                     <p className="text-sm text-gray-500 mb-1">Lerakó • {new Date(order.delivery_time).toLocaleString()}</p>
                                     <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery.name}</h4>
-                                    <p className="text-gray-600 dark:text-gray-400">{order.delivery.address}</p>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                        {order.delivery.zip_code} {order.delivery.city}, {order.delivery.address}
+                                    </p>
                                     {order.delivery.contact_name && (
                                         <p className="text-sm text-gray-500 mt-1">📞 {order.delivery.contact_name} ({order.delivery.contact_phone})</p>
                                     )}
@@ -313,27 +379,73 @@ const OrderDetails = () => {
                         {/* Assignment */}
                         <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
                             <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Erőforrás</h3>
-                            <div className="space-y-4">
-                                <div>
-                                    <p className="text-xs text-gray-500 mb-1">Jármű</p>
-                                    <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                        <span className="font-medium text-[var(--text-primary)]">
-                                            {order.assigned_vehicle_id ? "Rendszám betöltése..." : "Nincs hozzárendelve"}
-                                        </span>
+
+                            {order.subcontractor_name ? (
+                                <div className="space-y-4">
+                                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-900/30">
+                                        <span className="text-xs font-bold text-purple-700 dark:text-purple-400 uppercase">Alvállalkozó</span>
+                                        <p className="font-bold text-lg text-[var(--text-primary)]">{order.subcontractor_name}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Rendszám</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                            <span className="font-medium text-[var(--text-primary)]">{order.subcontractor_plate || '-'}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Sofőr / Kontakt</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                                            <p className="font-medium text-[var(--text-primary)]">{order.subcontractor_driver || '-'}</p>
+                                            <p className="text-xs text-gray-500">{order.subcontractor_contact}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-gray-500 mb-1">Sofőr</p>
-                                    <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
-                                        <span className="font-medium text-[var(--text-primary)]">
-                                            {order.assigned_driver_id ? "Sofőr betöltése..." : "Nincs hozzárendelve"}
+                            ) : (
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Jármű</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                            <span className="font-medium text-[var(--text-primary)]">
+                                                {order.assigned_vehicle_id ? (order.assigned_vehicle_id) : "Nincs hozzárendelve"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">Sofőr</p>
+                                        <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
+                                            <span className="font-medium text-[var(--text-primary)]">
+                                                {order.assigned_driver_id ? (order.assigned_driver_id) : "Nincs hozzárendelve"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
+                                        🤖 Intelligens Ajánló
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Pricing Card */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">💰 Árazás</h3>
+                            {order.price_value > 0 ? (
+                                <div className="space-y-2">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-500 text-sm">Típus:</span>
+                                        <span className="font-medium bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">
+                                            {order.price_type === 'FIX' ? 'Fix Díj' : 'Díj / Km'}
                                         </span>
                                     </div>
+                                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
+                                        {order.price_value} {order.currency}
+                                    </div>
+                                    {order.price_type === 'PER_KM' && (
+                                        <p className="text-xs text-gray-400">A végösszeg a megtett távolság alapján kerül kiszámításra.</p>
+                                    )}
                                 </div>
-                                <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
-                                    🤖 Intelligens Ajánló Megnyitása
-                                </button>
-                            </div>
+                            ) : (
+                                <p className="text-sm text-gray-500 italic">Nincs ár megadva.</p>
+                            )}
                         </div>
                     </div>
                 </div>
