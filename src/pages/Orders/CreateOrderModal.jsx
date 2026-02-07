@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
-import { useTranslation } from 'react-i18next';
 
 const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null }) => {
-    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const [vehicles, setVehicles] = useState([]);
     const [drivers, setDrivers] = useState([]);
@@ -48,8 +46,6 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                     pickup: { ...initialFormData.pickup, ...orderToEdit.pickup },
                     delivery: { ...initialFormData.delivery, ...orderToEdit.delivery },
                     cargo: { ...initialFormData.cargo, ...orderToEdit.cargo },
-                    // Flattened fields might need care depend on backend response structure
-                    // Assuming backend returns flat subcontractor fields if they exist
                 });
 
                 // Determine Assignment Type
@@ -136,7 +132,7 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
             };
 
             if (orderToEdit) {
-                await api.patch(`/ api / orders / ${orderToEdit.id} `, payload);
+                await api.patch(`/api/orders/${orderToEdit.id}`, payload);
             } else {
                 await api.post('/api/orders/', payload);
             }
@@ -201,14 +197,14 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                                 <button
                                     type="button"
                                     onClick={() => setAssignmentType('OWN')}
-                                    className={`text - sm font - bold pb - 1 ${assignmentType === 'OWN' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'} `}
+                                    className={`text-sm font-bold pb-1 ${assignmentType === 'OWN' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'} `}
                                 >
                                     🚛 Saját Flotta
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setAssignmentType('SUB')}
-                                    className={`text - sm font - bold pb - 1 ${assignmentType === 'SUB' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-500'} `}
+                                    className={`text-sm font-bold pb-1 ${assignmentType === 'SUB' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-500'} `}
                                 >
                                     🤝 Alvállalkozó
                                 </button>
@@ -289,7 +285,6 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                                             className={inputClasses}
                                         />
                                     </div>
-                                    {/* Pricing for Subcontractor often goes here, but we have global pricing */}
                                 </div>
                             )}
                         </div>
