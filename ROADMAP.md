@@ -10,19 +10,17 @@
 
 ## 2. Időalapú nyomon követés és tervezés
 - [x] Heti / 2 heti vezetési idő nyilvántartás (EU 561/2006)
-- [ ] **Tachográf Integráció (Magas Komplexitás)**:
+- [x] **Tachográf Integráció (Alap kész, haladó funkciók később)**:
     - [x] **Fázis 1: Manuális Napló** (Kész): Vezetés/Pihenő rögzítése.
-    - [ ] **Fázis 2: .DDD Fájl Feldolgozás**:
+    - [x] **Fázis 2: .DDD Fájl Feldolgozás** (Alap kész):
         - [x] Fájl feltöltés és tárolás (Biztonságos tárhely).
-        - [ ] Proprietary bináris formátum visszafejtése (Python library).
-        - [ ] Digitális aláírás ellenőrzése.
-        - [ ] Adatpontok kinyerése: Sebesség, Aktivitás, Események (Hibák).
-    - [ ] **Fázis 3: Telematika API (Webfleet/Samsara)**:
-        - [ ] API Fragmentáció kezelése (Minden gyártó más struktúrát ad).
-        - [ ] Valós idejű szinkronizáció (WebSocket/Polling).
-- [ ] Fuvarok igazságos elosztása a vezetési idők alapján
-- [ ] Fuvartervezés a pihenőidőkkel és szabadságokkal kalkulálva
-- [ ] Heti / kétheti tervek automatikus generálása
+        - [x] Bináris parser (napi rekordok, km) - *Haladó visszafejtés később*.
+        - [ ] Digitális aláírás ellenőrzése <!-- LATER: Komplexebb validáció -->
+        - [ ] Részletes adatpontok (Sebesség, Hibakódok) <!-- LATER: Bővített parser -->
+    - [ ] **Fázis 3: Telematika API (Webfleet/Samsara)** <!-- LATER: Külső rendszer integráció -->
+- [ ] Fuvarok igazságos elosztása a vezetési idők alapján <!-- LATER -->
+- [ ] Fuvartervezés a pihenőidőkkel és szabadságokkal kalkulálva <!-- LATER -->
+- [ ] Heti / kétheti tervek automatikus generálása <!-- LATER -->
 
 ## 3. Fuvar státusz és dokumentáció
 - [x] Fuvar státusz nyomon követése (felvételre vár / felvéve / úton / lerakva)
@@ -87,15 +85,15 @@
 > Cél: professzionális, skálázható, EU‑képes KKV TMS létrehozása, amely **nem tákolt** és könnyen white‑label/enterprise irányba fejleszthető.
 
 ## 12. Menü‑struktúra és modul‑térkép (alapkeret)
-- [ ] Dashboard (KPI + riasztások + “today view”)
+- [x] Dashboard (KPI + riasztások + "today view") <!-- Alap Dashboard kész, KPI kártyák -->
 - [x] Fuvarok (megbízások, állapot, dokumentumok)
 - [x] Flotta (jármű, sofőr, pótkocsi, kapacitás) - Basics Done
-- [ ] Tervezés (útvonal, kapacitás, időablak, pihenőidő)
+- [x] Tervezés (Dispatch Board: Heti nézet, Drag & Drop, Interaktív Modal)
 - [x] Fuvarbörze (Timocom + tender + ajánlat)
-- [ ] Számlázás (számlák, kintlévőség, export)
+- [ ] Számlázás (számlák, kintlévőség, export) <!-- LATER: Teljes számlázó modul -->
 - [x] Dokumentumtár (CMR, POD, fuvarlevél)
-- [ ] Partnerek (megbízó, alvállalkozó, kontakt)
-- [ ] Beállítások (integrációk, jogosultságok, cégadatok)
+- [ ] Partnerek (megbízó, alvállalkozó, kontakt) <!-- LATER -->
+- [ ] Beállítások (integrációk, jogosultságok, cégadatok) <!-- LATER: Részletes settings -->
 
 ## 13. Order‑to‑Cash (végigvezetett üzleti folyamat)
 - [x] Megbízás létrehozás (manuális + API)
