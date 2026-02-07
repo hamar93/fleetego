@@ -43,9 +43,9 @@ const CreateOrderModal = ({ isOpen, onClose, onOrderCreated, orderToEdit = null 
                 setFormData({
                     ...initialFormData,
                     ...orderToEdit,
-                    pickup: { ...initialFormData.pickup, ...orderToEdit.pickup },
-                    delivery: { ...initialFormData.delivery, ...orderToEdit.delivery },
-                    cargo: { ...initialFormData.cargo, ...orderToEdit.cargo },
+                    pickup: { ...initialFormData.pickup, ...(orderToEdit.pickup || {}) },
+                    delivery: { ...initialFormData.delivery, ...(orderToEdit.delivery || {}) },
+                    cargo: { ...initialFormData.cargo, ...(orderToEdit.cargo || {}) },
                 });
 
                 // Determine Assignment Type

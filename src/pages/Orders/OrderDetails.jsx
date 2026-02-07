@@ -313,23 +313,23 @@ const OrderDetails = () => {
                                     <p className="text-sm text-gray-500 mb-1">Felrakó • {new Date(order.pickup_time).toLocaleString()}</p>
                                     <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.pickup.name}</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                        {order.pickup.zip_code} {order.pickup.city}, {order.pickup.address}
+                                        {order.pickup?.zip_code} {order.pickup?.city}, {order.pickup?.address}
                                     </p>
-                                    {order.pickup.contact_name && (
-                                        <p className="text-sm text-gray-500 mt-1">📞 {order.pickup.contact_name} ({order.pickup.contact_phone})</p>
+                                    {order.pickup?.contact_name && (
+                                        <p className="text-sm text-gray-500 mt-1">📞 {order.pickup?.contact_name} ({order.pickup?.contact_phone})</p>
                                     )}
                                 </div>
 
                                 {/* Delivery */}
                                 <div className="relative">
                                     <div className="absolute -left-[39px] top-1 bg-green-500 rounded-full w-4 h-4 ring-4 ring-white dark:ring-[#1e293b]"></div>
-                                    <p className="text-sm text-gray-500 mb-1">Lerakó • {new Date(order.delivery_time).toLocaleString()}</p>
-                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery.name}</h4>
+                                    <p className="text-sm text-gray-500 mb-1">Lerakó • {order.delivery_time ? new Date(order.delivery_time).toLocaleString() : '-'}</p>
+                                    <h4 className="text-lg font-medium text-[var(--text-primary)]">{order.delivery?.name}</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                        {order.delivery.zip_code} {order.delivery.city}, {order.delivery.address}
+                                        {order.delivery?.zip_code} {order.delivery?.city}, {order.delivery?.address}
                                     </p>
-                                    {order.delivery.contact_name && (
-                                        <p className="text-sm text-gray-500 mt-1">📞 {order.delivery.contact_name} ({order.delivery.contact_phone})</p>
+                                    {order.delivery?.contact_name && (
+                                        <p className="text-sm text-gray-500 mt-1">📞 {order.delivery?.contact_name} ({order.delivery?.contact_phone})</p>
                                     )}
                                 </div>
                             </div>
@@ -341,28 +341,28 @@ const OrderDetails = () => {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                                     <p className="text-xs text-gray-500">Megnevezés</p>
-                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.description}</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo?.description}</p>
                                 </div>
                                 <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                                     <p className="text-xs text-gray-500">Súly</p>
-                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.weight} kg</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo?.weight} kg</p>
                                 </div>
                                 <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                                     <p className="text-xs text-gray-500">Térfogat</p>
-                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.volume} m³</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo?.volume} m³</p>
                                 </div>
                                 <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                                     <p className="text-xs text-gray-500">LDM</p>
-                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo.loading_meters || '-'} LDM</p>
+                                    <p className="font-medium text-[var(--text-primary)]">{order.cargo?.loading_meters || '-'} LDM</p>
                                 </div>
                             </div>
                             {/* ADR Badge if Applicable */}
-                            {order.cargo.is_adr && (
+                            {order.cargo?.is_adr && (
                                 <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50 rounded-lg flex items-center gap-3">
                                     <span className="text-2xl">☢️</span>
                                     <div>
                                         <p className="text-sm font-bold text-red-700 dark:text-red-400">Veszélyes Áru (ADR)</p>
-                                        <p className="text-xs text-red-600 dark:text-red-300">Osztály: {order.cargo.adr_class} • UN: {order.cargo.adr_un_number}</p>
+                                        <p className="text-xs text-red-600 dark:text-red-300">Osztály: {order.cargo?.adr_class} • UN: {order.cargo?.adr_un_number}</p>
                                     </div>
                                 </div>
                             )}
