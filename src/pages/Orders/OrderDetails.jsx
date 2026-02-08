@@ -11,6 +11,11 @@ const OrderDetails = () => {
     const [activeTab, setActiveTab] = useState('details'); // details, documents, matching
     const [matches, setMatches] = useState([]);
     const [loadingMatches, setLoadingMatches] = useState(false);
+    const [vehicles, setVehicles] = useState([]);
+    const [drivers, setDrivers] = useState([]);
+    const [assigning, setAssigning] = useState(false);
+    const [selectedVehicleId, setSelectedVehicleId] = useState('');
+    const [selectedDriverId, setSelectedDriverId] = useState('');
 
     // Edit Modal
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -130,6 +135,71 @@ const OrderDetails = () => {
     useEffect(() => {
         fetchOrder();
     }, [id]);
+
+    useEffect(() => {
+        const fetchResources = async () => {
+            try {
+                const [vRes, dRes] = await Promise.all([
+                    api.get('/api/fleet/vehicles'),
+                    api.get('/api/fleet/drivers')
+                ]);
+                setVehicles(vRes.data || []);
+                setDrivers(dRes.data || []);
+            } catch (error) {
+                console.error("Failed to fetch fleet resources", error);
+            }
+        };
+        fetchResources();
+    }, []);
+
+    useEffect(() => {
+        if (!order) return;
+        if (selectedVehicleId || selectedDriverId) return;
+        if (order.assigned_vehicle_id) {
+            const found = vehicles.find(v =>
+                v.id === order.assigned_vehicle_id || v.plate_number === order.assigned_vehicle_id
+            );
+            if (found) setSelectedVehicleId(found.id);
+        }
+        if (order.assigned_driver_id) {
+            setSelectedDriverId(order.assigned_driver_id);
+        }
+    }, [order, vehicles, selectedVehicleId, selectedDriverId]);
+
+    const handleManualAssign = async () => {
+        try {
+            setAssigning(true);
+            const vehicle = vehicles.find(v => v.id === selectedVehicleId);
+            await api.patch(`/api/orders/${id}`, {
+                assigned_vehicle_id: vehicle ? vehicle.plate_number : null,
+                assigned_driver_id: selectedDriverId || null
+            });
+            fetchOrder();
+        } catch (error) {
+            console.error("Manual assign failed", error);
+            alert("Hiba a hozzárendelés mentésekor.");
+        } finally {
+            setAssigning(false);
+        }
+    };
+
+    const handleUnassign = async () => {
+        try {
+            setAssigning(true);
+            await api.patch(`/api/orders/${id}`, {
+                assigned_vehicle_id: null,
+                assigned_driver_id: null
+            });
+            setSelectedVehicleId('');
+            setSelectedDriverId('');
+            fetchOrder();
+        } catch (error) {
+            console.error("Unassign failed", error);
+            alert("Hiba a hozzárendelés törlésekor.");
+        } finally {
+            setAssigning(false);
+        }
+    };
 
     const handleDownloadPdf = async () => {
         try {
@@ -473,6 +543,51 @@ const OrderDetails = () => {
                                             <span className="font-medium text-[var(--text-primary)]">
                                                 {order.assigned_driver_id ? (order.assigned_driver_id) : "Nincs hozzárendelve"}
                                             </span>
+                                        </div>
+                                    </div>
+                                    <div className="pt-2 border-t border-gray-100 dark:border-gray-700">
+                                        <p className="text-xs text-gray-500 mb-2 font-semibold">Manuális hozzárendelés</p>
+                                        <div className="grid grid-cols-1 gap-3">
+                                            <div>
+                                                <select
+                                                    value={selectedVehicleId}
+                                                    onChange={(e) => setSelectedVehicleId(e.target.value)}
+                                                    className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm"
+                                                >
+                                                    <option value="">-- Jármű választása --</option>
+                                                    {vehicles.map(v => (
+                                                        <option key={v.id} value={v.id}>{v.plate_number} ({v.type})</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <select
+                                                    value={selectedDriverId}
+                                                    onChange={(e) => setSelectedDriverId(e.target.value)}
+                                                    className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm"
+                                                >
+                                                    <option value="">-- Sofőr választása --</option>
+                                                    {drivers.map(d => (
+                                                        <option key={d.id} value={d.id}>{d.name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={handleManualAssign}
+                                                    disabled={assigning}
+                                                    className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50"
+                                                >
+                                                    {assigning ? 'Mentés...' : 'Hozzárendelés mentése'}
+                                                </button>
+                                                <button
+                                                    onClick={handleUnassign}
+                                                    disabled={assigning}
+                                                    className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 disabled:opacity-50"
+                                                >
+                                                    Leoldás
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">

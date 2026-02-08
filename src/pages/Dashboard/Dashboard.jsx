@@ -53,7 +53,7 @@ const Dashboard = () => {
                         <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">Üdvözöljük újra a FleetEgo rendszerben!</p>
                     </div>
                     <Link
-                        to="/app/shipments/new"
+                        to="/app/shipments/active?new=1"
                         className="w-full md:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
                     >
                         <span>+</span> Új Fuvar

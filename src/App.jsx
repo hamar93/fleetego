@@ -67,13 +67,13 @@ function App() {
 
             {/* Fuvarkezelés */}
             <Route path="shipments/active" element={<OrdersPage />} />
-            <Route path="shipments/new" element={<OrderDetails />} /> {/* Fix route for new order */}
+            <Route path="shipments/new" element={<Navigate to="/app/shipments/active?new=1" replace />} />
             <Route path="shipments/:id" element={<OrderDetails />} />
             <Route path="shipments/planning" element={<DispatchBoard />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
             {/* Backwards-compat routes */}
             <Route path="orders" element={<Navigate to="/app/shipments/active" replace />} />
-            <Route path="orders/new" element={<OrderDetails />} />
+            <Route path="orders/new" element={<Navigate to="/app/shipments/active?new=1" replace />} />
             <Route path="orders/:id" element={<OrderDetails />} />
 
             {/* Járműflotta */}

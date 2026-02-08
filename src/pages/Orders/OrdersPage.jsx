@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../api/api';
 import CreateOrderModal from './CreateOrderModal';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ const OrdersPage = () => {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filter, setFilter] = useState('all');
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const fetchOrders = async () => {
         setLoading(true);
@@ -27,6 +28,15 @@ const OrdersPage = () => {
     useEffect(() => {
         fetchOrders();
     }, []);
+
+    useEffect(() => {
+        if (searchParams.get('new') === '1' && !isModalOpen) {
+            setIsModalOpen(true);
+            const next = new URLSearchParams(searchParams);
+            next.delete('new');
+            setSearchParams(next, { replace: true });
+        }
+    }, [searchParams, setSearchParams, isModalOpen]);
 
     const getStatusBadge = (status) => {
         const styles = {
