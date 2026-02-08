@@ -13,7 +13,25 @@ export const interpretFreight = (description) => {
         priceHint: null,
         equipment: [],
         riskFactor: 'Low', // Mock risk score
+        partner: {
+            name: "LogiTrans GmbH",
+            rating: 4.8,
+            verified: true
+        },
+        times: {
+            loading: "08:00 - 16:00",
+            unloading: "Fix 08:00"
+        }
     };
+    
+    // ... regex logic ...
+
+    // Mock partner variation
+    if (description.includes("HU")) {
+        result.partner = { name: "Waberer's Network", rating: 4.5, verified: true };
+    } else if (description.includes("PL")) {
+        result.partner = { name: "PolTrans Sp. z o.o.", rating: 3.9, verified: false };
+    }
 
     // Simple regex based extraction (Mocking AI)
 

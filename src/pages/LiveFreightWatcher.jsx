@@ -1,12 +1,13 @@
-
 import React, { useState, useEffect } from 'react';
 import { timocomService } from '../services/timocom';
 import { interpretFreight } from '../utils/aiFreightInterpreter';
+import FreightDetailsModal from '../components/Timocom/FreightDetailsModal';
 
 const LiveFreightWatcher = () => {
     const [freights, setFreights] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
+    const [selectedFreight, setSelectedFreight] = useState(null);
 
     useEffect(() => {
         loadFreights();
@@ -32,9 +33,14 @@ const LiveFreightWatcher = () => {
         }
     };
 
-    const handleOffer = async (id, price) => {
-        alert(`Ajánlat elküldve: ${id} - ${price} EUR (Demo)`);
+    const handleOpenOffer = (freight) => {
+        setSelectedFreight(freight);
+    };
+
+    const handleSendOffer = async (id, price) => {
         // In real app: await timocomService.sendOffer(id, price);
+        alert(`Ajánlat SIKERESEN elküldve!\n\nID: ${id}\nÁr: ${price} EUR`);
+        setSelectedFreight(null);
     };
 
     const filteredFreights = freights.filter(f =>
@@ -44,7 +50,7 @@ const LiveFreightWatcher = () => {
     );
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 bg-gray-50 dark:bg-transparent min-h-screen">
             <div className="flex justify-between items-center mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Live Freight Watcher</h1>
@@ -113,20 +119,28 @@ const LiveFreightWatcher = () => {
                                         {freight.price} €
                                     </div>
                                     <button
-                                        onClick={() => handleOffer(freight.id, freight.price)}
-                                        className="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                                        onClick={() => handleOpenOffer(freight)}
+                                        className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                                     >
-                                        <i className="fas fa-paper-plane"></i>
-                                        Azonnali Ajánlat
+                                        <i className="fas fa-eye"></i>
+                                        Megtekintés
                                     </button>
                                     <div className="text-xs text-center text-gray-400 mt-1">
-                                        1 kattintás = Elküldve
+                                        Részletes infó & Ajánlat
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
+            )}
+
+            {selectedFreight && (
+                <FreightDetailsModal
+                    freight={selectedFreight}
+                    onClose={() => setSelectedFreight(null)}
+                    onSendOffer={handleSendOffer}
+                />
             )}
         </div>
     );
