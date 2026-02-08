@@ -122,7 +122,7 @@ const LiveFreightWatcher = () => {
 
                                 <div className="text-right min-w-[150px]">
                                     <div className="text-2xl font-bold text-gray-900 mb-1">
-                                        {freight.price} €
+                                        {freight.price?.amount || freight.price} {freight.price?.currency || '€'}
                                     </div>
                                     <button
                                         onClick={() => handleOpenOffer(freight)}
