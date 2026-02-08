@@ -12,6 +12,10 @@ const VehicleList = () => {
     const [assignModalData, setAssignModalData] = useState(null);
     const [docModalData, setDocModalData] = useState(null);
 
+    useEffect(() => {
+        loadVehicles();
+    }, []);
+
     const loadVehicles = async () => {
         try {
             const response = await api.get('/api/fleet/vehicles');

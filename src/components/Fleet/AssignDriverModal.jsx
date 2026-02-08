@@ -15,7 +15,9 @@ const AssignDriverModal = ({ vehicle, onClose, onSave }) => {
         try {
             // Get colleagues/users. Ideally filter by role='USER' or a specific 'DRIVER' role if we had it.
             // For now, listing all colleagues as potential drivers.
-            const response = await api.get('/api/auth/colleagues');
+            // Get colleagues/users. Ideally filter by role='USER' or a specific 'DRIVER' role if we had it.
+            // For now, listing all colleagues as potential drivers.
+            const response = await api.get('/api/fleet/drivers');
             setDrivers(response.data);
         } catch (error) {
             console.error("Failed to load drivers", error);

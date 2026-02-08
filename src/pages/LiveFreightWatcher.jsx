@@ -8,6 +8,7 @@ const LiveFreightWatcher = () => {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
     const [selectedFreight, setSelectedFreight] = useState(null);
+    const [sandboxMode, setSandboxMode] = useState(false);
 
     useEffect(() => {
         loadFreights();
@@ -19,7 +20,18 @@ const LiveFreightWatcher = () => {
     const loadFreights = async () => {
         setLoading(true);
         try {
-            const data = await timocomService.getFreights();
+            const responseData = await timocomService.getFreights();
+
+            let data = [];
+            if (Array.isArray(responseData)) {
+                data = responseData;
+            } else if (responseData && responseData.results) {
+                data = responseData.results;
+                if (responseData.source === 'TIMOCOM-MOCK') {
+                    setSandboxMode(true);
+                }
+            }
+
             // Enhance data with AI interpretation
             const enhancedData = (data || [])
                 .filter(item => item && (item.description || item.original_description))
@@ -59,7 +71,14 @@ const LiveFreightWatcher = () => {
         <div className="p-6 bg-gray-50 dark:bg-slate-900 min-h-screen text-gray-900 dark:text-white">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Live Freight Watcher</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+                        Live Freight Watcher
+                        {sandboxMode && (
+                            <span className="ml-3 bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded border border-purple-400">
+                                <i className="fas fa-robot mr-1"></i> AI Szimuláció
+                            </span>
+                        )}
+                    </h1>
                     <p className="text-sm text-gray-500">Valós idejű fuvarpiac (Timocom Stream)</p>
                 </div>
                 <div className="flex gap-2">

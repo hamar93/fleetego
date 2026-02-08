@@ -3,12 +3,12 @@ import api from '../api/api';
 export const timocomService = {
   getFreights: async (filter = {}) => {
     try {
-        const response = await api.get('/api/timocom/search', { params: filter });
-        // Backend returns { source: "...", results: [...] }
-        return response.data.results || [];
+      const response = await api.get('/api/timocom/search', { params: filter });
+      // Backend returns { source: "...", results: [...] }
+      return response.data;
     } catch (error) {
-        console.error("Timocom API Error:", error);
-        return [];
+      console.error("Timocom API Error:", error);
+      return [];
     }
   },
 
