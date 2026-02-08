@@ -50,7 +50,7 @@ const LiveFreightWatcher = () => {
     );
 
     return (
-        <div className="p-6 bg-gray-50 dark:bg-transparent min-h-screen">
+        <div className="p-6 bg-gray-50 dark:bg-slate-900 min-h-screen text-gray-900 dark:text-white">
             <div className="flex justify-between items-center mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Live Freight Watcher</h1>
