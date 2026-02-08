@@ -818,3 +818,38 @@ h6 {
     background: var(--secondary-color);
     color: white;
 }
+
+/* Form Inputs */
+.form-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 229, 192, 0.2);
+    background: rgba(20, 35, 60, 0.8);
+}
+
+/* Fix for Select Dropdowns in Dark Mode */
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8ecf4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+select.form-input option {
+    background-color: var(--darker-bg); /* Use darker bg for options */
+    color: var(--text-primary);
+    padding: 10px;
+}

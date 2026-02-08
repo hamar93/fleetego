@@ -78,7 +78,7 @@ Flotta alapadatok kezelése.
 
 - [x] Sofőr ↔ vontató hozzárendelés
 - [x] Pótkocsi állapot: üres/rakott
-- [ ] Hibabejelentés sofőr részről
+- [x] Hibabejelentés sofőr részről
 - [ ] Felrakás / lerakás státusz
 
 AGENT NOTE:
@@ -92,7 +92,7 @@ Ez a modul a Dispatch Copilot input adatforrása.
 FleetEgo = diszpécser második agya.
 
 ### 2.1 Exception Engine
-- [ ] “Fuvar veszélyben” riasztások
+- [/] “Fuvar veszélyben” riasztások <!-- Vezetési idő monitorozás alapjai kész (Compliance Engine) -->
 
 Trigger:
 - késés
@@ -105,7 +105,7 @@ DONE ha:
 ---
 
 ### 2.2 EU561 Legal Planner
-- [ ] AI tervezés pihenőidőkkel
+- [/] AI tervezés pihenőidőkkel <!-- Engine & API kész, vizualizáció folyamatban -->
 
 Output:
 - legális útvonal + dispatch terv

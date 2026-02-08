@@ -9,6 +9,7 @@ const DriverLogs = () => {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [logs, setLogs] = useState([]);
     const [summary, setSummary] = useState(null);
+    const [compliance, setCompliance] = useState(null);
     const [loading, setLoading] = useState(false);
 
     // Form State
@@ -26,6 +27,7 @@ const DriverLogs = () => {
         if (selectedDriver && selectedDate) {
             fetchLogs();
             fetchSummary();
+            fetchCompliance();
         }
     }, [selectedDriver, selectedDate]);
 
@@ -54,6 +56,16 @@ const DriverLogs = () => {
             setSummary(res.data);
         } catch (error) {
             setSummary(null);
+        }
+    };
+
+    const fetchCompliance = async () => {
+        try {
+            const res = await api.get(`/api/compliance/driver/${selectedDriver}/status`);
+            setCompliance(res.data);
+        } catch (error) {
+            console.error("Failed to fetch compliance", error);
+            setCompliance(null);
         }
     };
 
@@ -135,6 +147,49 @@ const DriverLogs = () => {
                         <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Hátralévő Idő (Napi 9h)</div>
                         <div className={`text-2xl font-bold ${summary.remaining_drive_daily < 60 ? 'text-red-600' : 'text-gray-900 dark:text-white'}`}>
                             {formatMinutes(summary.remaining_drive_daily)}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Compliance Alert Section */}
+            {compliance && (
+                <div className={`p-4 rounded-xl border ${compliance.status === 'VIOLATION' ? 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-900' :
+                        compliance.status === 'WARNING' ? 'bg-orange-50 border-orange-200 dark:bg-orange-900/20 dark:border-orange-900' :
+                            'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-900'
+                    }`}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className={`text-lg font-bold flex items-center gap-2 ${compliance.status === 'VIOLATION' ? 'text-red-800 dark:text-red-300' :
+                                    compliance.status === 'WARNING' ? 'text-orange-800 dark:text-orange-300' :
+                                        'text-green-800 dark:text-green-300'
+                                }`}>
+                                {compliance.status === 'VIOLATION' ? '🛑 Szabálysértés (EU561)' :
+                                    compliance.status === 'WARNING' ? '⚠️ Figyelmeztetés' :
+                                        '✅ Megfelelő (EU561 Compatibility)'}
+                            </h3>
+                            <div className="mt-2 space-y-1">
+                                {compliance.warnings.map((w, idx) => (
+                                    <div key={idx} className="text-sm font-medium flex items-center gap-2">
+                                        <span>⚠️</span> {w}
+                                    </div>
+                                ))}
+                                {compliance.status === 'OK' && (
+                                    <div className="text-sm opacity-80">Minden vezetési és pihenőidő szabály betartva.</div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-sm text-gray-500">Heti Vezetés (Max 56h)</div>
+                            <div className="font-bold text-xl text-gray-900 dark:text-white">
+                                {Math.floor(compliance.metrics.weekly_drive_minutes / 60)}h {compliance.metrics.weekly_drive_minutes % 60}m / 56h
+                            </div>
+                            <div className="w-32 h-2 bg-gray-200 rounded-full mt-1 ml-auto overflow-hidden">
+                                <div
+                                    className={`h-full ${compliance.metrics.weekly_drive_minutes > 3360 ? 'bg-red-500' : 'bg-blue-500'}`}
+                                    style={{ width: `${Math.min(100, (compliance.metrics.weekly_drive_minutes / 3360) * 100)}%` }}
+                                ></div>
+                            </div>
                         </div>
                     </div>
                 </div>

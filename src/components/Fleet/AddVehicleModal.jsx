@@ -26,7 +26,11 @@ const AddVehicleModal = ({ onClose, onSave }) => {
         setLoading(true);
         setError(null);
         try {
-            await api.post('/api/fleet/vehicles', formData);
+            const vehicleData = {
+                ...formData,
+                body_type: formData.body_type === '' ? null : formData.body_type
+            };
+            await api.post('/api/fleet/vehicles', vehicleData);
             onSave();
             onClose();
         } catch (err) {

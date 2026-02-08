@@ -129,6 +129,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
                                     <NavLink to="/app/shipments/active" className="submenu-item">{t('sidebar.active_shipments')}</NavLink>
                                     <NavLink to="/app/shipments/planning" className="submenu-item">{t('sidebar.route_planning')}</NavLink>
+                                    <NavLink to="/app/shipments/calendar" className="submenu-item">Dispatch Calendar</NavLink>
                                     <NavLink to="/app/shipments/tracking" className="submenu-item">{t('sidebar.tracking')}</NavLink>
                                 </div>
                             </div>

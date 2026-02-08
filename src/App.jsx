@@ -8,6 +8,7 @@ import './index.css';
 // Pages
 import Dashboard from './pages/Dashboard/Dashboard';
 import DispatchBoard from './pages/Dispatch/DispatchBoard';
+import DispatchCalendar from './pages/Dispatch/DispatchCalendar';
 import LiveFreightWatcher from './pages/LiveFreightWatcher';
 import OrdersPage from './pages/Orders/OrdersPage';
 import OrderDetails from './pages/Orders/OrderDetails';
@@ -74,6 +75,7 @@ function App() {
             <Route path="shipments/new" element={<Navigate to="/app/shipments/active?new=1" replace />} />
             <Route path="shipments/:id" element={<OrderDetails />} />
             <Route path="shipments/planning" element={<DispatchBoard />} />
+            <Route path="shipments/calendar" element={<DispatchCalendar />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
             {/* Backwards-compat routes */}
             <Route path="orders" element={<Navigate to="/app/shipments/active" replace />} />

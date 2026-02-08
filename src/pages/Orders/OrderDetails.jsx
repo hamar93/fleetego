@@ -601,7 +601,9 @@ const OrderDetails = () => {
                                         <p className="text-xs text-gray-500 mb-1">Jármű</p>
                                         <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
                                             <span className="font-medium text-[var(--text-primary)]">
-                                                {order.assigned_vehicle_id ? (order.assigned_vehicle_id) : "Nincs hozzárendelve"}
+                                                {order.assigned_vehicle_plate ||
+                                                    vehicles.find(v => v.id === order.assigned_vehicle_id)?.plate_number ||
+                                                    (order.assigned_vehicle_id ? order.assigned_vehicle_id : "Nincs hozzárendelve")}
                                             </span>
                                         </div>
                                     </div>
@@ -609,7 +611,9 @@ const OrderDetails = () => {
                                         <p className="text-xs text-gray-500 mb-1">Sofőr</p>
                                         <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-between">
                                             <span className="font-medium text-[var(--text-primary)]">
-                                                {order.assigned_driver_id ? (order.assigned_driver_id) : "Nincs hozzárendelve"}
+                                                {order.assigned_driver_name ||
+                                                    drivers.find(d => d.id === order.assigned_driver_id)?.name ||
+                                                    (order.assigned_driver_id ? order.assigned_driver_id : "Nincs hozzárendelve")}
                                             </span>
                                         </div>
                                     </div>
@@ -877,7 +881,7 @@ const OrderDetails = () => {
                     </div>
                 )
             }
-        </div>
+        </div >
     );
 };
 
