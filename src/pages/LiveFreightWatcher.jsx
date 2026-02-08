@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { timocomService } from '../../services/timocom';
-import { interpretFreight } from '../../utils/aiFreightInterpreter';
+import { timocomService } from '../services/timocom';
+import { interpretFreight } from '../utils/aiFreightInterpreter';
 
 const LiveFreightWatcher = () => {
     const [freights, setFreights] = useState([]);
