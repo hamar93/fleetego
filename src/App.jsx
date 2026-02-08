@@ -2,15 +2,18 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import { ThemeProvider } from './context/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import './index.css';
+
+// Pages
 import Dashboard from './pages/Dashboard/Dashboard';
 import DispatchBoard from './pages/Dispatch/DispatchBoard';
-import SearchPanel from './components/Timocom/SearchPanel';
 import LiveFreightWatcher from './pages/LiveFreightWatcher';
-import Integrations from './components/Settings/Integrations';
-import VehicleList from './components/Fleet/VehicleList';
 import OrdersPage from './pages/Orders/OrdersPage';
 import OrderDetails from './pages/Orders/OrderDetails';
 import DriverLogs from './pages/Fleet/DriverLogs';
+import VehicleList from './components/Fleet/VehicleList';
+import Maintenance from './pages/Fleet/Maintenance'; // New Maintenance Page
 import UserManagement from './pages/Admin/UserManagement';
 import CompanyManagement from './pages/Admin/CompanyManagement';
 import LandingPage from './pages/Landing/LandingPage';
@@ -18,19 +21,19 @@ import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import PendingApproval from './pages/Auth/PendingApproval';
 import ChatPage from './pages/Chat/ChatPage';
-import Placeholder from './components/Placeholder';
 import GlobalDocuments from './pages/Documents/GlobalDocuments';
 import PartnerList from './pages/Partners/PartnerList';
 import UserList from './pages/Company/UserList';
+
+// Components
+import SearchPanel from './components/Timocom/SearchPanel';
+import Integrations from './components/Settings/Integrations';
+import Placeholder from './components/Placeholder';
 
 // Admin Pages
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminLayout from './layouts/AdminLayout';
-
-import './index.css';
-
-import { useTranslation } from 'react-i18next';
 
 function App() {
   const { t } = useTranslation();
@@ -80,7 +83,7 @@ function App() {
             <Route path="fleet/vehicles" element={<VehicleList />} />
             <Route path="fleet/drivers" element={<Placeholder title={t('sidebar.drivers')} />} />
             <Route path="fleet/logs" element={<DriverLogs />} />
-            <Route path="fleet/maintenance" element={<Placeholder title={t('sidebar.maintenance')} />} />
+            <Route path="fleet/maintenance" element={<Maintenance />} />
 
             {/* Dokumentumok */}
             <Route path="docs" element={<Navigate to="contracts" replace />} />

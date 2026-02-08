@@ -26,21 +26,48 @@
         "companies": "Společnosti"
     },
     "dashboard": {
-        "welcome": "Vítejte ve FleetEgo Agent Office",
-        "subtitle": "Systém pro plánování nákladní dopravy a TMS s umělou inteligencí",
-        "ai_active": "AI Asistent aktivní",
-        "active_shipments": "Aktivní zásilky",
-        "monthly_revenue": "Měsíční tržby",
-        "performance": "Výkonnost",
+        "title": "Nástěnka",
+        "welcome": "Vítejte zpět ve FleetEgo!",
+        "subtitle": "Sluľba plánování přepravy a TMS systém s umělou inteligencí pro efektivní řízení logistiky",
+        "new_shipment_btn": "+ Nová zásilka",
+        "active_orders": {
+            "tag": "Aktuální",
+            "label": "Aktivní objednávky"
+        },
+        "revenue": {
+            "tag": "Měsíční",
+            "label": "Odhad. měsíční příjem"
+        },
+        "fleet_active": {
+            "label": "Vozidla na trase"
+        },
+        "fleet_available": {
+            "tag": "Dostupné",
+            "label": "Dostupná vozidla"
+        },
+        "recent_activity": "Nedávné aktivity",
+        "no_activity": "Žádná zaznamenaná aktivita.",
+        "revenue_trend": "Vývoj příjmů",
+        "last_6_months": "Trend za posledních 6 měsíců",
+        "months": {
+            "aug": "Srp",
+            "sep": "Zář",
+            "oct": "Říj",
+            "nov": "Lis",
+            "dec": "Pro",
+            "jan": "Led"
+        },
+        "ai_active": "AI Asistent Aktivní",
+        "monthly_revenue": "Měsíční přehled",
+        "performance": "Míra výkonu",
         "avg_consumption": "Prům. spotřeba",
         "last_week": "Minulý týden",
         "last_month": "Minulý měsíc",
         "goal": "Cíl",
         "quick_actions": "Rychlé akce",
-        "new_shipment": "Nová zásilka",
         "create_shipment": "Vytvořit zásilku",
-        "create_report": "Generovat výkaz",
-        "search_freight": "Hledat náklady",
+        "create_report": "Generovat report",
+        "search_freight": "Hledat přepravy",
         "start_assistant": "Spustit asistenta"
     },
     "header": {
@@ -48,5 +75,62 @@
         "dark_mode": "Tmavý režim",
         "admin_user": "Admin uživatel",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Vytvořeno",
+        "assigned": "Přiřazeno",
+        "pickup": "Na nakládce",
+        "loading_started": "Nakládání...",
+        "loading_completed": "Naloženo",
+        "transit": "Na cestě",
+        "unloading_started": "Vykládání...",
+        "unloading_completed": "Vyloženo",
+        "delivered": "Doručeno",
+        "cancelled": "Zrušeno"
+    },
+    "order_details": {
+        "back_to_list": "Zpět na seznam",
+        "tabs": {
+            "details": "Detaily",
+            "matching": "Chytré párování",
+            "documents": "Dokumenty"
+        },
+        "buttons": {
+            "waiting_vehicle": "Čekání na vozidlo",
+            "vehicle_started": "Vozidlo vyrazilo (→ Nakládka)",
+            "start_loading": "Začít nakládku",
+            "finish_loading": "Dokončit nakládku",
+            "start_transit": "Zahájit přepravu (→ Na cestě)",
+            "start_unloading": "Začít vykládku",
+            "finish_unloading": "Dokončit vykládku",
+            "finish_order": "Uzavřít objednávku (Doručeno)",
+            "pdf": "PDF",
+            "edit": "Upravit"
+        },
+        "sections": {
+            "route": "Trasa",
+            "pickup": "Nakládka (Plán)",
+            "delivery": "Vykládka (Plán)",
+            "cargo": "Náklad"
+        },
+        "labels": {
+            "actual": "Skutečné",
+            "time_window": "Časové okno",
+            "ref": "Ref",
+            "description": "Popis",
+            "weight": "Váha",
+            "volume": "Objem",
+            "loading_meters": "LDM",
+            "not_provided": "Neuvedeno"
+        },
+        "alerts": {
+            "confirm_status_change": "Opravdu chcete změnit stav?",
+            "doc_uploaded_delivered": "Dokument úspěšně nahrán! Chcete nastavit stav na DORUČENO?",
+            "upload_error": "Chyba nahrávání!",
+            "download_error": "Chyba stahování!",
+            "status_update_error": "Chyba při aktualizaci stavu: ",
+            "loading": "Načítání...",
+            "not_found": "Objednávka nenalezena."
+        }
     }
 }

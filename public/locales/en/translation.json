@@ -7,29 +7,44 @@
         "timocom": "Timocom",
         "freight_search": "Freight Search",
         "my_offers": "My Offers",
-        "ai_chat": "AI Chat",
-        "shipments": "Shipments",
-        "active_shipments": "Active Shipments",
-        "route_planning": "Route Planning",
-        "tracking": "Tracking",
-        "fleet": "Fleet",
-        "vehicles": "Vehicles",
-        "drivers": "Drivers",
-        "maintenance": "Maintenance",
-        "management": "Management",
-        "documents": "Documents",
-        "finance": "Finance",
-        "subcontractors": "Subcontractors",
-        "reports": "Reports",
-        "administration": "Administration",
-        "users": "Users",
-        "companies": "Companies"
+        "chat": "Chat",
+        "settings": "Settings",
+        "profile": "Profile",
+        "integrations": "Integrations"
     },
     "dashboard": {
-        "welcome": "Welcome to FleetEgo Agent Office",
+        "title": "Dashboard",
+        "welcome": "Welcome back to FleetEgo!",
         "subtitle": "AI-powered freight planning and TMS system for efficient logistics management",
+        "new_shipment_btn": "+ New Shipment",
+        "active_orders": {
+            "tag": "Current",
+            "label": "Active Orders"
+        },
+        "revenue": {
+            "tag": "Monthly",
+            "label": "Est. Monthly Revenue"
+        },
+        "fleet_active": {
+            "label": "Vehicles on Route"
+        },
+        "fleet_available": {
+            "tag": "Available",
+            "label": "Available Vehicles"
+        },
+        "recent_activity": "Recent Activities",
+        "no_activity": "No recorded activity.",
+        "revenue_trend": "Revenue Trend",
+        "last_6_months": "Last 6 months trend",
+        "months": {
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dec",
+            "jan": "Jan"
+        },
         "ai_active": "AI Assistant Active",
-        "active_shipments": "Active Shipments",
         "monthly_revenue": "Monthly Revenue",
         "performance": "Performance Rate",
         "avg_consumption": "Avg. Consumption",
@@ -37,7 +52,7 @@
         "last_month": "Last month",
         "goal": "Goal",
         "quick_actions": "Quick Actions",
-        "new_shipment": "New Shipment",
+        "action_required": "Action Required",
         "create_shipment": "Create shipment",
         "create_report": "Generate report",
         "search_freight": "Search freights",
@@ -48,5 +63,62 @@
         "dark_mode": "Dark Mode",
         "admin_user": "Admin User",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Created",
+        "assigned": "Assigned",
+        "pickup": "At Pickup",
+        "loading_started": "Loading...",
+        "loading_completed": "Loaded",
+        "transit": "In Transit",
+        "unloading_started": "Unloading...",
+        "unloading_completed": "Unloaded",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+    },
+    "order_details": {
+        "back_to_list": "Back to list",
+        "tabs": {
+            "details": "Details",
+            "matching": "Smart Matching",
+            "documents": "Documents"
+        },
+        "buttons": {
+            "waiting_vehicle": "Waiting for vehicle",
+            "vehicle_started": "Vehicle started (→ Pickup)",
+            "start_loading": "Start Loading",
+            "finish_loading": "Finish Loading",
+            "start_transit": "Start Transit (→ En route)",
+            "start_unloading": "Start Unloading",
+            "finish_unloading": "Finish Unloading",
+            "finish_order": "Close Order (Delivered)",
+            "pdf": "PDF",
+            "edit": "Edit"
+        },
+        "sections": {
+            "route": "Route",
+            "pickup": "Pickup (Planned)",
+            "delivery": "Delivery (Planned)",
+            "cargo": "Cargo"
+        },
+        "labels": {
+            "actual": "Actual",
+            "time_window": "Time Window",
+            "ref": "Ref",
+            "description": "Description",
+            "weight": "Weight",
+            "volume": "Volume",
+            "loading_meters": "LDM",
+            "not_provided": "Not provided"
+        },
+        "alerts": {
+            "confirm_status_change": "Are you sure you want to change the status?",
+            "doc_uploaded_delivered": "Document uploaded successfully! Do you want to set the status to DELIVERED?",
+            "upload_error": "Upload error!",
+            "download_error": "Download error!",
+            "status_update_error": "Error updating status: ",
+            "loading": "Loading...",
+            "not_found": "Order not found."
+        }
     }
 }

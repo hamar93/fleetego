@@ -30,10 +30,38 @@
         "chat": "Chat"
     },
     "dashboard": {
-        "welcome": "Üdvözöljük a FleetEgo Agent Office-ban",
+        "title": "Vezérlőpult",
+        "welcome": "Üdvözöljük újra a FleetEgo rendszerben!",
         "subtitle": "AI-alapú fuvarszervező és TMS rendszer a hatékony logisztikai menedzsmentért",
+        "new_shipment_btn": "+ Új Fuvar",
+        "active_orders": {
+            "tag": "Aktuális",
+            "label": "Aktív megbízás"
+        },
+        "revenue": {
+            "tag": "Havi",
+            "label": "Havi becsült bevétel"
+        },
+        "fleet_active": {
+            "label": "Úton lévő járművek"
+        },
+        "fleet_available": {
+            "tag": "Szabad",
+            "label": "Elérhető járművek"
+        },
+        "recent_activity": "Legutóbbi Tevékenységek",
+        "no_activity": "Nincs rögzített tevékenység.",
+        "revenue_trend": "Bevétel Trend",
+        "last_6_months": "Elmúlt 6 hónap alakulása",
+        "months": {
+            "aug": "Aug",
+            "sep": "Szep",
+            "oct": "Okt",
+            "nov": "Nov",
+            "dec": "Dec",
+            "jan": "Jan"
+        },
         "ai_active": "AI Asszisztens aktív",
-        "active_shipments": "Aktív Fuvarok",
         "monthly_revenue": "Havi Bevétel",
         "performance": "Teljesítési Arány",
         "avg_consumption": "Átlag Fogyasztás",
@@ -41,7 +69,7 @@
         "last_month": "Előző hónap",
         "goal": "Cél",
         "quick_actions": "Gyors Műveletek",
-        "new_shipment": "Új Fuvar",
+        "action_required": "Teendők (Action Required)",
         "create_shipment": "Fuvar létrehozása",
         "create_report": "Riport generálás",
         "search_freight": "Fuvarok keresése",
@@ -52,5 +80,62 @@
         "dark_mode": "Sötét Mód",
         "admin_user": "Admin Felhasználó",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Létrehozva",
+        "assigned": "Kiosztva",
+        "pickup": "Felvételen",
+        "loading_started": "Felrakás...",
+        "loading_completed": "Felrakva",
+        "transit": "Úton",
+        "unloading_started": "Lerakás...",
+        "unloading_completed": "Lerakva",
+        "delivered": "Kész",
+        "cancelled": "Törölve"
+    },
+    "order_details": {
+        "back_to_list": "Vissza a listához",
+        "tabs": {
+            "details": "Részletek",
+            "matching": "Intelligens Ajánló",
+            "documents": "Dokumentumok"
+        },
+        "buttons": {
+            "waiting_vehicle": "Várakozás járműre",
+            "vehicle_started": "Jármű elindult (→ Felvétel)",
+            "start_loading": "Felrakás kezdése",
+            "finish_loading": "Felrakás kész",
+            "start_transit": "Indulás (→ Úton)",
+            "start_unloading": "Lerakás kezdése",
+            "finish_unloading": "Lerakás kész",
+            "finish_order": "Fuvar lezárása (Kész)",
+            "pdf": "PDF",
+            "edit": "Szerkesztés"
+        },
+        "sections": {
+            "route": "Útvonal",
+            "pickup": "Felrakó (Tervezett)",
+            "delivery": "Lerakó (Tervezett)",
+            "cargo": "Rakomány"
+        },
+        "labels": {
+            "actual": "Tényleges",
+            "time_window": "Időkapu",
+            "ref": "Ref",
+            "description": "Megnevezés",
+            "weight": "Súly",
+            "volume": "Térfogat",
+            "loading_meters": "LDM",
+            "not_provided": "Nincs megadva"
+        },
+        "alerts": {
+            "confirm_status_change": "Biztosan módosítod a fuvar státuszát?",
+            "doc_uploaded_delivered": "Dokumentum sikeresen feltöltve! Szeretné a fuvar státuszát LERAKVA (Delivered) állapotba állítani?",
+            "upload_error": "Feltöltési hiba!",
+            "download_error": "Letöltési hiba!",
+            "status_update_error": "Hiba a státusz módosításakor: ",
+            "loading": "Betöltés...",
+            "not_found": "Fuvar nem található."
+        }
     }
 }

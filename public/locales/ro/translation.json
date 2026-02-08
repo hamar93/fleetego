@@ -26,27 +26,111 @@
         "companies": "Companii"
     },
     "dashboard": {
-        "welcome": "Bun venit la FleetEgo Agent Office",
-        "subtitle": "Sistem TMS și de planificare a transportului de marfă bazat pe AI",
-        "ai_active": "Asistent AI activ",
-        "active_shipments": "Expedieri active",
-        "monthly_revenue": "Venit lunar",
-        "performance": "Rata de performanță",
-        "avg_consumption": "Consum mediu",
+        "title": "Panou de Bord",
+        "welcome": "Bine ați revenit la FleetEgo!",
+        "subtitle": "Sistem TMS și planificare transport bazat pe AI pentru un management logistic eficient",
+        "new_shipment_btn": "+ Comandă nouă",
+        "active_orders": {
+            "tag": "Curent",
+            "label": "Comenzi active"
+        },
+        "revenue": {
+            "tag": "Lunar",
+            "label": "Venit lunar estimat"
+        },
+        "fleet_active": {
+            "label": "Vehicule în tranzit"
+        },
+        "fleet_available": {
+            "tag": "Disponibil",
+            "label": "Vehicule disponibile"
+        },
+        "recent_activity": "Activități recente",
+        "no_activity": "Nicio activitate înregistrată.",
+        "revenue_trend": "Tendința veniturilor",
+        "last_6_months": "Trend ultimele 6 luni",
+        "months": {
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dec",
+            "jan": "Ian"
+        },
+        "ai_active": "Asistent AI Activ",
+        "monthly_revenue": "Venit Lunar",
+        "performance": "Rata de Performanță",
+        "avg_consumption": "Consum Mediu",
         "last_week": "Săptămâna trecută",
         "last_month": "Luna trecută",
-        "goal": "Obiectiv",
-        "quick_actions": "Acțiuni rapide",
-        "new_shipment": "Expediere nouă",
-        "create_shipment": "Creează expediere",
+        "goal": "Țintă",
+        "quick_actions": "Acțiuni Rapide",
+        "create_shipment": "Creează transport",
         "create_report": "Generează raport",
         "search_freight": "Caută mărfuri",
         "start_assistant": "Pornește asistentul"
     },
     "header": {
-        "light_mode": "Mod luminos",
-        "dark_mode": "Mod întunecat",
+        "light_mode": "Mod Luminos",
+        "dark_mode": "Mod Întunecat",
         "admin_user": "Utilizator Admin",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Creat",
+        "assigned": "Alocat",
+        "pickup": "La încărcare",
+        "loading_started": "Încărcare...",
+        "loading_completed": "Încărcat",
+        "transit": "În tranzit",
+        "unloading_started": "Descărcare...",
+        "unloading_completed": "Descărcat",
+        "delivered": "Livrat",
+        "cancelled": "Anulat"
+    },
+    "order_details": {
+        "back_to_list": "Înapoi la listă",
+        "tabs": {
+            "details": "Detalii",
+            "matching": "Potrivire Inteligentă",
+            "documents": "Documente"
+        },
+        "buttons": {
+            "waiting_vehicle": "În așteptarea vehiculului",
+            "vehicle_started": "Vehicul pornit (→ Încărcare)",
+            "start_loading": "Start încărcare",
+            "finish_loading": "Finalizare încărcare",
+            "start_transit": "Start tranzit (→ Pe drum)",
+            "start_unloading": "Start descărcare",
+            "finish_unloading": "Finalizare descărcare",
+            "finish_order": "Închide comanda (Livrat)",
+            "pdf": "PDF",
+            "edit": "Editează"
+        },
+        "sections": {
+            "route": "Rută",
+            "pickup": "Încărcare (Planificat)",
+            "delivery": "Livrare (Planificat)",
+            "cargo": "Marfă"
+        },
+        "labels": {
+            "actual": "Real",
+            "time_window": "Fereastră de timp",
+            "ref": "Ref",
+            "description": "Descriere",
+            "weight": "Greutate",
+            "volume": "Volum",
+            "loading_meters": "LDM",
+            "not_provided": "Nespecificat"
+        },
+        "alerts": {
+            "confirm_status_change": "Sigur doriți să schimbați statusul?",
+            "doc_uploaded_delivered": "Document încărcat cu succes! Setați statusul la LIVRAT?",
+            "upload_error": "Eroare la încărcare!",
+            "download_error": "Eroare la descărcare!",
+            "status_update_error": "Eroare la actualizarea statusului: ",
+            "loading": "Se încarcă...",
+            "not_found": "Comanda nu a fost găsită."
+        }
     }
 }

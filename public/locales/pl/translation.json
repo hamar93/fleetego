@@ -26,18 +26,45 @@
         "companies": "Firmy"
     },
     "dashboard": {
-        "welcome": "Witamy w FleetEgo Agent Office",
-        "subtitle": "System TMS i planowania transportu oparty na AI",
-        "ai_active": "Asystent AI aktywny",
-        "active_shipments": "Aktywne przesyłki",
+        "title": "Pulpit",
+        "welcome": "Witamy ponownie we FleetEgo!",
+        "subtitle": "System planowania transportu i TMS oparty na AI dla efektywnego zarządzania logistyką",
+        "new_shipment_btn": "+ Nowa Przesyłka",
+        "active_orders": {
+            "tag": "Bieżące",
+            "label": "Aktywne zlecenia"
+        },
+        "revenue": {
+            "tag": "Miesięczne",
+            "label": "Szac. przychód miesięczny"
+        },
+        "fleet_active": {
+            "label": "Pojazdy w trasie"
+        },
+        "fleet_available": {
+            "tag": "Dostępne",
+            "label": "Dostępne pojazdy"
+        },
+        "recent_activity": "Ostatnia aktywność",
+        "no_activity": "Brak zarejestrowanej aktywności.",
+        "revenue_trend": "Trend przychodów",
+        "last_6_months": "Trend z ostatnich 6 miesięcy",
+        "months": {
+            "aug": "Sie",
+            "sep": "Wrz",
+            "oct": "Paź",
+            "nov": "Lis",
+            "dec": "Gru",
+            "jan": "Sty"
+        },
+        "ai_active": "Asystent AI Aktywny",
         "monthly_revenue": "Miesięczny przychód",
         "performance": "Wskaźnik wydajności",
-        "avg_consumption": "Śr. zużycie",
-        "last_week": "Zeszły tydzień",
-        "last_month": "Zeszły miesiąc",
+        "avg_consumption": "Śr. Zużycie",
+        "last_week": "Ostatni tydzień",
+        "last_month": "Ostatni miesiąc",
         "goal": "Cel",
         "quick_actions": "Szybkie akcje",
-        "new_shipment": "Nowa przesyłka",
         "create_shipment": "Utwórz przesyłkę",
         "create_report": "Generuj raport",
         "search_freight": "Szukaj ładunków",
@@ -48,5 +75,62 @@
         "dark_mode": "Tryb ciemny",
         "admin_user": "Administrator",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Utworzono",
+        "assigned": "Przypisano",
+        "pickup": "Na załadunku",
+        "loading_started": "Ładowanie...",
+        "loading_completed": "Załadowano",
+        "transit": "W trasie",
+        "unloading_started": "Rozładowywanie...",
+        "unloading_completed": "Rozładowano",
+        "delivered": "Dostarczono",
+        "cancelled": "Anulowano"
+    },
+    "order_details": {
+        "back_to_list": "Powrót do listy",
+        "tabs": {
+            "details": "Szczegóły",
+            "matching": "Inteligentne Dopasowanie",
+            "documents": "Dokumenty"
+        },
+        "buttons": {
+            "waiting_vehicle": "Oczekiwanie na pojazd",
+            "vehicle_started": "Pojazd ruszył (→ Załadunek)",
+            "start_loading": "Rozpocznij załadunek",
+            "finish_loading": "Zakończ załadunek",
+            "start_transit": "Rozpocznij transport (→ W drodze)",
+            "start_unloading": "Rozpocznij rozładunek",
+            "finish_unloading": "Zakończ rozładunek",
+            "finish_order": "Zamknij zlecenie (Dostarczono)",
+            "pdf": "PDF",
+            "edit": "Edytuj"
+        },
+        "sections": {
+            "route": "Trasa",
+            "pickup": "Załadunek (Plan)",
+            "delivery": "Rozładunek (Plan)",
+            "cargo": "Ładunek"
+        },
+        "labels": {
+            "actual": "Rzeczywisty",
+            "time_window": "Okna czasowe",
+            "ref": "Ref",
+            "description": "Opis",
+            "weight": "Waga",
+            "volume": "Objętość",
+            "loading_meters": "LDM",
+            "not_provided": "Nie podano"
+        },
+        "alerts": {
+            "confirm_status_change": "Czy na pewno chcesz zmienić status?",
+            "doc_uploaded_delivered": "Dokument przesłany pomyślnie! Czy ustawić status na DOSTARCZONO?",
+            "upload_error": "Błąd przesyłania!",
+            "download_error": "Błąd pobierania!",
+            "status_update_error": "Błąd aktualizacji statusu: ",
+            "loading": "Ładowanie...",
+            "not_found": "Nie znaleziono zlecenia."
+        }
     }
 }

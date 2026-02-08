@@ -26,10 +26,38 @@
         "companies": "Компании"
     },
     "dashboard": {
-        "welcome": "Добро пожаловать в FleetEgo Agent Office",
-        "subtitle": "Система планирования грузоперевозок и TMS на базе искусственного интеллекта",
-        "ai_active": "AI Ассистент активен",
-        "active_shipments": "Активные перевозки",
+        "title": "Панель управления",
+        "welcome": "С возвращением в FleetEgo!",
+        "subtitle": "Система планирования грузоперевозок и TMS на базе ИИ для эффективного управления логистикой",
+        "new_shipment_btn": "+ Новый груз",
+        "active_orders": {
+            "tag": "Текущие",
+            "label": "Активные заказы"
+        },
+        "revenue": {
+            "tag": "Ежемесячно",
+            "label": "Ожид. ежемесячный доход"
+        },
+        "fleet_active": {
+            "label": "Транспорт в пути"
+        },
+        "fleet_available": {
+            "tag": "Доступно",
+            "label": "Доступный транспорт"
+        },
+        "recent_activity": "Последние активности",
+        "no_activity": "Нет зарегистрированной активности.",
+        "revenue_trend": "Динамика доходов",
+        "last_6_months": "Тренд за последние 6 месяцев",
+        "months": {
+            "aug": "Авг",
+            "sep": "Сен",
+            "oct": "Окт",
+            "nov": "Ноя",
+            "dec": "Дек",
+            "jan": "Янв"
+        },
+        "ai_active": "ИИ Ассистент Активен",
         "monthly_revenue": "Ежемесячный доход",
         "performance": "Эффективность",
         "avg_consumption": "Ср. расход",
@@ -37,10 +65,9 @@
         "last_month": "Прошлый месяц",
         "goal": "Цель",
         "quick_actions": "Быстрые действия",
-        "new_shipment": "Новая перевозка",
-        "create_shipment": "Создать перевозку",
+        "create_shipment": "Создать груз",
         "create_report": "Создать отчет",
-        "search_freight": "Найти грузы",
+        "search_freight": "Поиск грузов",
         "start_assistant": "Запустить ассистента"
     },
     "header": {
@@ -48,5 +75,62 @@
         "dark_mode": "Темный режим",
         "admin_user": "Администратор",
         "super_admin": "Супер Админ"
+    },
+    "status": {
+        "created": "Создано",
+        "assigned": "Назначено",
+        "pickup": "На погрузке",
+        "loading_started": "Погрузка...",
+        "loading_completed": "Загружено",
+        "transit": "В пути",
+        "unloading_started": "Разгрузка...",
+        "unloading_completed": "Разгружено",
+        "delivered": "Доставлено",
+        "cancelled": "Отменено"
+    },
+    "order_details": {
+        "back_to_list": "Назад к списку",
+        "tabs": {
+            "details": "Детали",
+            "matching": "Умный подбор",
+            "documents": "Документы"
+        },
+        "buttons": {
+            "waiting_vehicle": "Ожидание транспорта",
+            "vehicle_started": "Выехал (→ Погрузка)",
+            "start_loading": "Начать погрузку",
+            "finish_loading": "Закончить погрузку",
+            "start_transit": "Начать перевозку (→ В пути)",
+            "start_unloading": "Начать разгрузку",
+            "finish_unloading": "Закончить разгрузку",
+            "finish_order": "Закрыть заказ (Доставлено)",
+            "pdf": "PDF",
+            "edit": "Редактировать"
+        },
+        "sections": {
+            "route": "Маршрут",
+            "pickup": "Погрузка (План)",
+            "delivery": "Разгрузка (План)",
+            "cargo": "Груз"
+        },
+        "labels": {
+            "actual": "Факт",
+            "time_window": "Временное окно",
+            "ref": "Ref",
+            "description": "Описание",
+            "weight": "Вес",
+            "volume": "Объем",
+            "loading_meters": "LDM",
+            "not_provided": "Не указано"
+        },
+        "alerts": {
+            "confirm_status_change": "Вы уверены, что хотите изменить статус?",
+            "doc_uploaded_delivered": "Документ загружен! Установить статус ДОСТАВЛЕНО?",
+            "upload_error": "Ошибка загрузки!",
+            "download_error": "Ошибка скачивания!",
+            "status_update_error": "Ошибка обновления статуса: ",
+            "loading": "Загрузка...",
+            "not_found": "Заказ не найден."
+        }
     }
 }

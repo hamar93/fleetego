@@ -30,10 +30,38 @@
         "chat": "Chat"
     },
     "dashboard": {
-        "welcome": "Willkommen im FleetEgo Agent Office",
+        "title": "Instrumententafel",
+        "welcome": "Willkommen zurück bei FleetEgo!",
         "subtitle": "KI-gestützte Frachtplanung und TMS-System für effizientes Logistikmanagement",
+        "new_shipment_btn": "+ Neue Sendung",
+        "active_orders": {
+            "tag": "Aktuell",
+            "label": "Aktive Aufträge"
+        },
+        "revenue": {
+            "tag": "Monatlich",
+            "label": "Geschätzter Monatsumsatz"
+        },
+        "fleet_active": {
+            "label": "Fahrzeuge unterwegs"
+        },
+        "fleet_available": {
+            "tag": "Verfügbar",
+            "label": "Verfügbare Fahrzeuge"
+        },
+        "recent_activity": "Letzte Aktivitäten",
+        "no_activity": "Keine Aktivitäten aufgezeichnet.",
+        "revenue_trend": "Umsatzentwicklung",
+        "last_6_months": "Trend der letzten 6 Monate",
+        "months": {
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Okt",
+            "nov": "Nov",
+            "dec": "Dez",
+            "jan": "Jan"
+        },
         "ai_active": "KI Assistent Aktiv",
-        "active_shipments": "Aktive Sendungen",
         "monthly_revenue": "Monatlicher Umsatz",
         "performance": "Leistungsrate",
         "avg_consumption": "Durchschn. Verbrauch",
@@ -41,7 +69,6 @@
         "last_month": "Letzten Monat",
         "goal": "Ziel",
         "quick_actions": "Schnellaktionen",
-        "new_shipment": "Neue Sendung",
         "create_shipment": "Sendung erstellen",
         "create_report": "Bericht erstellen",
         "search_freight": "Fracht suchen",
@@ -52,5 +79,62 @@
         "dark_mode": "Dunkler Modus",
         "admin_user": "Admin Benutzer",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Erstellt",
+        "assigned": "Zugewiesen",
+        "pickup": "Bei Abholung",
+        "loading_started": "Laden...",
+        "loading_completed": "Geladen",
+        "transit": "Unterwegs",
+        "unloading_started": "Entladen...",
+        "unloading_completed": "Entladen",
+        "delivered": "Zugestellt",
+        "cancelled": "Storniert"
+    },
+    "order_details": {
+        "back_to_list": "Zurück zur Liste",
+        "tabs": {
+            "details": "Details",
+            "matching": "Smart Matching",
+            "documents": "Dokumente"
+        },
+        "buttons": {
+            "waiting_vehicle": "Warten auf Fahrzeug",
+            "vehicle_started": "Fahrzeug gestartet (→ Abholung)",
+            "start_loading": "Laden beginnen",
+            "finish_loading": "Laden beenden",
+            "start_transit": "Transport starten (→ Unterwegs)",
+            "start_unloading": "Entladen beginnen",
+            "finish_unloading": "Entladen beenden",
+            "finish_order": "Auftrag abschließen (Zugestellt)",
+            "pdf": "PDF",
+            "edit": "Bearbeiten"
+        },
+        "sections": {
+            "route": "Route",
+            "pickup": "Abholung (Geplant)",
+            "delivery": "Zustellung (Geplant)",
+            "cargo": "Fracht"
+        },
+        "labels": {
+            "actual": "Tatsächlich",
+            "time_window": "Zeitfenster",
+            "ref": "Ref",
+            "description": "Beschreibung",
+            "weight": "Gewicht",
+            "volume": "Volumen",
+            "loading_meters": "LDM",
+            "not_provided": "Nicht angegeben"
+        },
+        "alerts": {
+            "confirm_status_change": "Sind Sie sicher, dass Sie den Status ändern möchten?",
+            "doc_uploaded_delivered": "Dokument erfolgreich hochgeladen! Status auf ZUGESTELLT setzen?",
+            "upload_error": "Upload-Fehler!",
+            "download_error": "Download-Fehler!",
+            "status_update_error": "Fehler bei Statusaktualisierung: ",
+            "loading": "Laden...",
+            "not_found": "Auftrag nicht gefunden."
+        }
     }
 }

@@ -26,18 +26,45 @@
         "companies": "Tvrtke"
     },
     "dashboard": {
-        "welcome": "Dobrodošli u FleetEgo Agent Office",
-        "subtitle": "Sustav za planiranje tereta i TMS temeljen na umjetnoj inteligenciji",
-        "ai_active": "AI Asistent aktivan",
-        "active_shipments": "Aktivne pošiljke",
+        "title": "Nadzorna ploča",
+        "welcome": "Dobrodošli natrag u FleetEgo!",
+        "subtitle": "AI sustav za planiranje tereta i TMS za učinkovito upravljanje logistikom",
+        "new_shipment_btn": "+ Nova pošiljka",
+        "active_orders": {
+            "tag": "Trenutno",
+            "label": "Aktivne narudžbe"
+        },
+        "revenue": {
+            "tag": "Mjesečno",
+            "label": "Est. mjesečni prihod"
+        },
+        "fleet_active": {
+            "label": "Vozila na ruti"
+        },
+        "fleet_available": {
+            "tag": "Dostupno",
+            "label": "Dostupna vozila"
+        },
+        "recent_activity": "Nedavne aktivnosti",
+        "no_activity": "Nema zabilježenih aktivnosti.",
+        "revenue_trend": "Trend prihoda",
+        "last_6_months": "Trend zadnjih 6 mjeseci",
+        "months": {
+            "aug": "Kol",
+            "sep": "Ruj",
+            "oct": "Lis",
+            "nov": "Stu",
+            "dec": "Pro",
+            "jan": "Sij"
+        },
+        "ai_active": "AI Asistent Aktivan",
         "monthly_revenue": "Mjesečni prihod",
         "performance": "Stopa učinka",
         "avg_consumption": "Prosj. potrošnja",
         "last_week": "Prošli tjedan",
         "last_month": "Prošli mjesec",
         "goal": "Cilj",
-        "quick_actions": "Brze radnje",
-        "new_shipment": "Nova pošiljka",
+        "quick_actions": "Brze akcije",
         "create_shipment": "Kreiraj pošiljku",
         "create_report": "Generiraj izvještaj",
         "search_freight": "Traži teret",
@@ -48,5 +75,62 @@
         "dark_mode": "Tamni način",
         "admin_user": "Admin korisnik",
         "super_admin": "Super Admin"
+    },
+    "status": {
+        "created": "Kreirano",
+        "assigned": "Dodijeljeno",
+        "pickup": "Na utovaru",
+        "loading_started": "Utovar...",
+        "loading_completed": "Utovareno",
+        "transit": "U tranzitu",
+        "unloading_started": "Istovar...",
+        "unloading_completed": "Istovareno",
+        "delivered": "Isporučeno",
+        "cancelled": "Otkazano"
+    },
+    "order_details": {
+        "back_to_list": "Natrag na listu",
+        "tabs": {
+            "details": "Detalji",
+            "matching": "Pametno uparivanje",
+            "documents": "Dokumenti"
+        },
+        "buttons": {
+            "waiting_vehicle": "Čekanje vozila",
+            "vehicle_started": "Vozilo krenulo (→ Utovar)",
+            "start_loading": "Započni utovar",
+            "finish_loading": "Završi utovar",
+            "start_transit": "Započni tranzit (→ Na putu)",
+            "start_unloading": "Započni istovar",
+            "finish_unloading": "Završi istovar",
+            "finish_order": "Zatvori nalog (Isporučeno)",
+            "pdf": "PDF",
+            "edit": "Uredi"
+        },
+        "sections": {
+            "route": "Ruta",
+            "pickup": "Utovar (Planirano)",
+            "delivery": "Istovar (Planirano)",
+            "cargo": "Teret"
+        },
+        "labels": {
+            "actual": "Stvarno",
+            "time_window": "Vremenski okvir",
+            "ref": "Ref",
+            "description": "Opis",
+            "weight": "Težina",
+            "volume": "Volumen",
+            "loading_meters": "LDM",
+            "not_provided": "Nije navedeno"
+        },
+        "alerts": {
+            "confirm_status_change": "Jeste li sigurni da želite promijeniti status?",
+            "doc_uploaded_delivered": "Dokument uspješno učitan! Želite li postaviti status na ISPORUČENO?",
+            "upload_error": "Greška pri učitavanju!",
+            "download_error": "Greška pri preuzimanju!",
+            "status_update_error": "Greška pri ažuriranju statusa: ",
+            "loading": "Učitavanje...",
+            "not_found": "Narudžba nije pronađena."
+        }
     }
 }
