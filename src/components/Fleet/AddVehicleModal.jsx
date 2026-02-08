@@ -5,6 +5,7 @@ const AddVehicleModal = ({ onClose, onSave }) => {
     const [formData, setFormData] = useState({
         plate_number: '',
         type: 'truck',
+        body_type: '',
         make: '',
         model: '',
         year: new Date().getFullYear(),
@@ -57,6 +58,21 @@ const AddVehicleModal = ({ onClose, onSave }) => {
                                 <option value="truck">Vontató</option>
                                 <option value="trailer">Pótkocsi</option>
                                 <option value="van">Kisteherautó</option>
+                            </select>
+                        </div>
+                        <div className="form-group" style={{ flex: 1 }}>
+                            <label>Felépítmény</label>
+                            <select name="body_type" value={formData.body_type} onChange={handleChange} className="form-input">
+                                <option value="">- Nincs kiválasztva -</option>
+                                <option value="tautliner">Ponyvás (Tautliner)</option>
+                                <option value="mega">Mega</option>
+                                <option value="frigo">Hűtős (Frigo)</option>
+                                <option value="box">Dobozos</option>
+                                <option value="flatbed">Nyitott / Mélybölcsős</option>
+                                <option value="tanker">Tartályos</option>
+                                <option value="container">Konténerszállító</option>
+                                <option value="tipper">Billencs</option>
+                                <option value="other">Egyéb</option>
                             </select>
                         </div>
                     </div>
