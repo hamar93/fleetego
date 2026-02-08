@@ -88,10 +88,6 @@ function App() {
             <Route path="finance/invoices" element={<Placeholder title={t('sidebar.finance')} />} />
             <Route path="finance/expenses" element={<Placeholder title={t('sidebar.finance')} />} />
 
-            import PartnerList from './pages/Partners/PartnerList';
-            import UserList from './pages/Company/UserList';
-
-            // ... insideRoutes ...
             {/* Alvállalkozók / Partnerek */}
             <Route path="partners/list" element={<PartnerList />} />
             <Route path="partners/chat" element={<ChatPage />} />

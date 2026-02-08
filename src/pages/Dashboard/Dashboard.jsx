@@ -34,6 +34,13 @@ const Dashboard = () => {
         );
     }
 
+    const normalizeAppLink = (link) => {
+        if (!link || typeof link !== 'string') return '/app/dashboard';
+        if (link.startsWith('/app/') || link.startsWith('/admin') || link.startsWith('http')) return link;
+        if (link.startsWith('/')) return `/app${link}`;
+        return `/app/${link}`;
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-[#0f172a] p-6 text-[var(--text-primary)]">
             <div className="max-w-7xl mx-auto space-y-8">
@@ -45,7 +52,7 @@ const Dashboard = () => {
                         <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">Üdvözöljük újra a FleetEgo rendszerben!</p>
                     </div>
                     <Link
-                        to="/orders/new"
+                        to="/app/shipments/new"
                         className="w-full md:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
                     >
                         <span>+</span> Új Fuvar
@@ -123,7 +130,7 @@ const Dashboard = () => {
                                             ${item.type === 'order_created' ? 'bg-blue-500' : 'bg-purple-500'}
                                             ring-4 ring-white dark:ring-[#1e293b]`}
                                         ></div>
-                                        <Link to={item.link} className="flex-1 pb-6 border-l-2 border-gray-100 dark:border-gray-700 pl-6 -ml-[23px] group-last:border-transparent group-last:pb-0">
+                                        <Link to={normalizeAppLink(item.link)} className="flex-1 pb-6 border-l-2 border-gray-100 dark:border-gray-700 pl-6 -ml-[23px] group-last:border-transparent group-last:pb-0">
                                             <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                                 <div className="flex justify-between items-start mb-1">
                                                     <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{item.title}</h4>
