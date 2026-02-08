@@ -37,6 +37,7 @@ const Dashboard = () => {
     const normalizeAppLink = (link) => {
         if (!link || typeof link !== 'string') return '/app/dashboard';
         if (link.startsWith('/app/') || link.startsWith('/admin') || link.startsWith('http')) return link;
+        if (link.startsWith('/orders/')) return `/app/shipments/${link.replace('/orders/', '')}`;
         if (link.startsWith('/')) return `/app${link}`;
         return `/app/${link}`;
     };

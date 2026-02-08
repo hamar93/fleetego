@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import CreateOrderModal from './CreateOrderModal';
 import { useTranslation } from 'react-i18next';
 
 const OrdersPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,7 +114,7 @@ const OrdersPage = () => {
                                 {filteredOrders.map(order => (
                                     <tr
                                         key={order.id}
-                                        onClick={() => window.location.href = `/app/shipments/${order.id}`}
+                                        onClick={() => navigate(`/app/shipments/${order.id}`)}
                                         className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
                                     >
                                         <td className="p-4 font-medium text-[var(--text-primary)]">
@@ -152,7 +154,7 @@ const OrdersPage = () => {
                             {filteredOrders.map(order => (
                                 <div
                                     key={order.id}
-                                    onClick={() => window.location.href = `/app/shipments/${order.id}`}
+                                    onClick={() => navigate(`/app/shipments/${order.id}`)}
                                     className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700 active:scale-95 transition-transform"
                                 >
                                     <div className="flex justify-between items-start mb-3">

@@ -71,6 +71,10 @@ function App() {
             <Route path="shipments/:id" element={<OrderDetails />} />
             <Route path="shipments/planning" element={<DispatchBoard />} />
             <Route path="shipments/tracking" element={<Placeholder title={t('sidebar.tracking')} />} />
+            {/* Backwards-compat routes */}
+            <Route path="orders" element={<Navigate to="/app/shipments/active" replace />} />
+            <Route path="orders/new" element={<OrderDetails />} />
+            <Route path="orders/:id" element={<OrderDetails />} />
 
             {/* Járműflotta */}
             <Route path="fleet/vehicles" element={<VehicleList />} />
