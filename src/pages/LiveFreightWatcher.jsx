@@ -23,7 +23,8 @@ const LiveFreightWatcher = () => {
             // Enhance data with AI interpretation
             const enhancedData = data.map(item => ({
                 ...item,
-                ai: interpretFreight(item.description)
+                // Backend mock returns 'description' which is already formatted properly
+                ai: interpretFreight(item.description || item.original_description)
             }));
             setFreights(enhancedData);
         } catch (error) {
@@ -39,6 +40,8 @@ const LiveFreightWatcher = () => {
 
     const handleSendOffer = async (id, price) => {
         // In real app: await timocomService.sendOffer(id, price);
+        console.log(`Offer sent: ${id}, ${price}`);
+        // Keep simple alert for now as we don't have a Toast context in scope yet
         alert(`Ajánlat SIKERESEN elküldve!\n\nID: ${id}\nÁr: ${price} EUR`);
         setSelectedFreight(null);
     };
