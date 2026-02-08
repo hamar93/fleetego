@@ -21,14 +21,17 @@ const LiveFreightWatcher = () => {
         try {
             const data = await timocomService.getFreights();
             // Enhance data with AI interpretation
-            const enhancedData = data.map(item => ({
-                ...item,
-                // Backend mock returns 'description' which is already formatted properly
-                ai: interpretFreight(item.description || item.original_description)
-            }));
+            const enhancedData = (data || [])
+                .filter(item => item && (item.description || item.original_description))
+                .map(item => ({
+                    ...item,
+                    // Backend mock returns 'description' which is already formatted properly
+                    ai: interpretFreight(item.description || item.original_description)
+                }));
             setFreights(enhancedData);
         } catch (error) {
             console.error("Failed to load freights", error);
+            setFreights([]);
         } finally {
             setLoading(false);
         }
@@ -47,9 +50,9 @@ const LiveFreightWatcher = () => {
     };
 
     const filteredFreights = freights.filter(f =>
-        f.description.toLowerCase().includes(filter.toLowerCase()) ||
-        f.ai.pickup?.toLowerCase().includes(filter.toLowerCase()) ||
-        f.ai.delivery?.toLowerCase().includes(filter.toLowerCase())
+        (f.description && f.description.toLowerCase().includes(filter.toLowerCase())) ||
+        (f.ai?.pickup && f.ai.pickup.toLowerCase().includes(filter.toLowerCase())) ||
+        (f.ai?.delivery && f.ai.delivery.toLowerCase().includes(filter.toLowerCase()))
     );
 
     return (

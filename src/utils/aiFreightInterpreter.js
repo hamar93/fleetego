@@ -3,35 +3,45 @@
 // Parses raw text into structured data (Simulating AI/NLP)
 
 export const interpretFreight = (description) => {
-    // Mock AI interpretation logic
+    // Default safe result
     const result = {
-        originalText: description,
+        originalText: description || "",
         pickup: null,
         delivery: null,
         weight: null,
         pallets: null,
         priceHint: null,
         equipment: [],
-        riskFactor: 'Low', // Mock risk score
+        riskFactor: 'Low',
         partner: {
-            name: "LogiTrans GmbH",
-            rating: 4.8,
-            verified: true
+            name: "Unknown Partner",
+            rating: 0,
+            verified: false
         },
         times: {
-            loading: "08:00 - 16:00",
-            unloading: "Fix 08:00"
+            loading: "TBD",
+            unloading: "TBD"
         }
     };
-    
-    // ... regex logic ...
+
+    if (!description || typeof description !== 'string') {
+        return result;
+    }
 
     // Mock partner variation
     if (description.includes("HU")) {
         result.partner = { name: "Waberer's Network", rating: 4.5, verified: true };
     } else if (description.includes("PL")) {
         result.partner = { name: "PolTrans Sp. z o.o.", rating: 3.9, verified: false };
+    } else {
+        result.partner = { name: "LogiTrans GmbH", rating: 4.8, verified: true };
     }
+
+    // Set default times if not found
+    result.times = {
+        loading: "08:00 - 16:00",
+        unloading: "Fix 08:00"
+    };
 
     // Simple regex based extraction (Mocking AI)
 
