@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import AddVehicleModal from './AddVehicleModal';
 import AssignDriverModal from './AssignDriverModal';
+import AssignTrailerModal from './AssignTrailerModal';
 import DocumentUploadModal from './DocumentUploadModal';
 import './VehicleList.css';
 
@@ -10,6 +11,7 @@ const VehicleList = () => {
     const [loading, setLoading] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
     const [assignModalData, setAssignModalData] = useState(null);
+    const [assignTrailerModalData, setAssignTrailerModalData] = useState(null);
     const [docModalData, setDocModalData] = useState(null);
 
     useEffect(() => {
@@ -114,6 +116,13 @@ const VehicleList = () => {
                                         <i className="fas fa-tachometer-alt"></i>
                                         <span>{vehicle.mileage.toLocaleString()} km</span>
                                     </div>
+                                    {/* Truck specific: Attached Trailer */}
+                                    {vehicle.type === 'truck' && (
+                                        <div className="info-row">
+                                            <i className="fas fa-trailer"></i>
+                                            <span>{vehicle.attached_trailer_plate || 'Nincs pótkocsi'}</span>
+                                        </div>
+                                    )}
                                     {/* Trailer Status Display (if applicable) */}
                                     {vehicle.type === 'trailer' && (
                                         <div className="info-row">
@@ -130,9 +139,19 @@ const VehicleList = () => {
                                     <button
                                         className="btn btn-sm btn-outline-secondary"
                                         onClick={() => setAssignModalData(vehicle)}
+                                        title="Sofőr hozzárendelése"
                                     >
-                                        <i className="fas fa-user-plus"></i> Sofőr
+                                        <i className="fas fa-user-plus"></i>
                                     </button>
+                                    {vehicle.type === 'truck' && (
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary"
+                                            onClick={() => setAssignTrailerModalData(vehicle)}
+                                            title="Pótkocsi csatolása"
+                                        >
+                                            <i className="fas fa-link"></i>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         ))
@@ -146,6 +165,14 @@ const VehicleList = () => {
                 <AssignDriverModal
                     vehicle={assignModalData}
                     onClose={() => setAssignModalData(null)}
+                    onSave={loadVehicles}
+                />
+            )}
+
+            {assignTrailerModalData && (
+                <AssignTrailerModal
+                    vehicle={assignTrailerModalData}
+                    onClose={() => setAssignTrailerModalData(null)}
                     onSave={loadVehicles}
                 />
             )}
