@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Dashboard from './pages/Dashboard/Dashboard';
 import DispatchBoard from './pages/Dispatch/DispatchBoard';
 import SearchPanel from './components/Timocom/SearchPanel';
+import LiveFreightWatcher from './pages/LiveFreightWatcher';
 import Integrations from './components/Settings/Integrations';
 import VehicleList from './components/Fleet/VehicleList';
 import OrdersPage from './pages/Orders/OrdersPage';
@@ -59,6 +60,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="chat" element={<ChatPage />} />
             {/* Timocom */}
+            <Route path="timocom/live" element={<LiveFreightWatcher />} />
             <Route path="timocom/search" element={<SearchPanel />} />
             <Route path="timocom/offers" element={<Placeholder title={t('sidebar.my_offers')} />} />
             <Route path="timocom/chat" element={<Placeholder title={t('sidebar.ai_chat')} />} />
