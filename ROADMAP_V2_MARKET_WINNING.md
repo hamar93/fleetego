@@ -76,9 +76,10 @@ DONE ha:
 ## Cél
 Flotta alapadatok kezelése.
 
-- [x] Sofőr ↔ vontató hozzárendelés
-- [x] Pótkocsi állapot: üres/rakott
+- [x] Sofőr ↔ vontató hozzárendelés <!-- Refined: Kocsigazda logika -->
+- [x] Pótkocsi állapot: üres/rakott <!-- VehicleType=Trailer -->
 - [x] Hibabejelentés sofőr részről
+- [x] Pótkocsi ↔ Vontató csatolás <!-- NEW: Core Fleet Refinement -->
 - [ ] Felrakás / lerakás státusz
 
 AGENT NOTE:
@@ -92,7 +93,7 @@ Ez a modul a Dispatch Copilot input adatforrása.
 FleetEgo = diszpécser második agya.
 
 ### 2.1 Exception Engine
-- [/] “Fuvar veszélyben” riasztások <!-- Vezetési idő monitorozás alapjai kész (Compliance Engine) -->
+- [x] “Fuvar veszélyben” riasztások <!-- Compliance riasztások (9h/10h/Wk) működnek -->
 
 Trigger:
 - késés
@@ -105,10 +106,11 @@ DONE ha:
 ---
 
 ### 2.2 EU561 Legal Planner
-- [/] AI tervezés pihenőidőkkel <!-- Engine & API kész, vizualizáció folyamatban -->
+- [x] AI tervezés pihenőidőkkel <!-- Compliance Engine & Dispatch Calendar kész -->
 
 Output:
 - legális útvonal + dispatch terv
+- vizuális idővonal (Dispatch Calendar)
 
 DONE ha:
 - nem javasol szabálytalan vezetést
@@ -127,14 +129,14 @@ A telematika később real-time ETA motor alapja.
 
 ---
 
-# 4. DOCUMENT + CASHFLOW ENGINE (Killer Feature)
+# 4. DOCUMENT + CASHFLOW ENGINE (Killer Feature) <!-- NEXT UP -->
 
 ## Cél
 A fuvar után azonnali pénzáramlás.
 
 - [x] CMR/POD feltöltés
 - [ ] Automatikus párosítás fuvarral
-- [ ] POD → Instant Invoice workflow
+- [ ] POD → Instant Invoice workflow <!-- NEXT UP -->
 
 DONE ha:
 - lerakás után 5 percen belül számla kész
