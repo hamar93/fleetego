@@ -10,6 +10,16 @@ const LiveFreightWatcher = () => {
     const [selectedFreight, setSelectedFreight] = useState(null);
     const [sandboxMode, setSandboxMode] = useState(false);
 
+    // Search filters state
+    const [searchFilters, setSearchFilters] = useState({
+        originCountry: 'HU',
+        originCity: '',
+        destinationCountry: 'DE',
+        destinationCity: '',
+        date: ''
+    });
+    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+
     useEffect(() => {
         loadFreights();
         // Simulate live updates every 30 seconds
@@ -20,7 +30,16 @@ const LiveFreightWatcher = () => {
     const loadFreights = async () => {
         setLoading(true);
         try {
-            const responseData = await timocomService.getFreights();
+            // Build filter object from search state
+            const filters = {
+                originCountry: searchFilters.originCountry,
+                originCity: searchFilters.originCity,
+                destinationCountry: searchFilters.destinationCountry,
+                destinationCity: searchFilters.destinationCity,
+                date: searchFilters.date
+            };
+
+            const responseData = await timocomService.getFreights(filters);
 
             let data = [];
             if (Array.isArray(responseData)) {
@@ -81,17 +100,152 @@ const LiveFreightWatcher = () => {
                     </h1>
                     <p className="text-sm text-gray-500">Valós idejű fuvarpiac (Timocom Stream)</p>
                 </div>
+            </div>
+
+            {/* Search Form */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    {/* Origin */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i className="fas fa-paper-plane mr-2"></i>Honnan
+                        </label>
+                        <div className="flex gap-2">
+                            <select
+                                value={searchFilters.originCountry}
+                                onChange={(e) => setSearchFilters({ ...searchFilters, originCountry: e.target.value })}
+                                className="px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 w-24"
+                            >
+                                <option value="HU">🇭🇺 HU</option>
+                                <option value="DE">🇩🇪 DE</option>
+                                <option value="AT">🇦🇹 AT</option>
+                                <option value="PL">🇵🇱 PL</option>
+                                <option value="SK">🇸🇰 SK</option>
+                                <option value="RO">🇷🇴 RO</option>
+                                <option value="IT">🇮🇹 IT</option>
+                                <option value="CZ">🇨🇿 CZ</option>
+                                <option value="FR">🇫🇷 FR</option>
+                            </select>
+                            <input
+                                type="text"
+                                placeholder="Város vagy irányítószám (opcionális)"
+                                value={searchFilters.originCity}
+                                onChange={(e) => setSearchFilters({ ...searchFilters, originCity: e.target.value })}
+                                className="flex-1 px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Destination */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i className="fas fa-map-marker-alt mr-2"></i>Hova
+                        </label>
+                        <div className="flex gap-2">
+                            <select
+                                value={searchFilters.destinationCountry}
+                                onChange={(e) => setSearchFilters({ ...searchFilters, destinationCountry: e.target.value })}
+                                className="px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 w-24"
+                            >
+                                <option value="HU">🇭🇺 HU</option>
+                                <option value="DE">🇩🇪 DE</option>
+                                <option value="AT">🇦🇹 AT</option>
+                                <option value="PL">🇵🇱 PL</option>
+                                <option value="SK">🇸🇰 SK</option>
+                                <option value="RO">🇷🇴 RO</option>
+                                <option value="IT">🇮🇹 IT</option>
+                                <option value="CZ">🇨🇿 CZ</option>
+                                <option value="FR">🇫🇷 FR</option>
+                            </select>
+                            <input
+                                type="text"
+                                placeholder="Város vagy irányítószám (opcionális)"
+                                value={searchFilters.destinationCity}
+                                onChange={(e) => setSearchFilters({ ...searchFilters, destinationCity: e.target.value })}
+                                className="flex-1 px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Date and Actions */}
+                <div className="flex flex-wrap gap-3 items-end">
+                    <div className="flex-1 min-w-[200px]">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i className="fas fa-calendar mr-2"></i>Rakodási dátum (opcionális)
+                        </label>
+                        <input
+                            type="date"
+                            value={searchFilters.date}
+                            onChange={(e) => setSearchFilters({ ...searchFilters, date: e.target.value })}
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex gap-2">
+                        <button
+                            onClick={loadFreights}
+                            disabled={loading}
+                            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                        >
+                            <i className={`fas fa-search ${loading ? 'fa-spin fa-spinner' : ''}`}></i>
+                            {loading ? 'Keresés...' : 'Keresés'}
+                        </button>
+
+                        <button
+                            onClick={() => setSearchFilters({
+                                originCountry: 'HU',
+                                originCity: '',
+                                destinationCountry: 'DE',
+                                destinationCity: '',
+                                date: ''
+                            })}
+                            className="px-4 py-2 bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"
+                        >
+                            <i className="fas fa-times mr-2"></i>Törlés
+                        </button>
+                    </div>
+                </div>
+
+                {/* Quick Presets */}
+                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Gyors keresés:</p>
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'DE', originCity: '', destinationCity: '' })}
+                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
+                        >
+                            🇭🇺 HU → 🇩🇪 DE
+                        </button>
+                        <button
+                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'AT', originCity: '', destinationCity: '' })}
+                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
+                        >
+                            🇭🇺 HU → 🇦🇹 AT
+                        </button>
+                        <button
+                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'IT', originCity: '', destinationCity: '' })}
+                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
+                        >
+                            🇭🇺 HU → 🇮🇹 IT
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Results Header */}
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Találatok ({filteredFreights.length})
+                </h2>
                 <div className="flex gap-2">
                     <input
                         type="text"
-                        placeholder="Szűrés (pl. HU, 24t)..."
-                        className="px-4 py-2 border rounded-lg"
+                        placeholder="Szűrés eredményeken..."
+                        className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500"
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                     />
-                    <button onClick={loadFreights} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        <i className="fas fa-sync-alt mr-2"></i> Frissítés
-                    </button>
                 </div>
             </div>
 

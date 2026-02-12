@@ -1,14 +1,23 @@
 import api from '../api/api';
 
 export const timocomService = {
-  getFreights: async (filter = {}) => {
+  getFreights: async (filters = {}) => {
     try {
-      const response = await api.get('/api/timocom/search', { params: filter });
+      // Build query parameters, only include non-empty values
+      const params = {};
+
+      if (filters.originCountry) params.origin_country = filters.originCountry;
+      if (filters.destinationCountry) params.destination_country = filters.destinationCountry;
+      if (filters.originCity) params.origin = filters.originCity;
+      if (filters.destinationCity) params.destination = filters.destinationCity;
+      if (filters.date) params.date = filters.date;
+
+      const response = await api.get('/api/timocom/search', { params });
       // Backend returns { source: "...", results: [...] }
       return response.data;
     } catch (error) {
       console.error("Timocom API Error:", error);
-      return [];
+      return { results: [] };
     }
   },
 
