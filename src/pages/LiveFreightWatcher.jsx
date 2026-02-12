@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { timocomService } from '../services/timocom';
-import { interpretFreight } from '../utils/aiFreightInterpreter';
 import FreightDetailsModal from '../components/Timocom/FreightDetailsModal';
 
 const LiveFreightWatcher = () => {
     const [freights, setFreights] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState('');
     const [selectedFreight, setSelectedFreight] = useState(null);
     const [sandboxMode, setSandboxMode] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false);
 
     // Search filters state
     const [searchFilters, setSearchFilters] = useState({
@@ -18,19 +18,12 @@ const LiveFreightWatcher = () => {
         destinationCity: '',
         date: ''
     });
-    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
-    useEffect(() => {
-        loadFreights();
-        // Simulate live updates every 30 seconds
-        const interval = setInterval(loadFreights, 30000);
-        return () => clearInterval(interval);
-    }, []);
-
+    // No auto-refresh - only manual search
     const loadFreights = async () => {
         setLoading(true);
+        setHasSearched(true);
         try {
-            // Build filter object from search state
             const filters = {
                 originCountry: searchFilters.originCountry,
                 originCity: searchFilters.originCity,
@@ -51,15 +44,7 @@ const LiveFreightWatcher = () => {
                 }
             }
 
-            // Enhance data with AI interpretation
-            const enhancedData = (data || [])
-                .filter(item => item && (item.description || item.original_description))
-                .map(item => ({
-                    ...item,
-                    // Backend mock returns 'description' which is already formatted properly
-                    ai: interpretFreight(item.description || item.original_description)
-                }));
-            setFreights(enhancedData);
+            setFreights(data || []);
         } catch (error) {
             console.error("Failed to load freights", error);
             setFreights([]);
@@ -73,24 +58,28 @@ const LiveFreightWatcher = () => {
     };
 
     const handleSendOffer = async (id, price) => {
-        // In real app: await timocomService.sendOffer(id, price);
         console.log(`Offer sent: ${id}, ${price}`);
-        // Keep simple alert for now as we don't have a Toast context in scope yet
         alert(`Ajánlat SIKERESEN elküldve!\n\nID: ${id}\nÁr: ${price} EUR`);
         setSelectedFreight(null);
     };
 
-    const filteredFreights = freights.filter(f =>
-        (f.description && f.description.toLowerCase().includes(filter.toLowerCase())) ||
-        (f.ai?.pickup && f.ai.pickup.toLowerCase().includes(filter.toLowerCase())) ||
-        (f.ai?.delivery && f.ai.delivery.toLowerCase().includes(filter.toLowerCase()))
-    );
+    const filteredFreights = freights.filter(f => {
+        if (!filter) return true;
+        const q = filter.toLowerCase();
+        return (
+            (f.description && f.description.toLowerCase().includes(q)) ||
+            (f.origin?.city && f.origin.city.toLowerCase().includes(q)) ||
+            (f.destination?.city && f.destination.city.toLowerCase().includes(q)) ||
+            (f.cargo?.load_type && f.cargo.load_type.toLowerCase().includes(q)) ||
+            (f.company?.name && f.company.name.toLowerCase().includes(q))
+        );
+    });
 
     return (
         <div className="p-6 bg-gray-50 dark:bg-slate-900 min-h-screen text-gray-900 dark:text-white">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
                         Live Freight Watcher
                         {sandboxMode && (
                             <span className="ml-3 bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded border border-purple-400">
@@ -125,6 +114,12 @@ const LiveFreightWatcher = () => {
                                 <option value="IT">🇮🇹 IT</option>
                                 <option value="CZ">🇨🇿 CZ</option>
                                 <option value="FR">🇫🇷 FR</option>
+                                <option value="NL">🇳🇱 NL</option>
+                                <option value="BE">🇧🇪 BE</option>
+                                <option value="ES">🇪🇸 ES</option>
+                                <option value="HR">🇭🇷 HR</option>
+                                <option value="SI">🇸🇮 SI</option>
+                                <option value="BG">🇧🇬 BG</option>
                             </select>
                             <input
                                 type="text"
@@ -156,6 +151,12 @@ const LiveFreightWatcher = () => {
                                 <option value="IT">🇮🇹 IT</option>
                                 <option value="CZ">🇨🇿 CZ</option>
                                 <option value="FR">🇫🇷 FR</option>
+                                <option value="NL">🇳🇱 NL</option>
+                                <option value="BE">🇧🇪 BE</option>
+                                <option value="ES">🇪🇸 ES</option>
+                                <option value="HR">🇭🇷 HR</option>
+                                <option value="SI">🇸🇮 SI</option>
+                                <option value="BG">🇧🇬 BG</option>
                             </select>
                             <input
                                 type="text"
@@ -188,8 +189,11 @@ const LiveFreightWatcher = () => {
                             disabled={loading}
                             className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                         >
-                            <i className={`fas fa-search ${loading ? 'fa-spin fa-spinner' : ''}`}></i>
-                            {loading ? 'Keresés...' : 'Keresés'}
+                            {loading ? (
+                                <><i className="fas fa-spinner fa-spin"></i> Keresés...</>
+                            ) : (
+                                <><i className="fas fa-search"></i> Keresés</>
+                            )}
                         </button>
 
                         <button
@@ -211,24 +215,22 @@ const LiveFreightWatcher = () => {
                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Gyors keresés:</p>
                     <div className="flex flex-wrap gap-2">
-                        <button
-                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'DE', originCity: '', destinationCity: '' })}
-                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
-                        >
-                            🇭🇺 HU → 🇩🇪 DE
-                        </button>
-                        <button
-                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'AT', originCity: '', destinationCity: '' })}
-                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
-                        >
-                            🇭🇺 HU → 🇦🇹 AT
-                        </button>
-                        <button
-                            onClick={() => setSearchFilters({ ...searchFilters, originCountry: 'HU', destinationCountry: 'IT', originCity: '', destinationCity: '' })}
-                            className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
-                        >
-                            🇭🇺 HU → 🇮🇹 IT
-                        </button>
+                        {[
+                            { from: 'HU', to: 'DE' },
+                            { from: 'HU', to: 'AT' },
+                            { from: 'HU', to: 'IT' },
+                            { from: 'DE', to: 'HU' },
+                            { from: 'AT', to: 'HU' },
+                            { from: 'HU', to: 'RO' },
+                        ].map(({ from, to }) => (
+                            <button
+                                key={`${from}-${to}`}
+                                onClick={() => setSearchFilters({ ...searchFilters, originCountry: from, destinationCountry: to, originCity: '', destinationCity: '' })}
+                                className="px-3 py-1 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600"
+                            >
+                                {from} → {to}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -238,7 +240,7 @@ const LiveFreightWatcher = () => {
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Találatok ({filteredFreights.length})
                 </h2>
-                <div className="flex gap-2">
+                {freights.length > 0 && (
                     <input
                         type="text"
                         placeholder="Szűrés eredményeken..."
@@ -246,56 +248,113 @@ const LiveFreightWatcher = () => {
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                     />
-                </div>
+                )}
             </div>
 
-            {loading ? (
+            {/* Loading State */}
+            {loading && (
                 <div className="text-center py-10">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-500">Fuvarok betöltése...</p>
+                    <p className="mt-4 text-gray-500">Fuvarok betöltése a Timocom-ból...</p>
                 </div>
-            ) : (
+            )}
+
+            {/* Empty State */}
+            {!loading && hasSearched && freights.length === 0 && (
+                <div className="text-center py-10 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+                    <i className="fas fa-truck text-4xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                    <p className="text-gray-500">Nincs találat a megadott feltételekre.</p>
+                    <p className="text-sm text-gray-400 mt-1">Próbáljon más országot vagy várost megadni.</p>
+                </div>
+            )}
+
+            {/* Initial State */}
+            {!loading && !hasSearched && (
+                <div className="text-center py-10 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+                    <i className="fas fa-search text-4xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                    <p className="text-gray-500">Állítsa be a keresési feltételeket és kattintson a "Keresés" gombra.</p>
+                </div>
+            )}
+
+            {/* Results Grid */}
+            {!loading && filteredFreights.length > 0 && (
                 <div className="grid gap-4">
                     {filteredFreights.map(freight => (
-                        <div key={freight.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div key={freight.id} className="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow">
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-                                            {freight.ai.pickup || '?'} → {freight.ai.delivery || '?'}
+                                    {/* Route Header */}
+                                    <div className="flex items-center gap-2 mb-3 flex-wrap">
+                                        <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-semibold px-3 py-1 rounded-lg">
+                                            {freight.origin?.city || '?'} ({freight.origin?.country}) → {freight.destination?.city || '?'} ({freight.destination?.country})
                                         </span>
-                                        <span className="text-gray-500 text-xs">{freight.id}</span>
-                                        {freight.ai.riskFactor === 'Medium' && (
-                                            <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-0.5 rounded">Risk: Med</span>
+                                        {freight.cargo?.load_type && freight.cargo.load_type !== 'N/A' && (
+                                            <span className={`text-xs font-semibold px-2 py-0.5 rounded ${freight.cargo.load_type === 'FTL' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200'}`}>
+                                                {freight.cargo.load_type}
+                                            </span>
                                         )}
                                     </div>
-                                    <h3 className="font-medium text-gray-900 mb-1">{freight.description}</h3>
-                                    <div className="flex gap-4 text-sm text-gray-600 mt-2">
-                                        <div className="flex items-center gap-1">
-                                            <i className="fas fa-weight-hanging"></i>
-                                            <span>{freight.ai.weight ? `${freight.ai.weight}t` : '-'}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <i className="fas fa-box"></i>
-                                            <span>{freight.ai.pallets ? `${freight.ai.pallets} pal` : '-'}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <i className="fas fa-road"></i>
-                                            <span>{freight.distance} km</span>
-                                        </div>
-                                        {freight.ai.equipment.length > 0 && (
-                                            <div className="flex gap-1">
-                                                {freight.ai.equipment.map((eq, i) => (
-                                                    <span key={i} className="bg-gray-100 px-2 py-0.5 rounded text-xs">{eq}</span>
+
+                                    {/* Description */}
+                                    {freight.cargo?.description && (
+                                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{freight.cargo.description}</p>
+                                    )}
+
+                                    {/* Details Row */}
+                                    <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400 flex-wrap">
+                                        {freight.cargo?.weight && (
+                                            <div className="flex items-center gap-1">
+                                                <i className="fas fa-weight-hanging"></i>
+                                                <span>{freight.cargo.weight}</span>
+                                            </div>
+                                        )}
+                                        {freight.cargo?.length && (
+                                            <div className="flex items-center gap-1">
+                                                <i className="fas fa-ruler-horizontal"></i>
+                                                <span>{freight.cargo.length}</span>
+                                            </div>
+                                        )}
+                                        {freight.distance && (
+                                            <div className="flex items-center gap-1">
+                                                <i className="fas fa-road"></i>
+                                                <span>{freight.distance} km</span>
+                                            </div>
+                                        )}
+                                        {freight.pickup_date && (
+                                            <div className="flex items-center gap-1">
+                                                <i className="fas fa-calendar-alt"></i>
+                                                <span>Felrakás: {freight.pickup_date}</span>
+                                            </div>
+                                        )}
+                                        {freight.pickup_time && (
+                                            <div className="flex items-center gap-1">
+                                                <i className="fas fa-clock"></i>
+                                                <span>{freight.pickup_time}</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Vehicle & Company Row */}
+                                    <div className="flex gap-3 mt-2 flex-wrap">
+                                        {freight.vehicle?.body?.length > 0 && (
+                                            <div className="flex gap-1 flex-wrap">
+                                                {freight.vehicle.body.map((b, i) => (
+                                                    <span key={i} className="bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded text-xs text-gray-600 dark:text-gray-400">{b}</span>
                                                 ))}
                                             </div>
+                                        )}
+                                        {freight.company?.name && (
+                                            <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                                                <i className="fas fa-building"></i> {freight.company.name}
+                                            </span>
                                         )}
                                     </div>
                                 </div>
 
-                                <div className="text-right min-w-[150px]">
-                                    <div className="text-2xl font-bold text-gray-900 mb-1">
-                                        {freight.price?.amount || freight.price} {freight.price?.currency || '€'}
+                                {/* Price & Action */}
+                                <div className="text-right min-w-[150px] ml-4">
+                                    <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                                        {freight.price?.amount ? `${freight.price.amount} ${freight.price.currency}` : 'Ár nélkül'}
                                     </div>
                                     <button
                                         onClick={() => handleOpenOffer(freight)}
@@ -305,7 +364,7 @@ const LiveFreightWatcher = () => {
                                         Megtekintés
                                     </button>
                                     <div className="text-xs text-center text-gray-400 mt-1">
-                                        Részletes infó & Ajánlat
+                                        Részletes infó &amp; Ajánlat
                                     </div>
                                 </div>
                             </div>
