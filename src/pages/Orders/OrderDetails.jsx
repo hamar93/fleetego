@@ -23,7 +23,16 @@ const OrderDetails = () => {
     // --- Documents State ---
     const [documents, setDocuments] = useState([]);
     const [uploadingDoc, setUploadingDoc] = useState(false);
+
     const [docType, setDocType] = useState('CMR');
+
+    // Compliance State
+    const [complianceResult, setComplianceResult] = useState(null);
+    const [checkingCompliance, setCheckingCompliance] = useState(false);
+
+    // Pricing Assistant State
+    const [pricingAnalysis, setPricingAnalysis] = useState(null);
+    const [analyzingPrice, setAnalyzingPrice] = useState(false);
 
     const fetchDocuments = async () => {
         try {
@@ -198,6 +207,58 @@ const OrderDetails = () => {
             alert("Hiba a hozzárendelés törlésekor.");
         } finally {
             setAssigning(false);
+        }
+
+    };
+
+    const analyzePricing = async () => {
+        if (!order || !order.price_value) return;
+
+        setAnalyzingPrice(true);
+        try {
+            // 1. Get Market Reference (simulating distance based on average speed if time known, or just 500km)
+            // Ideally we need the real distance. 
+            // We will use 500 as placeholder if unknown.
+            const dist = complianceResult?.route?.distance_km || 500;
+
+            const [refRes, analysisRes] = await Promise.all([
+                api.get(`/api/pricing/reference?distance_km=${dist}&vehicle_type=${order.vehicle_type || 'semi'}`),
+                api.post('/api/pricing/analyze', {
+                    price: parseFloat(order.price_value),
+                    distance_km: dist,
+                    vehicle_type: order.vehicle_type || 'semi'
+                })
+            ]);
+
+            setPricingAnalysis({
+                reference: refRes.data,
+                analysis: analysisRes.data.analysis
+            });
+        } catch (error) {
+            console.error("Pricing analysis failed", error);
+        } finally {
+            setAnalyzingPrice(false);
+        }
+    };
+
+    const checkCompliance = async () => {
+        if (!selectedDriverId) {
+            alert("Kérlek válassz sofőrt a vizsgálathoz!");
+            return;
+        }
+        setCheckingCompliance(true);
+        setComplianceResult(null);
+        try {
+            const res = await api.post('/api/dispatch/plan', {
+                order_id: id,
+                driver_id: selectedDriverId
+            });
+            setComplianceResult(res.data);
+        } catch (error) {
+            console.error(error);
+            alert("Hiba a megfelelőség vizsgálata közben.");
+        } finally {
+            setCheckingCompliance(false);
         }
     };
 
@@ -659,7 +720,38 @@ const OrderDetails = () => {
                                                 >
                                                     Leoldás
                                                 </button>
+
                                             </div>
+
+                                            {/* Compliance Check Button */}
+                                            <div className="flex gap-2 mt-2">
+                                                <button
+                                                    onClick={checkCompliance}
+                                                    disabled={checkingCompliance || !selectedDriverId}
+                                                    className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+                                                >
+                                                    {checkingCompliance ? 'Vizsgálat...' : '⚖️ EU561 Tervező & Ellenőrzés'}
+                                                </button>
+                                            </div>
+                                            {complianceResult && (
+                                                <div className={`mt-3 p-3 rounded-lg border text-sm ${complianceResult.is_legal ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-300'}`}>
+                                                    <div className="font-bold flex items-center gap-2">
+                                                        {complianceResult.is_legal ? '✅ Megfelelő' : '❌ Szabálysértés Veszélye!'}
+                                                    </div>
+                                                    <div className="mt-2 text-xs space-y-1">
+                                                        <p>Táv: <strong>{complianceResult.route.distance_km} km</strong> ({Math.floor(complianceResult.route.duration_minutes / 60)}h {complianceResult.route.duration_minutes % 60}m)</p>
+                                                        <p>Vezetés: <strong>{Math.floor(complianceResult.total_drive_minutes / 60)}h {complianceResult.total_drive_minutes % 60}m</strong></p>
+                                                        <p>Pihenők: <strong>{complianceResult.required_breaks} db</strong></p>
+                                                        {!complianceResult.is_legal && (
+                                                            <ul className="list-disc pl-4 mt-2 font-bold">
+                                                                {complianceResult.issues.map((issue, i) => (
+                                                                    <li key={i}>{issue}</li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     <button onClick={() => setActiveTab('matching')} className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
@@ -689,6 +781,76 @@ const OrderDetails = () => {
                                 </div>
                             ) : (
                                 <p className="text-sm text-gray-500 italic">Nincs ár megadva.</p>
+                            )}
+                        </div>
+
+                        {/* Pricing Assistant Card */}
+                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                                🤖 Árazási Asszisztens
+                            </h3>
+
+                            {!pricingAnalysis ? (
+                                <button
+                                    onClick={analyzePricing}
+                                    disabled={analyzingPrice || !order.price_value}
+                                    className="w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors disabled:opacity-50 text-sm"
+                                >
+                                    {analyzingPrice ? 'Elemzés...' : 'Elemzés Futtatása'}
+                                </button>
+                            ) : (
+                                <div className="space-y-4 animate-fadeIn">
+                                    {/* Profitability Status */}
+                                    <div className={`p-3 rounded-lg border flex items-center gap-3
+                                        ${pricingAnalysis.analysis.status === 'GOOD' ? 'bg-green-50 border-green-200 text-green-800' :
+                                            pricingAnalysis.analysis.status === 'SAFE' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' :
+                                                'bg-red-50 border-red-200 text-red-800'}`}>
+                                        <div className="text-2xl">
+                                            {pricingAnalysis.analysis.status === 'GOOD' ? '🤑' :
+                                                pricingAnalysis.analysis.status === 'SAFE' ? '✅' : '⚠️'}
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-sm">
+                                                {pricingAnalysis.analysis.status === 'GOOD' ? 'Kiváló Fedezet' :
+                                                    pricingAnalysis.analysis.status === 'SAFE' ? 'Biztonságos' : 'Kockázatos!'}
+                                            </p>
+                                            <p className="text-xs opacity-80">
+                                                Marzs: {pricingAnalysis.analysis.margin_percent}% ({pricingAnalysis.analysis.profit} {order.currency})
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Market Ranges */}
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-2">Piaci Körkép (Becsült):</p>
+                                        <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                            <span>Min</span>
+                                            <span>Átlag</span>
+                                            <span>Max</span>
+                                        </div>
+                                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden flex">
+                                            <div className="h-full bg-blue-300" style={{ width: '33%' }}></div>
+                                            <div className="h-full bg-blue-500" style={{ width: '33%' }}></div>
+                                            <div className="h-full bg-blue-700" style={{ width: '34%' }}></div>
+                                        </div>
+                                        <div className="flex justify-between text-xs font-medium mt-1 text-[var(--text-primary)]">
+                                            <span>€{pricingAnalysis.reference.ranges.low.price}</span>
+                                            <span>€{pricingAnalysis.reference.ranges.mid.price}</span>
+                                            <span>€{pricingAnalysis.reference.ranges.high.price}</span>
+                                        </div>
+                                    </div>
+
+                                    <p className="text-xs text-gray-400 text-center italic">
+                                        A számítás {pricingAnalysis.reference.distance_km} km távolságon és iparági átlagköltségeken alapul.
+                                    </p>
+
+                                    <button
+                                        onClick={analyzePricing}
+                                        className="w-full mt-2 text-xs text-blue-600 hover:underline"
+                                    >
+                                        Frissítés
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>

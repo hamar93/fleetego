@@ -21,10 +21,13 @@ export const timocomService = {
     }
   },
 
-  sendOffer: async (freightId, amount) => {
-    // In a real app, this would also be a backend call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(`Offer sent for ${freightId}: ${amount}`);
-    return { success: true, message: 'Offer sent successfully' };
+  sendOffer: async (offerData) => {
+    try {
+      const response = await api.post('/api/timocom/offer', offerData);
+      return response.data;
+    } catch (error) {
+      console.error("Timocom Offer Error:", error);
+      throw error;
+    }
   }
 };

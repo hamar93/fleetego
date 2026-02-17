@@ -58,9 +58,27 @@ const LiveFreightWatcher = () => {
     };
 
     const handleSendOffer = async (id, price) => {
-        console.log(`Offer sent: ${id}, ${price}`);
-        alert(`Ajánlat SIKERESEN elküldve!\n\nID: ${id}\nÁr: ${price} EUR`);
-        setSelectedFreight(null);
+        try {
+            // Prepare offer payload
+            const offerPayload = {
+                timocom_id: id,
+                offered_price: parseFloat(price),
+                currency: "EUR", // Default for now, could be dynamic
+                message: `Offer for ${id}`
+            };
+
+            const response = await timocomService.sendOffer(offerPayload);
+
+            if (response.status === 'success') {
+                alert(`Ajánlat SIKERESEN elküldve!\n\nID: ${id}\nÁr: ${price} EUR\nStátusz: ${response.offer.status}`);
+            } else {
+                alert('Hiba történt az ajánlat küldésekor.');
+            }
+            setSelectedFreight(null);
+        } catch (error) {
+            console.error("Offer sending failed:", error);
+            alert('Hiba történt a kommunikációban. Kérjük próbálja újra.');
+        }
     };
 
     const filteredFreights = freights.filter(f => {

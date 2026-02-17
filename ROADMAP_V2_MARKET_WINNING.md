@@ -54,7 +54,7 @@ DONE ha:
 ---
 
 ### 0.3 One-Click Offer Workflow
-- [ ] ajánlat gomb → ár megadás → küldés
+- [x] ajánlat gomb → ár megadás → küldés
 
 DONE ha:
 - diszpécser 30 mp alatt ajánlatot küld
@@ -80,7 +80,7 @@ Flotta alapadatok kezelése.
 - [x] Pótkocsi állapot: üres/rakott <!-- VehicleType=Trailer -->
 - [x] Hibabejelentés sofőr részről
 - [x] Pótkocsi ↔ Vontató csatolás <!-- NEW: Core Fleet Refinement -->
-- [ ] Felrakás / lerakás státusz
+- [x] Felrakás / lerakás státusz
 
 AGENT NOTE:
 Ez a modul a Dispatch Copilot input adatforrása.
@@ -135,8 +135,8 @@ A telematika később real-time ETA motor alapja.
 A fuvar után azonnali pénzáramlás.
 
 - [x] CMR/POD feltöltés
-- [ ] Automatikus párosítás fuvarral
-- [ ] POD → Instant Invoice workflow <!-- NEXT UP -->
+- [x] Automatikus párosítás fuvarral
+- [x] POD → Instant Invoice workflow <!-- COMPLETED -->
 
 DONE ha:
 - lerakás után 5 percen belül számla kész
