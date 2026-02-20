@@ -147,7 +147,7 @@ DONE ha:
 
 - [x] Timocom API search
 - [x] AI price suggestion <!-- pricing_service.py: market reference + profitability -->
-- [ ] ajánlat sablonok
+- [x] ajánlat sablonok
 - [ ] Partner Risk Score
 
 DONE ha:

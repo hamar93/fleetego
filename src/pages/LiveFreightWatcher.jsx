@@ -57,14 +57,14 @@ const LiveFreightWatcher = () => {
         setSelectedFreight(freight);
     };
 
-    const handleSendOffer = async (id, price) => {
+    const handleSendOffer = async (id, price, messageContent = '') => {
         try {
             // Prepare offer payload
             const offerPayload = {
                 timocom_id: id,
                 offered_price: parseFloat(price),
                 currency: "EUR", // Default for now, could be dynamic
-                message: `Offer for ${id}`
+                message: messageContent
             };
 
             const response = await timocomService.sendOffer(offerPayload);

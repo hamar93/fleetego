@@ -39,5 +39,45 @@ export const timocomService = {
       console.error("Timocom Get Offers Error:", error);
       return [];
     }
+  },
+
+  getTemplates: async () => {
+    try {
+      const response = await api.get('/api/timocom/templates');
+      return response.data;
+    } catch (error) {
+      console.error("Timocom Get Templates Error:", error);
+      return [];
+    }
+  },
+
+  saveTemplate: async (templateData) => {
+    try {
+      const response = await api.post('/api/timocom/templates', templateData);
+      return response.data;
+    } catch (error) {
+      console.error("Timocom Save Template Error:", error);
+      throw error;
+    }
+  },
+
+  deleteTemplate: async (templateId) => {
+    try {
+      const response = await api.delete(`/api/timocom/templates/${templateId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Timocom Delete Template Error:", error);
+      throw error;
+    }
+  },
+
+  analyzeRisk: async (companyName) => {
+    try {
+      const response = await api.post('/api/ai/analyze-risk', { company_name: companyName });
+      return response.data;
+    } catch (error) {
+      console.error("Timocom Analyze Risk Error:", error);
+      return null;
+    }
   }
 };
