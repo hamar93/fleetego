@@ -160,7 +160,7 @@ DONE ha:
 ## Cél
 Várakozási idők csökkentése.
 
-- [ ] ETA alapú időkapu foglalás
+- [x] ETA alapú időkapu foglalás
 - [ ] újrafoglalás késés esetén
 - [ ] waiting time riport
 
