@@ -34,6 +34,12 @@ const OrderDetails = () => {
     const [pricingAnalysis, setPricingAnalysis] = useState(null);
     const [analyzingPrice, setAnalyzingPrice] = useState(false);
 
+    // Slot Booking State
+    const [bookingSlotFor, setBookingSlotFor] = useState(null); // 'pickup' | 'delivery' | null
+    const [slotStart, setSlotStart] = useState('');
+    const [slotEnd, setSlotEnd] = useState('');
+    const [savingSlot, setSavingSlot] = useState(false);
+
     const fetchDocuments = async () => {
         try {
             const res = await api.get(`/api/documents/order/${id}`);
@@ -262,6 +268,34 @@ const OrderDetails = () => {
         }
     };
 
+    const handleSaveSlot = async () => {
+        if (!slotStart || !slotEnd) {
+            alert("Kerlek add meg mindkét időpontot!");
+            return;
+        }
+        setSavingSlot(true);
+        try {
+            const payload = {};
+            if (bookingSlotFor === 'pickup') {
+                payload.pickup_slot_start = new Date(slotStart).toISOString();
+                payload.pickup_slot_end = new Date(slotEnd).toISOString();
+            } else {
+                payload.delivery_slot_start = new Date(slotStart).toISOString();
+                payload.delivery_slot_end = new Date(slotEnd).toISOString();
+            }
+            await api.patch(`/api/orders/${id}/slots`, payload);
+            fetchOrder();
+            setBookingSlotFor(null);
+            setSlotStart('');
+            setSlotEnd('');
+        } catch (error) {
+            console.error(error);
+            alert('Hiba az időkapu mentésekor');
+        } finally {
+            setSavingSlot(false);
+        }
+    };
+
     const handleDownloadPdf = async () => {
         try {
             // Open in new tab
@@ -302,6 +336,81 @@ const OrderDetails = () => {
             'delivered'
         ];
         return steps.indexOf(status);
+    };
+
+    const renderSlotBookingUI = (type) => {
+        const slotStart = type === 'pickup' ? order.pickup?.booked_slot_start : order.delivery?.booked_slot_start;
+        const slotEnd = type === 'pickup' ? order.pickup?.booked_slot_end : order.delivery?.booked_slot_end;
+
+        if (slotStart && slotEnd && bookingSlotFor !== type) {
+            return (
+                <div className="mt-3 bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-100 dark:border-blue-800">
+                    <p className="text-sm font-semibold text-blue-800 dark:text-blue-300 flex items-center gap-1">
+                        <span>⏳</span> Lefoglalt Időkapu
+                    </p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                        {new Date(slotStart).toLocaleString()} - {new Date(slotEnd).toLocaleTimeString()}
+                    </p>
+                    <button
+                        onClick={() => {
+                            setBookingSlotFor(type);
+                            // Pre-fill datetime-local. Format: YYYY-MM-DDTHH:mm
+                            const s = new Date(slotStart);
+                            s.setMinutes(s.getMinutes() - s.getTimezoneOffset());
+                            setSlotStart(s.toISOString().slice(0, 16));
+
+                            const e = new Date(slotEnd);
+                            e.setMinutes(e.getMinutes() - e.getTimezoneOffset());
+                            setSlotEnd(e.toISOString().slice(0, 16));
+                        }}
+                        className="mt-2 text-xs text-blue-500 hover:text-blue-700 underline"
+                    >
+                        Módosítás
+                    </button>
+                </div>
+            );
+        }
+
+        if (bookingSlotFor === type) {
+            return (
+                <div className="mt-3 bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Időkapu foglalása</p>
+                    <div className="space-y-2">
+                        <div>
+                            <label className="text-xs text-gray-500 block mb-1">Kezdete</label>
+                            <input
+                                type="datetime-local"
+                                value={slotStart}
+                                onChange={(e) => setSlotStart(e.target.value)}
+                                className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs text-gray-500 block mb-1">Vége</label>
+                            <input
+                                type="datetime-local"
+                                value={slotEnd}
+                                onChange={(e) => setSlotEnd(e.target.value)}
+                                className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600"
+                            />
+                        </div>
+                        <div className="flex gap-2 justify-end mt-3">
+                            <button onClick={() => setBookingSlotFor(null)} className="px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors">Mégse</button>
+                            <button onClick={handleSaveSlot} disabled={savingSlot} className="px-3 py-1.5 text-xs bg-blue-500 text-white hover:bg-blue-600 rounded shadow-sm transition-colors">Mentés</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <button
+                onClick={() => setBookingSlotFor(type)}
+                className="mt-3 text-xs flex items-center gap-1 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-md bg-white dark:bg-[#1e293b] shadow-sm hover:border-blue-300 dark:hover:border-blue-800"
+            >
+                <span>➕</span> Időkapu rögzítése
+            </button>
+        );
     };
 
     const getStatusProgress = (status) => {
@@ -552,6 +661,7 @@ const OrderDetails = () => {
                                             <p className="text-sm text-gray-500">📞 {order.pickup?.contact_name} ({order.pickup?.contact_phone})</p>
                                         )}
                                     </div>
+                                    {renderSlotBookingUI('pickup')}
                                 </div>
 
                                 {/* Delivery */}
@@ -588,6 +698,7 @@ const OrderDetails = () => {
                                             <p className="text-sm text-gray-500">📞 {order.delivery?.contact_name} ({order.delivery?.contact_phone})</p>
                                         )}
                                     </div>
+                                    {renderSlotBookingUI('delivery')}
                                 </div>
                             </div>
                         </div>

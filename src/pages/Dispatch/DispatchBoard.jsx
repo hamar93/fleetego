@@ -277,14 +277,23 @@ const DispatchBoard = () => {
                                 {/* Resource Info */}
                                 <div className="w-64 flex-shrink-0 p-4 border-r border-gray-200 dark:border-gray-700 flex flex-col justify-center bg-white dark:bg-[#1e293b] sticky left-0 z-10 group-hover:bg-gray-50 dark:group-hover:bg-gray-800/30">
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className="font-bold text-gray-900 dark:text-white">{res.plate}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-gray-500">{res.type === 'trailer' ? '📦' : res.type === 'van' ? '🚐' : '🚛'}</span>
+                                            <span className="font-bold text-gray-900 dark:text-white">{res.plate}</span>
+                                        </div>
                                         <span className={`w-2 h-2 rounded-full ${res.status === 'active' ? 'bg-green-500' : 'bg-gray-300'}`}></span>
                                     </div>
-                                    <div className="text-xs text-gray-500 flex items-center gap-1">
-                                        <span>👤</span> {res.driver}
-                                    </div>
-                                    <div className="mt-2 text-[10px] px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded w-fit text-gray-500 uppercase">
-                                        {res.type}
+
+                                    <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 flex flex-col gap-1">
+                                        {res.attached_truck && (
+                                            <div className="flex items-center gap-1">
+                                                <span>🔗</span>
+                                                <span className="font-mono text-[10px] bg-gray-100 dark:bg-gray-700 px-1 rounded border border-gray-200 dark:border-gray-600">{res.attached_truck}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-1">
+                                            <span>👤</span> <span className="truncate">{res.driver}</span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -320,8 +329,13 @@ const DispatchBoard = () => {
                                                     style={getEventStyle(evt, timelineData.range.start, timelineData.range.end)}
                                                     title={evt.title}
                                                 >
-                                                    <div className="font-bold text-[10px] leading-tight">{evt.orderNumber}</div>
-                                                    <div className="opacity-90 truncate text-[10px]">{evt.title}</div>
+                                                    <div className="font-bold text-[10px] leading-tight flex justify-between items-start">
+                                                        <span>{evt.orderNumber}</span>
+                                                        {evt.has_slot_warning && (
+                                                            <span title="Időkapu csúszás veszélye!" className="text-red-200 drop-shadow-md text-xs">⚠️</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="opacity-90 truncate text-[10px] mt-0.5">{evt.title}</div>
                                                 </div>
                                             ))
                                         }
