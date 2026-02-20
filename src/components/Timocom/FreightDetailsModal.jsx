@@ -103,11 +103,11 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
     if (!freight) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4 backdrop-blur-sm">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full flex flex-col max-h-[85vh] overflow-hidden">
 
                 {/* Header */}
-                <div className="bg-gray-900 text-white p-6 flex justify-between items-start">
+                <div className="bg-gray-900 text-white p-4 sm:p-6 flex justify-between items-start shrink-0">
                     <div>
                         <div className="flex items-center gap-3 mb-2 flex-wrap">
                             <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
@@ -131,7 +131,7 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
                 </div>
 
                 {/* Body */}
-                <div className="p-6">
+                <div className="p-6 overflow-y-auto grow slim-scrollbar">
                     {/* Company Info & Partner Risk Score */}
                     {freight.company?.name && (
                         <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -468,7 +468,7 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
                     </div>
 
                     {/* Price & Action */}
-                    <div className="border-t border-gray-200 dark:border-slate-600 pt-6 flex items-center justify-between">
+                    <div className="border-t border-gray-200 dark:border-slate-600 pt-6 flex items-center justify-between shrink-0">
                         <div>
                             <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Ajánlati ár (EUR)</label>
                             <input
