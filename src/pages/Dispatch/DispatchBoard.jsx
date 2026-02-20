@@ -10,6 +10,8 @@ const DispatchBoard = () => {
     const [now, setNow] = useState(new Date());
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [draggedEvent, setDraggedEvent] = useState(null);
+    const [complianceWarning, setComplianceWarning] = useState(null);
+    const [verifyingDrop, setVerifyingDrop] = useState(false);
 
     useEffect(() => {
         fetchTimeline();
@@ -103,26 +105,53 @@ const DispatchBoard = () => {
             return;
         }
 
+        if (targetResource.driver_id) {
+            setVerifyingDrop(true);
+            try {
+                const res = await api.post('/api/dispatch/plan', {
+                    order_id: draggedEvent.id, // ID is standard hex ObjectId
+                    driver_id: targetResource.driver_id
+                });
+
+                if (res.data && res.data.is_legal === false) {
+                    setComplianceWarning({
+                        event: draggedEvent,
+                        resource: targetResource,
+                        result: res.data
+                    });
+                    setVerifyingDrop(false);
+                    return; // Wait for modal action
+                }
+            } catch (err) {
+                console.error("Compliance API failed, proceeding anyway", err);
+            }
+            setVerifyingDrop(false);
+        }
+
+        await confirmAssignment(draggedEvent, targetResource);
+    };
+
+    const confirmAssignment = async (event, resource) => {
+        setVerifyingDrop(true);
         try {
-            // Call backend to update vehicle assignment
-            await api.patch(`/api/orders/${draggedEvent.id}`, {
-                assigned_vehicle_id: targetResource.plate // Backend expects plate
+            await api.patch(`/api/orders/${event.id}`, {
+                assigned_vehicle_id: resource.plate
             });
 
-            // Optimistic UI Update
             setTimelineData(prev => ({
                 ...prev,
                 events: prev.events.map(evt =>
-                    evt.id === draggedEvent.id
-                        ? { ...evt, resourceId: targetResource.id }
+                    evt.id === event.id
+                        ? { ...evt, resourceId: resource.id }
                         : evt
                 )
             }));
         } catch (error) {
             console.error("Drop error:", error);
-            // Optionally show error toast
         } finally {
+            setVerifyingDrop(false);
             setDraggedEvent(null);
+            setComplianceWarning(null);
         }
     };
 
@@ -240,6 +269,7 @@ const DispatchBoard = () => {
                                 key={res.id}
                                 className={`flex border-b border-gray-100 dark:border-gray-700 h-24 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors group
                                     ${draggedEvent && draggedEvent.resourceId !== res.id ? 'bg-blue-50/30 dark:bg-blue-900/10' : ''}
+                                    ${verifyingDrop ? 'opacity-75 pointer-events-none' : ''}
                                 `}
                                 onDragOver={handleDragOver}
                                 onDrop={() => handleDrop(res)}
@@ -348,18 +378,43 @@ const DispatchBoard = () => {
                             </div>
                         </div>
 
-                        <div className="mt-6 flex gap-3">
-                            <Link
-                                to={`/app/shipments/${selectedEvent.id}`}
-                                className="flex-1 bg-blue-600 text-white text-center py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                            >
-                                Részletek Megtekintése
-                            </Link>
+                    </div>
+                </div>
+            )}
+
+            {/* Compliance Modal */}
+            {complianceWarning && (
+                <div className="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => { setComplianceWarning(null); setDraggedEvent(null); }}>
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full p-6 text-center" onClick={e => e.stopPropagation()}>
+                        <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                            ⚠️
+                        </div>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">EU561 Konfliktus!</h2>
+                        <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+                            A kiválasztott sofőr (<span className="font-semibold text-gray-900 dark:text-gray-200">{complianceWarning.resource.driver}</span>) a rendszer adatai szerint <strong>kifut a vezetési időből</strong>, ha elvállalja ezt a fuvart!
+                        </p>
+
+                        <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-xl text-left text-sm font-semibold mb-6 flex flex-col gap-2 border border-red-100 dark:border-red-900/50">
+                            {complianceWarning.result?.issues?.map((issue, idx) => (
+                                <div key={idx} className="flex items-start gap-2">
+                                    <span className="mt-0.5">•</span>
+                                    <span>{issue}</span>
+                                </div>
+                            )) || "Nincs elég vezetési idő."}
+                        </div>
+
+                        <div className="flex gap-3 relative">
                             <button
-                                onClick={() => setSelectedEvent(null)}
-                                className="px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                onClick={() => { setComplianceWarning(null); setDraggedEvent(null); }}
+                                className="flex-1 px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-xl font-medium transition-colors"
                             >
-                                Bezárás
+                                Mégse (Visszavonás)
+                            </button>
+                            <button
+                                onClick={() => confirmAssignment(complianceWarning.event, complianceWarning.resource)}
+                                className="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors border border-transparent"
+                            >
+                                Kiosztás Mindenképp
                             </button>
                         </div>
                     </div>
