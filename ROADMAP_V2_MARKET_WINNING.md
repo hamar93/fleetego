@@ -26,8 +26,8 @@ A FleetEgo célja egy **AI-alapú Dispatch Copilot platform**, amely:
 - compliance logok
 
 ### 0.1 Live Freight Watcher Dashboard
-- [ ] Timocom API → találatok UI listában
-- [ ] Szűrés profil szerint (ország, távolság, típus)
+- [x] Timocom API → találatok UI listában
+- [x] Szűrés profil szerint (ország, távolság, típus)
 
 DONE ha:
 - diszpécser látja a friss fuvarokat valós időben
@@ -49,7 +49,7 @@ Output:
 - ADR/GDP flag
 
 DONE ha:
-- 10 különböző fuvarból 8-at jól felismer
+- [x] 10 különböző fuvarból 8-at jól felismer (Mock teszttel verifikálva, éles kulcsra vár)
 
 ---
 
@@ -62,9 +62,9 @@ DONE ha:
 ---
 
 ### 0.4 Compliance Layer (Timocom safe mode)
-- [ ] request logging
+- [x] request logging <!-- Basic logging model exists -->
 - [ ] rate-limit monitor
-- [ ] retry queue integrációknál
+- [x] retry queue integrációknál <!-- tenacity @retry a timocom_client.py-ban -->
 
 DONE ha:
 - API policy nem sérül és auditálható
@@ -146,7 +146,7 @@ DONE ha:
 # 5. Freight Offer Automation (Timocom + AI)
 
 - [x] Timocom API search
-- [ ] AI price suggestion
+- [x] AI price suggestion <!-- pricing_service.py: market reference + profitability -->
 - [ ] ajánlat sablonok
 - [ ] Partner Risk Score
 
