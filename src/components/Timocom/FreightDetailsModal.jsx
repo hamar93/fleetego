@@ -16,19 +16,25 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
     const fetchPrediction = async () => {
         setLoadingAi(true);
         try {
-            const distance = freight.distance || 500; // fallback default
+            // Ensure distance is a valid number, even if it comes as a string like "1,200"
+            let distVal = 500;
+            if (freight.distance) {
+                const cleanDist = String(freight.distance).replace(/[^0-9.]/g, '');
+                if (cleanDist) distVal = parseFloat(cleanDist);
+            }
+
             const vehicleType = freight.cargo?.load_type === 'LTL' ? 'van' : 'semi_trailer_tautliner';
 
             const req = {
-                distance_km: distance,
+                distance_km: distVal,
                 vehicle_type: vehicleType,
                 company_id: 'default_company', // will be injected by backend from currentUser usually, but lets provide fallback
                 origin: freight.origin?.city,
                 destination: freight.destination?.city,
-                weight_t: freight.cargo?.weight ? parseFloat(freight.cargo.weight) : 10.0
+                weight_t: freight.cargo?.weight ? parseFloat(String(freight.cargo.weight).replace(/[^0-9.]/g, '')) : 10.0
             };
 
-            const res = await api.post('/api/ai/predict-price', req);
+            const res = await api.post('/ai/predict-price', req); // Note: correct prefix is /ai, not /api/ai
             setAiPrediction(res.data);
 
             // Auto-fill offer price if it was originally 0 or missing
@@ -258,8 +264,8 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
                                         <div className="text-right">
                                             <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Piaci Trend</div>
                                             <div className={`text-sm font-bold flex items-center justify-end gap-1 ${aiPrediction.market_trend === 'UP' ? 'text-green-600' :
-                                                    aiPrediction.market_trend === 'DOWN' ? 'text-red-500' :
-                                                        'text-blue-500'
+                                                aiPrediction.market_trend === 'DOWN' ? 'text-red-500' :
+                                                    'text-blue-500'
                                                 }`}>
                                                 {aiPrediction.market_trend === 'UP' && <><i className="fas fa-arrow-trend-up"></i> Kereslet Nő</>}
                                                 {aiPrediction.market_trend === 'DOWN' && <><i className="fas fa-arrow-trend-down"></i> Túlkínálat</>}

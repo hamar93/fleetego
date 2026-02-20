@@ -146,10 +146,13 @@ const DispatchBoard = () => {
     }
 
     // Filter Logic
-    const filteredResources = timelineData?.resources.filter(res =>
-        res.plate.toLowerCase().includes(filterText.toLowerCase()) ||
-        res.driver.toLowerCase().includes(filterText.toLowerCase())
-    ) || [];
+    // Filter Logic safely
+    const filteredResources = timelineData?.resources?.filter(res => {
+        const p = res.plate || '';
+        const d = res.driver || '';
+        const search = (filterText || '').toLowerCase();
+        return p.toLowerCase().includes(search) || d.toLowerCase().includes(search);
+    }) || [];
 
     const nowPos = getCurrentTimePosition(start, end);
 
@@ -269,7 +272,7 @@ const DispatchBoard = () => {
 
                                     {/* Events Layer (Absolute over grid) */}
                                     <div className="absolute inset-0 top-2 bottom-2">
-                                        {timelineData.events
+                                        {(timelineData.events || [])
                                             .filter(evt => evt.resourceId === res.id)
                                             .map(evt => (
                                                 <div
