@@ -29,5 +29,15 @@ export const timocomService = {
       console.error("Timocom Offer Error:", error);
       throw error;
     }
+  },
+
+  getMyOffers: async (skip = 0, limit = 50) => {
+    try {
+      const response = await api.get('/api/timocom/offers', { params: { skip, limit } });
+      return response.data.offers || [];
+    } catch (error) {
+      console.error("Timocom Get Offers Error:", error);
+      return [];
+    }
   }
 };

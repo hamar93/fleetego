@@ -107,8 +107,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                     <i className={`fas fa-chevron-${openSubmenus['timocom'] ? 'up' : 'down'}`} style={{ fontSize: '0.7em' }}></i>
                                 </button>
                                 <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
-                                    <NavLink to="/app/timocom/live" className="submenu-item" style={{ color: '#ef4444', fontWeight: 'bold' }}>Live Watcher (Beta)</NavLink>
-                                    <NavLink to="/app/timocom/search" className="submenu-item">{t('sidebar.freight_search')}</NavLink>
+                                    <NavLink to="/app/timocom/live" className="submenu-item" style={{ color: '#3b82f6', fontWeight: 'bold' }}>
+                                        <i className="fas fa-radar mr-2"></i>Élő Kereső
+                                    </NavLink>
                                     <NavLink to="/app/timocom/offers" className="submenu-item">{t('sidebar.my_offers')}</NavLink>
                                     <NavLink to="/app/timocom/chat" className="submenu-item">{t('sidebar.ai_chat')}</NavLink>
                                 </div>

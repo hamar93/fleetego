@@ -34,6 +34,8 @@ import SearchPanel from './components/Timocom/SearchPanel';
 import Integrations from './components/Settings/Integrations';
 import Placeholder from './components/Placeholder';
 
+import MyOffers from './pages/Timocom/MyOffers';
+
 // Admin Pages
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -69,7 +71,7 @@ function App() {
             {/* Timocom */}
             <Route path="timocom/live" element={<LiveFreightWatcher />} />
             <Route path="timocom/search" element={<SearchPanel />} />
-            <Route path="timocom/offers" element={<Placeholder title={t('sidebar.my_offers')} />} />
+            <Route path="timocom/offers" element={<MyOffers />} />
             <Route path="timocom/chat" element={<Placeholder title={t('sidebar.ai_chat')} />} />
 
             {/* Fuvarkezelés */}
