@@ -27,6 +27,7 @@ import ChatPage from './pages/Chat/ChatPage';
 import GlobalDocuments from './pages/Documents/GlobalDocuments';
 import PartnerList from './pages/Partners/PartnerList';
 import UserList from './pages/Company/UserList';
+import InvoicesPage from './pages/Finance/InvoicesPage';
 
 // Components
 import SearchPanel from './components/Timocom/SearchPanel';
@@ -96,7 +97,7 @@ function App() {
 
             {/* Pénzügyek */}
             <Route path="finance" element={<Navigate to="invoices" replace />} />
-            <Route path="finance/invoices" element={<Placeholder title={t('sidebar.finance')} />} />
+            <Route path="finance/invoices" element={<InvoicesPage />} />
             <Route path="finance/expenses" element={<Placeholder title={t('sidebar.finance')} />} />
 
             {/* Alvállalkozók / Partnerek */}

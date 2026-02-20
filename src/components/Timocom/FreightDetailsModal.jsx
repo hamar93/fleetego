@@ -1,8 +1,46 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../api/api';
 
 const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
     const [offerPrice, setOfferPrice] = useState(freight?.price?.amount || 0);
+    const [aiPrediction, setAiPrediction] = useState(null);
+    const [loadingAi, setLoadingAi] = useState(false);
+
+    useEffect(() => {
+        if (freight) {
+            setOfferPrice(freight.price?.amount || 0);
+            fetchPrediction();
+        }
+    }, [freight]);
+
+    const fetchPrediction = async () => {
+        setLoadingAi(true);
+        try {
+            const distance = freight.distance || 500; // fallback default
+            const vehicleType = freight.cargo?.load_type === 'LTL' ? 'van' : 'semi_trailer_tautliner';
+
+            const req = {
+                distance_km: distance,
+                vehicle_type: vehicleType,
+                company_id: 'default_company', // will be injected by backend from currentUser usually, but lets provide fallback
+                origin: freight.origin?.city,
+                destination: freight.destination?.city,
+                weight_t: freight.cargo?.weight ? parseFloat(freight.cargo.weight) : 10.0
+            };
+
+            const res = await api.post('/api/ai/predict-price', req);
+            setAiPrediction(res.data);
+
+            // Auto-fill offer price if it was originally 0 or missing
+            if (!freight.price?.amount || freight.price.amount === 0) {
+                setOfferPrice(res.data.predicted_price);
+            }
+        } catch (error) {
+            console.error("AI Prediction failed:", error);
+        } finally {
+            setLoadingAi(false);
+        }
+    };
 
     if (!freight) return null;
 
@@ -176,6 +214,75 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
                             </p>
                         </div>
                     )}
+
+                    {/* AI Price Predictor Section */}
+                    <div className="mb-6">
+                        <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i className="fas fa-robot text-purple-500"></i> AI Árbecslő
+                        </h4>
+                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-slate-700 dark:to-slate-700/80 rounded-xl p-4 border border-purple-100 dark:border-slate-600 shadow-sm relative overflow-hidden">
+                            {/* Decorative background element */}
+                            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                            {loadingAi ? (
+                                <div className="flex items-center gap-3 text-purple-600 dark:text-purple-400 font-medium">
+                                    <i className="fas fa-circle-notch fa-spin text-xl"></i>
+                                    Piaci adatok és önköltség elemzése...
+                                </div>
+                            ) : aiPrediction ? (
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                                                {aiPrediction.predicted_price} {aiPrediction.currency}
+                                            </span>
+                                            <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-2 py-1 rounded">
+                                                Javasolt Licit
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-4 text-xs font-medium text-gray-600 dark:text-gray-400">
+                                            <span className="flex items-center gap-1" title="Algoritmus bizonyossága a számításban">
+                                                <i className="fas fa-bullseye text-blue-500"></i>
+                                                Konfidencia: {aiPrediction.confidence_score}%
+                                            </span>
+                                            {aiPrediction.margin_status && (
+                                                <span className={`flex items-center gap-1 ${aiPrediction.margin_status.analysis.margin_percent > 10 ? 'text-green-600 dark:text-green-400' : 'text-orange-500'}`}>
+                                                    <i className="fas fa-chart-pie"></i>
+                                                    Várható Marzs: {aiPrediction.margin_status.analysis.margin_percent}%
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <div className="text-right">
+                                            <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Piaci Trend</div>
+                                            <div className={`text-sm font-bold flex items-center justify-end gap-1 ${aiPrediction.market_trend === 'UP' ? 'text-green-600' :
+                                                    aiPrediction.market_trend === 'DOWN' ? 'text-red-500' :
+                                                        'text-blue-500'
+                                                }`}>
+                                                {aiPrediction.market_trend === 'UP' && <><i className="fas fa-arrow-trend-up"></i> Kereslet Nő</>}
+                                                {aiPrediction.market_trend === 'DOWN' && <><i className="fas fa-arrow-trend-down"></i> Túlkínálat</>}
+                                                {aiPrediction.market_trend === 'STABLE' && <><i className="fas fa-minus"></i> Stabil</>}
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            onClick={() => setOfferPrice(aiPrediction.predicted_price)}
+                                            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-medium text-sm transition-all shadow-md active:scale-95"
+                                        >
+                                            <i className="fas fa-magic mr-2"></i>Alkalmaz
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="text-sm text-gray-500 flex items-center gap-2">
+                                    <i className="fas fa-exclamation-triangle text-orange-400"></i>
+                                    Az AI becslés nem érhető el.
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
                     {/* Deeplink */}
                     {freight.deeplink && (
