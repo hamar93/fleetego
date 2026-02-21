@@ -169,5 +169,12 @@
         "vehicle_assigned": "Járműhöz rendelve",
         "vehicle_unassigned": "Nincs rendelve",
         "details_link": "Részletek →"
+    },
+    "dispatch_calendar": {
+        "title": "Fuvartervezés",
+        "drivers": "Sofőrök",
+        "vehicles": "Járművek",
+        "resource": "Erőforrás",
+        "no_data": "Nincs megjeleníthető adat a kiválasztott időszakra."
     }
 }

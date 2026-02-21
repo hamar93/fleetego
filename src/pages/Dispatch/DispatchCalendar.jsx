@@ -83,21 +83,21 @@ const DispatchCalendar = () => {
     return (
         <div className="p-6 h-[calc(100vh-80px)] flex flex-col">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">📅 Dispatch Calendar</h1>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">📅 {t('dispatch_calendar.title')}</h1>
 
                 <div className="flex items-center gap-4">
-                    <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                    <div className="flex bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-md p-1">
                         <button
                             onClick={() => setViewType('drivers')}
-                            className={`px-3 py-1 text-sm rounded-md transition-all ${viewType === 'drivers' ? 'bg-white dark:bg-gray-600 shadow text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
+                            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${viewType === 'drivers' ? 'bg-white dark:bg-slate-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                         >
-                            Sofőrök
+                            {t('dispatch_calendar.drivers')}
                         </button>
                         <button
                             onClick={() => setViewType('vehicles')}
-                            className={`px-3 py-1 text-sm rounded-md transition-all ${viewType === 'vehicles' ? 'bg-white dark:bg-gray-600 shadow text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
+                            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${viewType === 'vehicles' ? 'bg-white dark:bg-slate-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                         >
-                            Járművek
+                            {t('dispatch_calendar.vehicles')}
                         </button>
                     </div>
 
@@ -111,15 +111,15 @@ const DispatchCalendar = () => {
 
             {loading ? (
                 <div className="flex-1 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                 </div>
             ) : (
-                <div className="flex-1 bg-white dark:bg-[#1e293b] rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden">
+                <div className="flex-1 bg-white dark:bg-[#1e293b] rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden">
 
                     {/* Header Row (Days) */}
-                    <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <div className="w-48 flex-shrink-0 p-3 font-semibold text-gray-500 dark:text-gray-400 border-r border-gray-200 dark:border-gray-700">
-                            Erőforrás
+                    <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0f172a]">
+                        <div className="w-48 flex-shrink-0 p-3 font-semibold text-gray-600 dark:text-gray-300 border-r border-gray-200 dark:border-gray-700 flex items-center">
+                            {t('dispatch_calendar.resource')}
                         </div>
                         <div className="flex-1 flex relative">
                             {Array.from({ length: 7 }).map((_, i) => {
@@ -180,7 +180,7 @@ const DispatchCalendar = () => {
                             ))}
 
                             {data.resources.length === 0 && (
-                                <div className="p-8 text-center text-gray-500">Nincs megjeleníthető adat a kiválasztott időszakra.</div>
+                                <div className="p-8 text-center text-gray-500 dark:text-gray-400">{t('dispatch_calendar.no_data')}</div>
                             )}
                         </div>
                     </div>
