@@ -7,10 +7,11 @@
         "timocom": "Timocom",
         "freight_search": "Wyszukiwanie ładunków",
         "my_offers": "Moje oferty",
-        "ai_chat": "Czat AI",
+        "ai_chat": "AI Chat",
+        "chat": "Chat",
         "shipments": "Przesyłki",
         "active_shipments": "Aktywne przesyłki",
-        "route_planning": "Planowanie trasy",
+        "route_planning": "Planowanie tras",
         "tracking": "Śledzenie",
         "fleet": "Flota",
         "vehicles": "Pojazdy",
@@ -23,20 +24,44 @@
         "reports": "Raporty",
         "administration": "Administracja",
         "users": "Użytkownicy",
-        "companies": "Firmy"
+        "companies": "Firmy",
+        "settings": "Ustawienia",
+        "profile": "Profil",
+        "integrations": "Integracje",
+        "live_search": "Wyszukiwanie na żywo",
+        "dispatch_calendar": "Kalendarz dyspozycji",
+        "slots": "Okna czasowe",
+        "driving_logs": "Dziennik jazd",
+        "partners": "Partnerzy",
+        "employees": "Pracownicy",
+        "data_import": "Import danych"
+    },
+    "common": {
+        "loading": "Ładowanie...",
+        "refresh": "Odśwież",
+        "details": "Szczegóły",
+        "cancel": "Anuluj",
+        "save": "Zapisz",
+        "create": "Utwórz",
+        "delete": "Usuń",
+        "edit": "Edytuj",
+        "search": "Szukaj...",
+        "no_data": "Brak danych do wyświetlenia.",
+        "today": "Dziś",
+        "week_view": "Widok tygodniowy"
     },
     "dashboard": {
-        "title": "Pulpit",
+        "title": "Panel sterowania",
         "welcome": "Witamy ponownie we FleetEgo!",
-        "subtitle": "System planowania transportu i TMS oparty na AI dla efektywnego zarządzania logistyką",
-        "new_shipment_btn": "+ Nowa Przesyłka",
+        "subtitle": "System TMS i planowania transportu oparty na AI do efektywnego zarządzania logistyką",
+        "new_shipment_btn": "+ Nowa przesyłka",
         "active_orders": {
             "tag": "Bieżące",
-            "label": "Aktywne zlecenia"
+            "label": "Aktywne zamówienia"
         },
         "revenue": {
             "tag": "Miesięczne",
-            "label": "Szac. przychód miesięczny"
+            "label": "Szacowany miesięczny przychód"
         },
         "fleet_active": {
             "label": "Pojazdy w trasie"
@@ -45,8 +70,8 @@
             "tag": "Dostępne",
             "label": "Dostępne pojazdy"
         },
-        "recent_activity": "Ostatnia aktywność",
-        "no_activity": "Brak zarejestrowanej aktywności.",
+        "recent_activity": "Ostatnie aktywności",
+        "no_activity": "Brak zarejestrowanych aktywności.",
         "revenue_trend": "Trend przychodów",
         "last_6_months": "Trend z ostatnich 6 miesięcy",
         "months": {
@@ -57,65 +82,66 @@
             "dec": "Gru",
             "jan": "Sty"
         },
-        "ai_active": "Asystent AI Aktywny",
-        "monthly_revenue": "Miesięczny przychód",
+        "ai_active": "Asystent AI aktywny",
+        "monthly_revenue": "Przychód miesięczny",
         "performance": "Wskaźnik wydajności",
-        "avg_consumption": "Śr. Zużycie",
+        "avg_consumption": "Średnie zużycie",
         "last_week": "Ostatni tydzień",
         "last_month": "Ostatni miesiąc",
         "goal": "Cel",
         "quick_actions": "Szybkie akcje",
+        "action_required": "Wymagana akcja",
         "create_shipment": "Utwórz przesyłkę",
-        "create_report": "Generuj raport",
+        "create_report": "Wygeneruj raport",
         "search_freight": "Szukaj ładunków",
         "start_assistant": "Uruchom asystenta"
     },
     "header": {
         "light_mode": "Tryb jasny",
         "dark_mode": "Tryb ciemny",
-        "admin_user": "Administrator",
+        "admin_user": "Admin użytkownik",
         "super_admin": "Super Admin"
     },
     "status": {
-        "created": "Utworzono",
-        "assigned": "Przypisano",
-        "pickup": "Na załadunku",
-        "loading_started": "Ładowanie...",
-        "loading_completed": "Załadowano",
+        "created": "Utworzone",
+        "assigned": "Przypisane",
+        "pickup": "Na odbiorze",
+        "loading_started": "Załadunek...",
+        "loading_completed": "Załadowane",
         "transit": "W trasie",
-        "unloading_started": "Rozładowywanie...",
-        "unloading_completed": "Rozładowano",
-        "delivered": "Dostarczono",
-        "cancelled": "Anulowano"
+        "unloading_started": "Rozładunek...",
+        "unloading_completed": "Rozładowane",
+        "delivered": "Dostarczone",
+        "cancelled": "Anulowane"
     },
     "order_details": {
         "back_to_list": "Powrót do listy",
         "tabs": {
             "details": "Szczegóły",
-            "matching": "Inteligentne Dopasowanie",
+            "matching": "Inteligentne dopasowanie",
             "documents": "Dokumenty"
         },
         "buttons": {
             "waiting_vehicle": "Oczekiwanie na pojazd",
-            "vehicle_started": "Pojazd ruszył (→ Załadunek)",
+            "vehicle_started": "Pojazd wyruszył (→ Odbiór)",
             "start_loading": "Rozpocznij załadunek",
             "finish_loading": "Zakończ załadunek",
-            "start_transit": "Rozpocznij transport (→ W drodze)",
+            "start_transit": "Rozpocznij transport",
             "start_unloading": "Rozpocznij rozładunek",
             "finish_unloading": "Zakończ rozładunek",
-            "finish_order": "Zamknij zlecenie (Dostarczono)",
+            "finish_order": "Zamknij zamówienie (Dostarczone)",
             "pdf": "PDF",
             "edit": "Edytuj"
         },
         "sections": {
             "route": "Trasa",
-            "pickup": "Załadunek (Plan)",
-            "delivery": "Rozładunek (Plan)",
+            "pickup": "Odbiór (Plan)",
+            "delivery": "Dostawa (Plan)",
             "cargo": "Ładunek"
         },
         "labels": {
-            "actual": "Rzeczywisty",
-            "time_window": "Okna czasowe",
+            "actual": "Rzeczywiste",
+            "time_window": "Okno czasowe",
             "ref": "Ref",
             "description": "Opis",
             "weight": "Waga",
@@ -125,12 +151,136 @@
         },
         "alerts": {
             "confirm_status_change": "Czy na pewno chcesz zmienić status?",
-            "doc_uploaded_delivered": "Dokument przesłany pomyślnie! Czy ustawić status na DOSTARCZONO?",
+            "doc_uploaded_delivered": "Dokument przesłany pomyślnie! Ustawić status na DOSTARCZONE?",
             "upload_error": "Błąd przesyłania!",
             "download_error": "Błąd pobierania!",
             "status_update_error": "Błąd aktualizacji statusu: ",
             "loading": "Ładowanie...",
-            "not_found": "Nie znaleziono zlecenia."
+            "not_found": "Zamówienie nie znalezione."
         }
+    },
+    "orders_page": {
+        "title": "Zarządzanie przesyłkami",
+        "subtitle": "Przegląd aktywnych zamówień i przesyłek",
+        "new_order_btn": "+ Nowa przesyłka",
+        "filters": {
+            "all": "Wszystkie",
+            "created": "Utworzone",
+            "assigned": "Przypisane",
+            "transit": "W trasie",
+            "delivered": "Dostarczone"
+        },
+        "table": {
+            "id": "ID",
+            "pickup": "Odbiór",
+            "delivery": "Dostawa",
+            "cargo": "Ładunek",
+            "status": "Status",
+            "vehicle": "Pojazd",
+            "empty": "Brak przesyłek do wyświetlenia.",
+            "loading": "Ładowanie przesyłek..."
+        },
+        "vehicle_assigned": "Przypisane do pojazdu",
+        "vehicle_unassigned": "Nieprzypisane",
+        "details_link": "Szczegóły →"
+    },
+    "dispatch_calendar": {
+        "title": "Kalendarz dyspozycji",
+        "drivers": "Kierowcy",
+        "vehicles": "Pojazdy",
+        "resource": "Zasób",
+        "no_data": "Brak danych dla wybranego okresu."
+    },
+    "my_offers": {
+        "title": "Moje oferty (Timocom)",
+        "subtitle": "Wszystkie oferty transportowe wysłane w tym roku",
+        "status_pending": "Oczekujące",
+        "status_accepted": "Zaakceptowane",
+        "status_rejected": "Odrzucone",
+        "col_timocom_id": "Timocom ID",
+        "col_sent": "Wysłane",
+        "col_price": "Cena oferty",
+        "col_status": "Status",
+        "col_action": "Akcja",
+        "loading": "Ładowanie ofert...",
+        "no_offers_title": "Brak wysłanych ofert",
+        "no_offers_hint": "Przejdź do Wyszukiwania na żywo i wyślij ofertę."
+    },
+    "dispatch_board": {
+        "title": "Planowanie dyspozycji",
+        "search_placeholder": "Szukaj po rejestracji, kierowcy...",
+        "vehicle_driver": "Pojazd / Kierowca",
+        "route": "Trasa",
+        "departure": "Wyjazd",
+        "arrival": "Przyjazd",
+        "no_vehicle_match": "Brak pasujących pojazdów.",
+        "no_vehicle": "Brak pojazdów do wyświetlenia.",
+        "eu561_conflict": "Konflikt EU561!",
+        "eu561_message": "Wybrany kierowca przekroczy czas prowadzenia, jeśli przypisze mu się tę przesyłkę!",
+        "no_driving_time": "Niewystarczający czas prowadzenia.",
+        "cancel_btn": "Anuluj",
+        "assign_anyway": "Przypisz mimo wszystko",
+        "slot_warning": "Ryzyko opóźnienia okna czasowego!"
+    },
+    "drivers_page": {
+        "title": "Zarządzanie kierowcami",
+        "subtitle": "Pracownicy, dokumenty i uprawnienia",
+        "invite_btn": "Zaproś nowego kierowcę",
+        "loading": "Ładowanie kierowców...",
+        "phone": "Telefon",
+        "documents_count": "Przesłane dokumenty",
+        "docs_unit": "szt",
+        "data_docs_btn": "Dane i dokumenty",
+        "status_incomplete": "Niekompletne",
+        "status_ok": "W porządku",
+        "expired_docs": "Wygasły dokument",
+        "expiring_docs": "Wkrótce wygaśnie"
+    },
+    "tracking_page": {
+        "title": "Śledzenie pojazdów",
+        "vehicle_list": "Lista pojazdów",
+        "status_active": "W trasie",
+        "status_idle": "Dostępny",
+        "unknown_location": "Nieznana pozycja",
+        "gps_coming_soon": "Śledzenie GPS na żywo wkrótce..."
+    },
+    "partners_page": {
+        "title": "Zarządzanie partnerami",
+        "new_partner_btn": "+ Nowy partner",
+        "no_partners": "Brak zarejestrowanych partnerów.",
+        "create_title": "Dodaj nowego partnera",
+        "company_name": "Nazwa firmy",
+        "zip_code": "Kod pocztowy",
+        "city": "Miasto",
+        "address": "Adres",
+        "contact_person": "Osoba kontaktowa",
+        "create_error": "Błąd przy tworzeniu partnera!"
+    },
+    "slots_page": {
+        "title": "Zarządzanie oknami czasowymi",
+        "subtitle": "Czasy załadunku/rozładunku oparte na ETA i czasy oczekiwania.",
+        "tab_slots": "Okna czasowe (Lista / Kalendarz)",
+        "tab_report": "Raport czasu oczekiwania",
+        "col_type": "Typ",
+        "col_address": "Adres",
+        "col_date": "Data",
+        "col_time_window": "Okno czasowe (Start - Koniec)",
+        "col_vehicle_order": "Pojazd / Zamówienie",
+        "col_wait_time": "Czas oczekiwania",
+        "col_status": "Status",
+        "col_actions": "Akcje",
+        "no_slots": "Brak aktywnych rezerwacji.",
+        "type_loading": "Załadunek",
+        "type_unloading": "Rozładunek",
+        "eta_delay": "Opóźnienie ETA",
+        "completed": "Zakończone",
+        "new_booking_btn": "Nowa rezerwacja (Ręczna)",
+        "avg_wait": "Średni czas oczekiwania",
+        "avg_wait_desc": "Zmniejszył się o 15 minut w ciągu ostatnich 30 dni.",
+        "worst_location": "Najbardziej problematyczna lokalizacja (Top 1)",
+        "worst_location_desc": "Średni czas oczekiwania: 3h 45m",
+        "compliance_rate": "Zgodność z oknami czasowymi",
+        "compliance_desc": "Pojazdy przyjeżdżają na czas na podstawie ETA.",
+        "chart_placeholder": "Szczegółowe wykresy z funkcji Yard Waiting Killer z dokładnymi danymi ETA i rzeczywistym ruchem pojawią się tutaj wkrótce."
     }
 }

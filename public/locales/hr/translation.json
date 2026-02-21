@@ -5,12 +5,13 @@
         "ai_assistant": "AI Asistent",
         "operations": "Operacije",
         "timocom": "Timocom",
-        "freight_search": "Traženje tereta",
+        "freight_search": "Pretraga tereta",
         "my_offers": "Moje ponude",
         "ai_chat": "AI Chat",
+        "chat": "Chat",
         "shipments": "Pošiljke",
         "active_shipments": "Aktivne pošiljke",
-        "route_planning": "Planiranje rute",
+        "route_planning": "Planiranje ruta",
         "tracking": "Praćenje",
         "fleet": "Vozni park",
         "vehicles": "Vozila",
@@ -19,24 +20,48 @@
         "management": "Upravljanje",
         "documents": "Dokumenti",
         "finance": "Financije",
-        "subcontractors": "Podizvođači",
+        "subcontractors": "Podugovarači",
         "reports": "Izvještaji",
         "administration": "Administracija",
         "users": "Korisnici",
-        "companies": "Tvrtke"
+        "companies": "Tvrtke",
+        "settings": "Postavke",
+        "profile": "Profil",
+        "integrations": "Integracije",
+        "live_search": "Pretraživanje uživo",
+        "dispatch_calendar": "Dispečerski kalendar",
+        "slots": "Vremenska okna",
+        "driving_logs": "Dnevnik vožnje",
+        "partners": "Partneri",
+        "employees": "Zaposlenici",
+        "data_import": "Uvoz podataka"
+    },
+    "common": {
+        "loading": "Učitavanje...",
+        "refresh": "Osvježi",
+        "details": "Pojedinosti",
+        "cancel": "Otkaz",
+        "save": "Spremi",
+        "create": "Stvori",
+        "delete": "Obriši",
+        "edit": "Uredi",
+        "search": "Pretraži...",
+        "no_data": "Nema podataka za prikaz.",
+        "today": "Danas",
+        "week_view": "Tjedni prikaz"
     },
     "dashboard": {
         "title": "Nadzorna ploča",
         "welcome": "Dobrodošli natrag u FleetEgo!",
-        "subtitle": "AI sustav za planiranje tereta i TMS za učinkovito upravljanje logistikom",
+        "subtitle": "AI sustav za planiranje prijevoza i TMS za učinkovito upravljanje logistikom",
         "new_shipment_btn": "+ Nova pošiljka",
         "active_orders": {
             "tag": "Trenutno",
-            "label": "Aktivne narudžbe"
+            "label": "Aktivni nalozi"
         },
         "revenue": {
             "tag": "Mjesečno",
-            "label": "Est. mjesečni prihod"
+            "label": "Procijenjeni mjesečni prihod"
         },
         "fleet_active": {
             "label": "Vozila na ruti"
@@ -57,17 +82,18 @@
             "dec": "Pro",
             "jan": "Sij"
         },
-        "ai_active": "AI Asistent Aktivan",
+        "ai_active": "AI Asistent aktivan",
         "monthly_revenue": "Mjesečni prihod",
-        "performance": "Stopa učinka",
-        "avg_consumption": "Prosj. potrošnja",
+        "performance": "Stopa izvedbe",
+        "avg_consumption": "Prosječna potrošnja",
         "last_week": "Prošli tjedan",
         "last_month": "Prošli mjesec",
         "goal": "Cilj",
         "quick_actions": "Brze akcije",
-        "create_shipment": "Kreiraj pošiljku",
+        "action_required": "Potrebna radnja",
+        "create_shipment": "Stvori pošiljku",
         "create_report": "Generiraj izvještaj",
-        "search_freight": "Traži teret",
+        "search_freight": "Pretraži teret",
         "start_assistant": "Pokreni asistenta"
     },
     "header": {
@@ -79,7 +105,7 @@
     "status": {
         "created": "Kreirano",
         "assigned": "Dodijeljeno",
-        "pickup": "Na utovaru",
+        "pickup": "Na preuzimanju",
         "loading_started": "Utovar...",
         "loading_completed": "Utovareno",
         "transit": "U tranzitu",
@@ -89,18 +115,18 @@
         "cancelled": "Otkazano"
     },
     "order_details": {
-        "back_to_list": "Natrag na listu",
+        "back_to_list": "Natrag na popis",
         "tabs": {
-            "details": "Detalji",
+            "details": "Pojedinosti",
             "matching": "Pametno uparivanje",
             "documents": "Dokumenti"
         },
         "buttons": {
-            "waiting_vehicle": "Čekanje vozila",
-            "vehicle_started": "Vozilo krenulo (→ Utovar)",
+            "waiting_vehicle": "Čekanje na vozilo",
+            "vehicle_started": "Vozilo krenulo (→ Preuzimanje)",
             "start_loading": "Započni utovar",
             "finish_loading": "Završi utovar",
-            "start_transit": "Započni tranzit (→ Na putu)",
+            "start_transit": "Započni prijevoz",
             "start_unloading": "Započni istovar",
             "finish_unloading": "Završi istovar",
             "finish_order": "Zatvori nalog (Isporučeno)",
@@ -109,13 +135,13 @@
         },
         "sections": {
             "route": "Ruta",
-            "pickup": "Utovar (Planirano)",
-            "delivery": "Istovar (Planirano)",
+            "pickup": "Preuzimanje (Plan)",
+            "delivery": "Isporuka (Plan)",
             "cargo": "Teret"
         },
         "labels": {
             "actual": "Stvarno",
-            "time_window": "Vremenski okvir",
+            "time_window": "Vremensko okno",
             "ref": "Ref",
             "description": "Opis",
             "weight": "Težina",
@@ -125,12 +151,136 @@
         },
         "alerts": {
             "confirm_status_change": "Jeste li sigurni da želite promijeniti status?",
-            "doc_uploaded_delivered": "Dokument uspješno učitan! Želite li postaviti status na ISPORUČENO?",
+            "doc_uploaded_delivered": "Dokument uspješno učitan! Postaviti status na ISPORUČENO?",
             "upload_error": "Greška pri učitavanju!",
             "download_error": "Greška pri preuzimanju!",
             "status_update_error": "Greška pri ažuriranju statusa: ",
             "loading": "Učitavanje...",
-            "not_found": "Narudžba nije pronađena."
+            "not_found": "Nalog nije pronađen."
         }
+    },
+    "orders_page": {
+        "title": "Upravljanje pošiljkama",
+        "subtitle": "Pregled aktivnih naloga i pošiljki",
+        "new_order_btn": "+ Nova pošiljka",
+        "filters": {
+            "all": "Sve",
+            "created": "Kreirano",
+            "assigned": "Dodijeljeno",
+            "transit": "U tranzitu",
+            "delivered": "Isporučeno"
+        },
+        "table": {
+            "id": "ID",
+            "pickup": "Preuzimanje",
+            "delivery": "Isporuka",
+            "cargo": "Teret",
+            "status": "Status",
+            "vehicle": "Vozilo",
+            "empty": "Nema pošiljki za prikaz.",
+            "loading": "Učitavanje pošiljki..."
+        },
+        "vehicle_assigned": "Dodijeljeno vozilu",
+        "vehicle_unassigned": "Nije dodijeljeno",
+        "details_link": "Pojedinosti →"
+    },
+    "dispatch_calendar": {
+        "title": "Dispečerski kalendar",
+        "drivers": "Vozači",
+        "vehicles": "Vozila",
+        "resource": "Resurs",
+        "no_data": "Nema podataka za odabrano razdoblje."
+    },
+    "my_offers": {
+        "title": "Moje ponude (Timocom)",
+        "subtitle": "Sve ponude tereta poslane ove godine",
+        "status_pending": "Na čekanju",
+        "status_accepted": "Prihvaćeno",
+        "status_rejected": "Odbijeno",
+        "col_timocom_id": "Timocom ID",
+        "col_sent": "Poslano",
+        "col_price": "Cijena ponude",
+        "col_status": "Status",
+        "col_action": "Radnja",
+        "loading": "Učitavanje ponuda...",
+        "no_offers_title": "Još nema poslanih ponuda",
+        "no_offers_hint": "Idite na Pretraživanje uživo i pošaljite ponudu."
+    },
+    "dispatch_board": {
+        "title": "Dispečersko planiranje",
+        "search_placeholder": "Pretraži po registraciji, vozaču...",
+        "vehicle_driver": "Vozilo / Vozač",
+        "route": "Ruta",
+        "departure": "Polazak",
+        "arrival": "Dolazak",
+        "no_vehicle_match": "Nema odgovarajućih vozila.",
+        "no_vehicle": "Nema vozila za prikaz.",
+        "eu561_conflict": "EU561 Konflikt!",
+        "eu561_message": "Odabrani vozač će prekoračiti vrijeme vožnje ako mu se dodijeli ova pošiljka!",
+        "no_driving_time": "Nema dovoljno vremena za vožnju.",
+        "cancel_btn": "Otkaz",
+        "assign_anyway": "Dodijeli svejedno",
+        "slot_warning": "Rizik od kašnjenja vremenskog okna!"
+    },
+    "drivers_page": {
+        "title": "Upravljanje vozačima",
+        "subtitle": "Zaposlenici, dokumenti i dozvole",
+        "invite_btn": "Pozovi novog vozača",
+        "loading": "Učitavanje vozača...",
+        "phone": "Telefon",
+        "documents_count": "Učitani dokumenti",
+        "docs_unit": "kom",
+        "data_docs_btn": "Podaci i dokumenti",
+        "status_incomplete": "Nepotpuno",
+        "status_ok": "U redu",
+        "expired_docs": "Istekli dokument",
+        "expiring_docs": "Uskoro ističe"
+    },
+    "tracking_page": {
+        "title": "Praćenje vozila",
+        "vehicle_list": "Popis vozila",
+        "status_active": "Na ruti",
+        "status_idle": "Dostupno",
+        "unknown_location": "Nepoznata pozicija",
+        "gps_coming_soon": "GPS praćenje uživo uskoro..."
+    },
+    "partners_page": {
+        "title": "Upravljanje partnerima",
+        "new_partner_btn": "+ Novi partner",
+        "no_partners": "Nema registriranih partnera.",
+        "create_title": "Dodaj novog partnera",
+        "company_name": "Naziv tvrtke",
+        "zip_code": "Poštanski broj",
+        "city": "Grad",
+        "address": "Adresa",
+        "contact_person": "Kontakt osoba",
+        "create_error": "Greška pri stvaranju partnera!"
+    },
+    "slots_page": {
+        "title": "Upravljanje vremenskim oknima",
+        "subtitle": "Vremena utovara/istovara na temelju ETA i vremena čekanja.",
+        "tab_slots": "Vremenska okna (Popis / Kalendar)",
+        "tab_report": "Izvještaj o čekanju",
+        "col_type": "Tip",
+        "col_address": "Adresa",
+        "col_date": "Datum",
+        "col_time_window": "Vremensko okno (Početak - Kraj)",
+        "col_vehicle_order": "Vozilo / Nalog",
+        "col_wait_time": "Vrijeme čekanja",
+        "col_status": "Status",
+        "col_actions": "Radnje",
+        "no_slots": "Nema aktivnih rezervacija.",
+        "type_loading": "Utovar",
+        "type_unloading": "Istovar",
+        "eta_delay": "ETA kašnjenje",
+        "completed": "Završeno",
+        "new_booking_btn": "Nova rezervacija (Ručna)",
+        "avg_wait": "Prosječno čekanje",
+        "avg_wait_desc": "Smanjeno za 15 minuta u zadnjih 30 dana.",
+        "worst_location": "Najproblematičnija lokacija (Top 1)",
+        "worst_location_desc": "Prosječno čekanje: 3h 45m",
+        "compliance_rate": "Poštivanje vremenskih okana",
+        "compliance_desc": "Vozila stižu na vrijeme prema ETA.",
+        "chart_placeholder": "Detaljni grafovi iz funkcije Yard Waiting Killer s preciznim ETA i stvarnim podacima o kretanju pojavit će se ovdje uskoro."
     }
 }

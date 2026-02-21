@@ -1,16 +1,17 @@
 {
     "sidebar": {
         "main": "Hlavní menu",
-        "dashboard": "Přístrojová deska",
+        "dashboard": "Řídicí panel",
         "ai_assistant": "AI Asistent",
         "operations": "Operace",
         "timocom": "Timocom",
         "freight_search": "Hledání nákladu",
         "my_offers": "Moje nabídky",
         "ai_chat": "AI Chat",
+        "chat": "Chat",
         "shipments": "Zásilky",
         "active_shipments": "Aktivní zásilky",
-        "route_planning": "Plánování trasy",
+        "route_planning": "Plánování tras",
         "tracking": "Sledování",
         "fleet": "Flotila",
         "vehicles": "Vozidla",
@@ -20,15 +21,39 @@
         "documents": "Dokumenty",
         "finance": "Finance",
         "subcontractors": "Subdodavatelé",
-        "reports": "Výkazy",
+        "reports": "Zprávy",
         "administration": "Administrace",
         "users": "Uživatelé",
-        "companies": "Společnosti"
+        "companies": "Firmy",
+        "settings": "Nastavení",
+        "profile": "Profil",
+        "integrations": "Integrace",
+        "live_search": "Živé hledání",
+        "dispatch_calendar": "Dispoziční kalendář",
+        "slots": "Časová okna",
+        "driving_logs": "Kniha jízd",
+        "partners": "Partneři",
+        "employees": "Zaměstnanci",
+        "data_import": "Import dat"
+    },
+    "common": {
+        "loading": "Načítání...",
+        "refresh": "Obnovit",
+        "details": "Podrobnosti",
+        "cancel": "Zrušit",
+        "save": "Uložit",
+        "create": "Vytvořit",
+        "delete": "Smazat",
+        "edit": "Upravit",
+        "search": "Hledat...",
+        "no_data": "Žádná data k zobrazení.",
+        "today": "Dnes",
+        "week_view": "Týdenní zobrazení"
     },
     "dashboard": {
-        "title": "Nástěnka",
+        "title": "Řídicí panel",
         "welcome": "Vítejte zpět ve FleetEgo!",
-        "subtitle": "Sluľba plánování přepravy a TMS systém s umělou inteligencí pro efektivní řízení logistiky",
+        "subtitle": "AI poháněný systém plánování přepravy a TMS pro efektivní řízení logistiky",
         "new_shipment_btn": "+ Nová zásilka",
         "active_orders": {
             "tag": "Aktuální",
@@ -36,18 +61,18 @@
         },
         "revenue": {
             "tag": "Měsíční",
-            "label": "Odhad. měsíční příjem"
+            "label": "Odhadovaný měsíční příjem"
         },
         "fleet_active": {
             "label": "Vozidla na trase"
         },
         "fleet_available": {
-            "tag": "Dostupné",
+            "tag": "Dostupná",
             "label": "Dostupná vozidla"
         },
-        "recent_activity": "Nedávné aktivity",
+        "recent_activity": "Poslední aktivity",
         "no_activity": "Žádná zaznamenaná aktivita.",
-        "revenue_trend": "Vývoj příjmů",
+        "revenue_trend": "Trend příjmů",
         "last_6_months": "Trend za posledních 6 měsíců",
         "months": {
             "aug": "Srp",
@@ -57,17 +82,18 @@
             "dec": "Pro",
             "jan": "Led"
         },
-        "ai_active": "AI Asistent Aktivní",
-        "monthly_revenue": "Měsíční přehled",
-        "performance": "Míra výkonu",
-        "avg_consumption": "Prům. spotřeba",
+        "ai_active": "AI Asistent aktivní",
+        "monthly_revenue": "Měsíční příjem",
+        "performance": "Výkonnost",
+        "avg_consumption": "Průměrná spotřeba",
         "last_week": "Minulý týden",
         "last_month": "Minulý měsíc",
         "goal": "Cíl",
         "quick_actions": "Rychlé akce",
+        "action_required": "Vyžaduje akci",
         "create_shipment": "Vytvořit zásilku",
-        "create_report": "Generovat report",
-        "search_freight": "Hledat přepravy",
+        "create_report": "Vygenerovat zprávu",
+        "search_freight": "Hledat náklad",
         "start_assistant": "Spustit asistenta"
     },
     "header": {
@@ -79,7 +105,7 @@
     "status": {
         "created": "Vytvořeno",
         "assigned": "Přiřazeno",
-        "pickup": "Na nakládce",
+        "pickup": "Na vyzvednutí",
         "loading_started": "Nakládání...",
         "loading_completed": "Naloženo",
         "transit": "Na cestě",
@@ -91,26 +117,26 @@
     "order_details": {
         "back_to_list": "Zpět na seznam",
         "tabs": {
-            "details": "Detaily",
+            "details": "Podrobnosti",
             "matching": "Chytré párování",
             "documents": "Dokumenty"
         },
         "buttons": {
             "waiting_vehicle": "Čekání na vozidlo",
-            "vehicle_started": "Vozidlo vyrazilo (→ Nakládka)",
-            "start_loading": "Začít nakládku",
-            "finish_loading": "Dokončit nakládku",
-            "start_transit": "Zahájit přepravu (→ Na cestě)",
-            "start_unloading": "Začít vykládku",
-            "finish_unloading": "Dokončit vykládku",
+            "vehicle_started": "Vozidlo vyjelo (→ Vyzvednutí)",
+            "start_loading": "Zahájit nakládání",
+            "finish_loading": "Dokončit nakládání",
+            "start_transit": "Zahájit přepravu",
+            "start_unloading": "Zahájit vykládání",
+            "finish_unloading": "Dokončit vykládání",
             "finish_order": "Uzavřít objednávku (Doručeno)",
             "pdf": "PDF",
             "edit": "Upravit"
         },
         "sections": {
             "route": "Trasa",
-            "pickup": "Nakládka (Plán)",
-            "delivery": "Vykládka (Plán)",
+            "pickup": "Vyzvednutí (Plán)",
+            "delivery": "Doručení (Plán)",
             "cargo": "Náklad"
         },
         "labels": {
@@ -118,19 +144,143 @@
             "time_window": "Časové okno",
             "ref": "Ref",
             "description": "Popis",
-            "weight": "Váha",
+            "weight": "Hmotnost",
             "volume": "Objem",
             "loading_meters": "LDM",
-            "not_provided": "Neuvedeno"
+            "not_provided": "Neposkytnuto"
         },
         "alerts": {
-            "confirm_status_change": "Opravdu chcete změnit stav?",
-            "doc_uploaded_delivered": "Dokument úspěšně nahrán! Chcete nastavit stav na DORUČENO?",
+            "confirm_status_change": "Jste si jisti, že chcete změnit stav?",
+            "doc_uploaded_delivered": "Dokument úspěšně nahrán! Nastavit stav na DORUČENO?",
             "upload_error": "Chyba nahrávání!",
             "download_error": "Chyba stahování!",
             "status_update_error": "Chyba při aktualizaci stavu: ",
             "loading": "Načítání...",
             "not_found": "Objednávka nenalezena."
         }
+    },
+    "orders_page": {
+        "title": "Správa zásilek",
+        "subtitle": "Přehled aktivních objednávek a zásilek",
+        "new_order_btn": "+ Zahájit novou zásilku",
+        "filters": {
+            "all": "Vše",
+            "created": "Vytvořeno",
+            "assigned": "Přiřazeno",
+            "transit": "Na cestě",
+            "delivered": "Doručeno"
+        },
+        "table": {
+            "id": "ID",
+            "pickup": "Vyzvednutí",
+            "delivery": "Doručení",
+            "cargo": "Náklad",
+            "status": "Stav",
+            "vehicle": "Vozidlo",
+            "empty": "Žádné zásilky k zobrazení.",
+            "loading": "Načítání zásilek..."
+        },
+        "vehicle_assigned": "Přiřazeno k vozidlu",
+        "vehicle_unassigned": "Nepřiřazeno",
+        "details_link": "Podrobnosti →"
+    },
+    "dispatch_calendar": {
+        "title": "Dispoziční kalendář",
+        "drivers": "Řidiči",
+        "vehicles": "Vozidla",
+        "resource": "Zdroj",
+        "no_data": "Žádná data pro zvolené období."
+    },
+    "my_offers": {
+        "title": "Moje nabídky (Timocom)",
+        "subtitle": "Všechny odeslané nabídky přepravy za tento rok",
+        "status_pending": "Čekající",
+        "status_accepted": "Přijato",
+        "status_rejected": "Odmítnuto",
+        "col_timocom_id": "Timocom ID",
+        "col_sent": "Odesláno",
+        "col_price": "Nabídková cena",
+        "col_status": "Stav",
+        "col_action": "Akce",
+        "loading": "Načítání nabídek...",
+        "no_offers_title": "Zatím žádné nabídky",
+        "no_offers_hint": "Přejděte do Živého hledání a odešlete nabídku."
+    },
+    "dispatch_board": {
+        "title": "Dispoziční plánování",
+        "search_placeholder": "Hledat podle SPZ, řidiče...",
+        "vehicle_driver": "Vozidlo / Řidič",
+        "route": "Trasa",
+        "departure": "Odjezd",
+        "arrival": "Příjezd",
+        "no_vehicle_match": "Žádná odpovídající vozidla.",
+        "no_vehicle": "Žádná vozidla k zobrazení.",
+        "eu561_conflict": "EU561 Konflikt!",
+        "eu561_message": "Vybraný řidič překročí dobu řízení, pokud mu bude tato zásilka přiřazena!",
+        "no_driving_time": "Nedostatek doby řízení.",
+        "cancel_btn": "Zrušit",
+        "assign_anyway": "Přiřadit přesto",
+        "slot_warning": "Riziko zpoždění v časovém okně!"
+    },
+    "drivers_page": {
+        "title": "Správa řidičů",
+        "subtitle": "Zaměstnanci, dokumenty a oprávnění",
+        "invite_btn": "Pozvat nového řidiče",
+        "loading": "Načítání řidičů...",
+        "phone": "Telefon",
+        "documents_count": "Nahrané dokumenty",
+        "docs_unit": "ks",
+        "data_docs_btn": "Data a dokumenty",
+        "status_incomplete": "Neúplné",
+        "status_ok": "V pořádku",
+        "expired_docs": "Prošlý dokument",
+        "expiring_docs": "Brzy vyprší"
+    },
+    "tracking_page": {
+        "title": "Sledování vozidel",
+        "vehicle_list": "Seznam vozidel",
+        "status_active": "Na trase",
+        "status_idle": "Dostupný",
+        "unknown_location": "Neznámá poloha",
+        "gps_coming_soon": "Živé GPS sledování již brzy..."
+    },
+    "partners_page": {
+        "title": "Správa partnerů",
+        "new_partner_btn": "+ Nový partner",
+        "no_partners": "Žádní registrovaní partneři.",
+        "create_title": "Přidat nového partnera",
+        "company_name": "Název firmy",
+        "zip_code": "PSČ",
+        "city": "Město",
+        "address": "Adresa",
+        "contact_person": "Kontaktní osoba",
+        "create_error": "Chyba při vytváření partnera!"
+    },
+    "slots_page": {
+        "title": "Správa časových oken",
+        "subtitle": "Časy nakládení/vykládení na základě ETA a čekací doby.",
+        "tab_slots": "Časová okna (Seznam / Kalendář)",
+        "tab_report": "Zpráva o čekacích dobách",
+        "col_type": "Typ",
+        "col_address": "Adresa",
+        "col_date": "Datum",
+        "col_time_window": "Časové okno (Start - Konec)",
+        "col_vehicle_order": "Vozidlo / Objednávka",
+        "col_wait_time": "Čekací doba",
+        "col_status": "Stav",
+        "col_actions": "Akce",
+        "no_slots": "Žádné aktivní rezervace.",
+        "type_loading": "Nakládání",
+        "type_unloading": "Vykládání",
+        "eta_delay": "ETA zpoždění",
+        "completed": "Dokončeno",
+        "new_booking_btn": "Nová rezervace (Manuální)",
+        "avg_wait": "Průměrná čekací doba",
+        "avg_wait_desc": "Za posledních 30 dní klesla o 15 minut.",
+        "worst_location": "Nejproblematičtější místo (Top 1)",
+        "worst_location_desc": "Průměrná čekací doba: 3h 45m",
+        "compliance_rate": "Dodržování časových oken",
+        "compliance_desc": "Vozidla přijíždějí včas na základě ETA.",
+        "chart_placeholder": "Podrobné grafy z funkce Yard Waiting Killer s přesnými ETA a reálnými pohybovými daty se zde brzy objeví."
     }
 }
