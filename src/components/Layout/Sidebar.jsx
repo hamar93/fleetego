@@ -221,6 +221,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 <div className={`submenu ${openSubmenus['settings'] ? 'open' : ''}`}>
                                     <NavLink to="/app/settings/profile" className="submenu-item">{t('sidebar.profile')}</NavLink>
                                     <NavLink to="/app/settings/integrations" className="submenu-item">{t('sidebar.integrations')}</NavLink>
+                                    <NavLink to="/app/settings/import" className="submenu-item" style={{ color: '#10b981' }}>
+                                        <i className="fas fa-file-excel mr-2"></i>Adat Import
+                                    </NavLink>
                                 </div>
                             </div>
                         </div>

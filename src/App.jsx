@@ -28,6 +28,7 @@ import GlobalDocuments from './pages/Documents/GlobalDocuments';
 import PartnerList from './pages/Partners/PartnerList';
 import UserList from './pages/Company/UserList';
 import InvoicesPage from './pages/Finance/InvoicesPage';
+import ExcelImportWizard from './pages/Import/ExcelImportWizard';
 
 // Components
 import SearchPanel from './components/Timocom/SearchPanel';
@@ -123,6 +124,7 @@ function App() {
             <Route path="settings" element={<Navigate to="profile" replace />} />
             <Route path="settings/profile" element={<Placeholder title="Profil" />} />
             <Route path="settings/integrations" element={<Integrations />} />
+            <Route path="settings/import" element={<ExcelImportWizard />} />
             <Route path="settings/notifications" element={<Placeholder title="Értesítések" />} />
           </Route>
 
