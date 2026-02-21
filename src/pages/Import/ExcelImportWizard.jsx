@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TruckIcon, ArrowUpTrayIcon, CheckCircleIcon, ExclamationCircleIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import api from '../../services/api';
+import api from '../../api/api';
 
 const TARGET_FIELDS = [
     { value: '', label: '-- Ignorálás (Nem importáljuk) --' },
@@ -24,16 +24,16 @@ export default function ExcelImportWizard() {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [step, setStep] = useState(1);
-    
+
     // Data from backend
     const [headers, setHeaders] = useState([]);
     const [preview, setPreview] = useState([]);
     const [allData, setAllData] = useState([]);
     const [totalRows, setTotalRows] = useState(0);
-    
+
     // User modified mappings
     const [mapping, setMapping] = useState({});
-    
+
     // Result
     const [importResult, setImportResult] = useState(null);
 
@@ -48,7 +48,7 @@ export default function ExcelImportWizard() {
         setLoading(true);
         const formData = new FormData();
         formData.append('file', file);
-        
+
         try {
             const res = await api.post('/api/import/excel/preview', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
@@ -57,7 +57,7 @@ export default function ExcelImportWizard() {
             setPreview(res.data.preview);
             setAllData(res.data.all_data);
             setTotalRows(res.data.total_rows);
-            
+
             // Normalize mapping to ensure all mapped values exist in our options
             const initialMapping = {};
             Object.entries(res.data.suggested_mapping).forEach(([key, val]) => {
@@ -94,7 +94,7 @@ export default function ExcelImportWizard() {
                 });
                 return mappedRow;
             });
-            
+
             const res = await api.post('/api/import/excel/confirm', { mapped_data: mappedData });
             setImportResult(res.data);
             setStep(3);
@@ -134,15 +134,15 @@ export default function ExcelImportWizard() {
                     <ArrowUpTrayIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                     <h3 className="text-lg font-medium dark:text-white mb-2">Tölts fel egy Excel (vagy CSV) fájlt</h3>
                     <p className="text-gray-500 dark:text-gray-400 mb-6 font-light">Az AI automatikusan felismeri az oszlopokat és megkísérli párosítani a FleetEgo mezőivel.</p>
-                    
-                    <input 
-                        type="file" 
-                        accept=".xlsx, .xls, .csv" 
+
+                    <input
+                        type="file"
+                        accept=".xlsx, .xls, .csv"
                         onChange={handleFileChange}
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900 dark:file:text-blue-300 mx-auto max-w-sm"
                     />
-                    
-                    <button 
+
+                    <button
                         onClick={handleUpload}
                         disabled={!file || loading}
                         className="mt-8 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition shadow-sm w-full max-w-xs"
@@ -180,7 +180,7 @@ export default function ExcelImportWizard() {
                                             {header}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <select 
+                                            <select
                                                 value={mapping[header] || ''}
                                                 onChange={(e) => handleMappingChange(header, e.target.value)}
                                                 className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white"
@@ -200,15 +200,15 @@ export default function ExcelImportWizard() {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="flex justify-end space-x-4">
-                        <button 
+                        <button
                             onClick={() => setStep(1)}
                             className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                         >
                             Vissza
                         </button>
-                        <button 
+                        <button
                             onClick={handleConfirmImport}
                             disabled={loading}
                             className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition shadow-sm"
@@ -226,7 +226,7 @@ export default function ExcelImportWizard() {
                     <p className="text-gray-600 dark:text-gray-300">
                         {importResult.imported_count} tétel sikeresen bekerült a FleetEgo rendszerbe.
                     </p>
-                    <button 
+                    <button
                         onClick={() => {
                             setStep(1);
                             setFile(null);
