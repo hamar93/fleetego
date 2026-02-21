@@ -10,7 +10,14 @@
         "chat": "Chat",
         "settings": "Settings",
         "profile": "Profile",
-        "integrations": "Integrations"
+        "integrations": "Integrations",
+        "live_search": "Live Search",
+        "dispatch_calendar": "Dispatch Calendar",
+        "slots": "Slots",
+        "driving_logs": "Driving Logs",
+        "partners": "Partners",
+        "employees": "Employees",
+        "data_import": "Data Import"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -119,6 +126,28 @@
             "status_update_error": "Error updating status: ",
             "loading": "Loading...",
             "not_found": "Order not found."
+        }
+    },
+    "orders_page": {
+        "title": "Manage Shipments",
+        "subtitle": "Overview of active orders and shipments",
+        "new_order_btn": "+ Start New Shipment",
+        "filters": {
+            "all": "All",
+            "created": "Created",
+            "assigned": "Assigned",
+            "transit": "In Transit",
+            "delivered": "Delivered"
+        },
+        "table": {
+            "id": "ID",
+            "pickup": "Pickup",
+            "delivery": "Delivery",
+            "cargo": "Cargo",
+            "status": "Status",
+            "vehicle": "Vehicle",
+            "empty": "No shipments to display.",
+            "loading": "Loading shipments..."
         }
     }
 }
