@@ -68,57 +68,57 @@ const Dashboard = () => {
                 {/* KPI Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Active Orders */}
-                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[#1e293b] p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                         <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-blue-600 dark:text-blue-400 text-xl font-bold">
+                            <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-md text-blue-600 dark:text-blue-400 text-lg font-bold">
                                 📦
                             </div>
-                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">{t('dashboard.active_orders.tag')}</span>
+                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-sm">{t('dashboard.active_orders.tag')}</span>
                         </div>
-                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{stats?.active_orders_count || 0}</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.active_orders.label')}</p>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stats?.active_orders_count || 0}</h3>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('dashboard.active_orders.label')}</p>
                     </div>
 
                     {/* Pending Revenue */}
-                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[#1e293b] p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                         <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-xl text-green-600 dark:text-green-400 text-xl font-bold">
+                            <div className="p-2.5 bg-green-50 dark:bg-green-900/20 rounded-md text-green-600 dark:text-green-400 text-lg font-bold">
                                 💰
                             </div>
-                            <span className="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/10 px-2 py-1 rounded flex items-center gap-1">
+                            <span className="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/10 px-2 py-1 rounded-sm flex items-center gap-1">
                                 ↗ {t('dashboard.revenue.tag')}
                             </span>
                         </div>
-                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                             {stats?.revenue_this_month?.toLocaleString()} {stats?.currency}
                         </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.revenue.label')}</p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('dashboard.revenue.label')}</p>
                     </div>
 
                     {/* Fleet Status (Active) */}
-                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[#1e293b] p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                         <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 text-xl font-bold">
+                            <div className="p-2.5 bg-indigo-50 dark:bg-indigo-900/20 rounded-md text-indigo-600 dark:text-indigo-400 text-lg font-bold">
                                 🚛
                             </div>
                         </div>
                         <div className="flex items-baseline gap-2">
-                            <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{stats?.fleet_status?.active || 0}</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stats?.fleet_status?.active || 0}</h3>
                             <span className="text-gray-400 text-sm">/ {stats?.fleet_status?.total || 0}</span>
                         </div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.fleet_active.label')}</p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('dashboard.fleet_active.label')}</p>
                     </div>
 
                     {/* Fleet Status (Available) */}
-                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[#1e293b] p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                         <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-xl text-orange-600 dark:text-orange-400 text-xl font-bold">
+                            <div className="p-2.5 bg-orange-50 dark:bg-orange-900/20 rounded-md text-orange-600 dark:text-orange-400 text-lg font-bold">
                                 🅿️
                             </div>
-                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">{t('dashboard.fleet_available.tag')}</span>
+                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-sm">{t('dashboard.fleet_available.tag')}</span>
                         </div>
-                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{stats?.fleet_status?.available || 0}</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.fleet_available.label')}</p>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stats?.fleet_status?.available || 0}</h3>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('dashboard.fleet_available.label')}</p>
                     </div>
                 </div>
 
@@ -128,35 +128,31 @@ const Dashboard = () => {
 
                         {/* Action Required Section (Dispatch Copilot) */}
                         {orders.some(o => o.alert_status && o.alert_status !== 'OK') && (
-                            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-6 animate-pulse-slow">
-                                <h2 className="text-lg font-bold text-red-700 dark:text-red-400 mb-4 flex items-center gap-2">
-                                    ⚠️ {t('dashboard.action_required')}
+                            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/50 rounded-lg p-5">
+                                <h2 className="text-sm font-bold text-red-700 dark:text-red-400 mb-4 flex items-center gap-2 uppercase tracking-wide">
+                                    <i className="fas fa-exclamation-circle"></i> {t('dashboard.action_required')}
                                 </h2>
                                 <div className="space-y-3">
                                     {orders.filter(o => o.alert_status && o.alert_status !== 'OK').map(order => (
-                                        <div key={order.id} className="bg-white dark:bg-[#0f172a] p-4 rounded-xl border-l-4 border-red-500 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                                        <div key={order.id} className="bg-white dark:bg-[#1e293b] p-3 rounded-md shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-red-500 flex flex-col md:flex-row justify-between items-center gap-4">
                                             <div>
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-bold text-gray-900 dark:text-white">{order.order_number}</span>
-                                                    <span className="text-xs px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded font-bold">
+                                                    <span className="font-semibold text-gray-900 dark:text-white text-sm">{order.order_number}</span>
+                                                    <span className="text-xs px-2 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-sm font-medium border border-red-200 dark:border-red-800">
                                                         {order.alert_message}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                     {order.pickup.city} ➝ {order.delivery.city} • {t(`status.${order.status}`)}
                                                 </p>
                                             </div>
-                                            <div className="flex gap-2">
+                                            <div className="flex gap-2 w-full md:w-auto mt-2 md:mt-0">
                                                 <Link
                                                     to={`/app/shipments/${order.id}`}
-                                                    className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg font-medium transition-colors"
+                                                    className="w-full md:w-auto text-center px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs rounded-md font-medium transition-colors shadow-sm"
                                                 >
-                                                    Részletek
+                                                    {t('orders_page.details_link') || "Részletek"}
                                                 </Link>
-                                                {/* Snooze (Stub) */}
-                                                <button className="px-3 py-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm">
-                                                    💤
-                                                </button>
                                             </div>
                                         </div>
                                     ))}
@@ -165,25 +161,25 @@ const Dashboard = () => {
                         )}
 
                         {/* Recent Activity Feed */}
-                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-                            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6">{t('dashboard.recent_activity')}</h2>
-                            <div className="space-y-6">
+                        <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+                            <h2 className="text-sm font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wide">{t('dashboard.recent_activity')}</h2>
+                            <div className="space-y-4">
                                 {activity.length === 0 ? (
-                                    <p className="text-gray-500 text-center py-8 opacity-60">{t('dashboard.no_activity')}</p>
+                                    <p className="text-gray-500 text-center py-8 text-sm">{t('dashboard.no_activity')}</p>
                                 ) : (
                                     activity.map((item, idx) => (
                                         <div key={idx} className="flex gap-4 group">
-                                            <div className={`mt-1 h-3 w-3 rounded-full flex-shrink-0 
-                                                ${item.type === 'order_created' ? 'bg-blue-500' : 'bg-purple-500'}
+                                            <div className={`mt-1.5 h-2 w-2 rounded-full flex-shrink-0 
+                                                ${item.type === 'order_created' ? 'bg-blue-500' : 'bg-indigo-500'}
                                                 ring-4 ring-white dark:ring-[#1e293b]`}
                                             ></div>
-                                            <Link to={normalizeAppLink(item.link)} className="flex-1 pb-6 border-l-2 border-gray-100 dark:border-gray-700 pl-6 -ml-[23px] group-last:border-transparent group-last:pb-0">
-                                                <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                            <Link to={normalizeAppLink(item.link)} className="flex-1 pb-4 border-l border-gray-200 dark:border-gray-700 pl-4 -ml-[19px] group-last:border-transparent group-last:pb-0">
+                                                <div className="bg-gray-50 dark:bg-gray-800/30 p-3 rounded-md hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-blue-100 dark:hover:border-gray-600">
                                                     <div className="flex justify-between items-start mb-1">
-                                                        <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{item.title}</h4>
+                                                        <h4 className="font-medium text-gray-900 dark:text-white text-sm">{item.title}</h4>
                                                         <span className="text-xs text-gray-400">{new Date(item.timestamp).toLocaleString()}</span>
                                                     </div>
-                                                    <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
+                                                    <p className="text-sm text-gray-500 dark:text-gray-400">{item.description}</p>
                                                 </div>
                                             </Link>
                                         </div>
@@ -196,22 +192,22 @@ const Dashboard = () => {
                     {/* Quick Access / Mini Stats */}
                     <div className="space-y-6">
                         {/* Revenue Chart Placeholder (CSS Only) */}
-                        <div className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-                            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('dashboard.revenue_trend')}</h2>
+                        <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+                            <h2 className="text-sm font-bold text-gray-900 dark:text-white mb-1 uppercase tracking-wide">{t('dashboard.revenue_trend')}</h2>
                             <p className="text-xs text-gray-500 mb-6">{t('dashboard.last_6_months')}</p>
 
-                            <div className="flex items-end justify-between h-40 gap-2">
+                            <div className="flex items-end justify-between h-32 gap-3">
                                 {/* Dummy Data Bars */}
                                 {[40, 65, 45, 80, 55, 90].map((h, i) => (
-                                    <div key={i} className="w-full bg-blue-100 dark:bg-blue-900/20 rounded-t-sm relative group overflow-hidden">
+                                    <div key={i} className="w-full bg-blue-50 dark:bg-blue-900/10 rounded-t-sm relative group overflow-hidden border-b border-blue-100 dark:border-blue-900">
                                         <div
-                                            className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-600 to-indigo-500 transition-all duration-500 group-hover:bg-blue-500"
+                                            className="absolute bottom-0 left-0 w-full bg-blue-500 dark:bg-blue-600 transition-all duration-500 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 opacity-80"
                                             style={{ height: `${h}%` }}
                                         ></div>
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex justify-between mt-2 text-xs text-gray-400">
+                            <div className="flex justify-between mt-3 text-xs text-gray-400 font-medium">
                                 <span>{t('dashboard.months.aug')}</span>
                                 <span>{t('dashboard.months.sep')}</span>
                                 <span>{t('dashboard.months.oct')}</span>

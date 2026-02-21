@@ -148,7 +148,7 @@ DONE ha:
 - [x] Timocom API search
 - [x] AI price suggestion <!-- pricing_service.py: market reference + profitability -->
 - [x] ajánlat sablonok
-- [ ] Partner Risk Score
+- [x] Partner Risk Score
 
 DONE ha:
 - ajánlatküldés 10x gyorsabb mint manuálisan
@@ -161,8 +161,8 @@ DONE ha:
 Várakozási idők csökkentése.
 
 - [x] ETA alapú időkapu foglalás
-- [ ] újrafoglalás késés esetén
-- [ ] waiting time riport
+- [x] újrafoglalás késés esetén
+- [x] waiting time riport
 
 DONE ha:
 - csökken a rakodási várakozás
@@ -174,9 +174,9 @@ DONE ha:
 ## Cél
 KKV 1 nap alatt bevezeti.
 
-- [ ] Excel import wizard
-- [ ] AI mezőfelismerés
-- [ ] automatikus dispatch board generálás
+- [x] Excel import wizard
+- [x] AI mezőfelismerés
+- [x] automatikus dispatch board generálás
 
 DONE ha:
 - Excelből 15 perc alatt FleetEgo rendszer lesz

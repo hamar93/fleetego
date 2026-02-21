@@ -108,7 +108,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 </button>
                                 <div className={`submenu ${openSubmenus['timocom'] ? 'open' : ''}`}>
                                     <NavLink to="/app/timocom/live" className="submenu-item" style={{ color: '#3b82f6', fontWeight: 'bold' }}>
-                                        <i className="fas fa-radar mr-2"></i>Élő Kereső
+                                        <i className="fas fa-radar mr-2"></i>{t('sidebar.live_search')}
                                     </NavLink>
                                     <NavLink to="/app/timocom/offers" className="submenu-item">{t('sidebar.my_offers')}</NavLink>
                                     <NavLink to="/app/timocom/chat" className="submenu-item">{t('sidebar.ai_chat')}</NavLink>
@@ -130,9 +130,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 <div className={`submenu ${openSubmenus['shipments'] ? 'open' : ''}`}>
                                     <NavLink to="/app/shipments/active" className="submenu-item">{t('sidebar.active_shipments')}</NavLink>
                                     <NavLink to="/app/shipments/planning" className="submenu-item">{t('sidebar.route_planning')}</NavLink>
-                                    <NavLink to="/app/shipments/calendar" className="submenu-item">Dispatch Calendar</NavLink>
+                                    <NavLink to="/app/shipments/calendar" className="submenu-item">{t('sidebar.dispatch_calendar')}</NavLink>
                                     <NavLink to="/app/shipments/tracking" className="submenu-item">{t('sidebar.tracking')}</NavLink>
-                                    <NavLink to="/app/shipments/slots" className="submenu-item">Időkapuk (Slots)</NavLink>
+                                    <NavLink to="/app/shipments/slots" className="submenu-item">{t('sidebar.slots')}</NavLink>
                                 </div>
                             </div>
 
@@ -151,7 +151,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 <div className={`submenu ${openSubmenus['fleet'] ? 'open' : ''}`}>
                                     <NavLink to="/app/fleet/vehicles" className="submenu-item">{t('sidebar.vehicles')}</NavLink>
                                     <NavLink to="/app/fleet/drivers" className="submenu-item">{t('sidebar.drivers')}</NavLink>
-                                    <NavLink to="/app/fleet/logs" className="submenu-item">Vezetési Napló</NavLink>
+                                    <NavLink to="/app/fleet/logs" className="submenu-item">{t('sidebar.driving_logs')}</NavLink>
                                     <NavLink to="/app/fleet/maintenance" className="submenu-item">{t('sidebar.maintenance')}</NavLink>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 <NavLink to="/app/partners/list" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
                                     <span style={{ display: 'flex', alignItems: 'center' }}>
                                         <i className="menu-icon fas fa-handshake" style={{ color: '#be185d' }}></i>
-                                        Partnerek (Megbízók)
+                                        {t('sidebar.partners')}
                                     </span>
                                 </NavLink>
                             </div>
@@ -193,7 +193,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                     <NavLink to="/app/company/users" className={({ isActive }) => `menu-toggle ${isActive ? 'active' : ''}`}>
                                         <span style={{ display: 'flex', alignItems: 'center' }}>
                                             <i className="menu-icon fas fa-users-cog" style={{ color: '#06b6d4' }}></i>
-                                            Munkatársak
+                                            {t('sidebar.employees')}
                                         </span>
                                     </NavLink>
                                 </div>
@@ -221,7 +221,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                 </button>
                                 <div className={`submenu ${openSubmenus['settings'] ? 'open' : ''}`}>
                                     <NavLink to="/app/settings/import" className="submenu-item" style={{ color: '#10b981' }}>
-                                        <i className="fas fa-file-excel mr-2"></i>Adat Import
+                                        <i className="fas fa-file-excel mr-2"></i>{t('sidebar.data_import')}
                                     </NavLink>
                                     <NavLink to="/app/settings/profile" className="submenu-item">{t('sidebar.profile')}</NavLink>
                                     <NavLink to="/app/settings/integrations" className="submenu-item">{t('sidebar.integrations')}</NavLink>

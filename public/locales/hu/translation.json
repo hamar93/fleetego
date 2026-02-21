@@ -27,7 +27,14 @@
         "settings": "Beállítások",
         "profile": "Profil",
         "integrations": "Integrációk",
-        "chat": "Chat"
+        "chat": "Chat",
+        "live_search": "Élő Kereső",
+        "dispatch_calendar": "Dispatch Calendar",
+        "slots": "Időkapuk (Slots)",
+        "driving_logs": "Vezetési Napló",
+        "partners": "Partnerek (Megbízók)",
+        "employees": "Munkatársak",
+        "data_import": "Adat Import"
     },
     "dashboard": {
         "title": "Vezérlőpult",
@@ -137,5 +144,30 @@
             "loading": "Betöltés...",
             "not_found": "Fuvar nem található."
         }
+    },
+    "orders_page": {
+        "title": "Fuvarok Kezelése",
+        "subtitle": "Aktív megbízások és szállítások áttekintése",
+        "new_order_btn": "+ Új Fuvar Indítása",
+        "filters": {
+            "all": "Összes",
+            "created": "Létrehozva",
+            "assigned": "Hozzárendelve",
+            "transit": "Úton",
+            "delivered": "Kiszállítva"
+        },
+        "table": {
+            "id": "Azonosító",
+            "pickup": "Felvétel",
+            "delivery": "Lerakás",
+            "cargo": "Rakomány",
+            "status": "Státusz",
+            "vehicle": "Jármű",
+            "empty": "Nincs megjeleníthető fuvar.",
+            "loading": "Betöltés..."
+        },
+        "vehicle_assigned": "Járműhöz rendelve",
+        "vehicle_unassigned": "Nincs rendelve",
+        "details_link": "Részletek →"
     }
 }

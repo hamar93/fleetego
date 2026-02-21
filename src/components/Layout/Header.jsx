@@ -71,7 +71,7 @@ const Header = ({ title = "Dashboard", onToggleSidebar }) => {
                     className="btn-secondary"
                     onClick={toggleTheme}
                     style={{
-                        borderRadius: '30px',
+                        borderRadius: '6px',
                         padding: '0.5rem 1rem',
                         display: 'flex',
                         alignItems: 'center',

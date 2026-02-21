@@ -4,99 +4,73 @@
 
 /* Legacy Premium Design Port */
 :root {
-    /* ========================================================================
-       BUSINESS CYBERPUNK - DARK MODE (Default)
-       Modern, professional, alive. Deep tones with neon accents.
-       ======================================================================== */
-    --primary-color: #00e5c0;
-    /* Neon Cyan - Primary actions */
-    --secondary-color: #8a5cf5;
-    /* Electric Purple - Accents */
-    --accent-color: #ff6b8a;
-    /* Soft Neon Pink - Warnings/Highlights */
-    --dark-bg: #0d1225;
-    /* Deep Space Blue - Main background */
-    --darker-bg: #080c18;
-    /* Darker base - Cards overlay */
-    --card-bg: rgba(15, 25, 45, 0.7);
-    /* Gunmetal Glass */
-    --text-primary: #e8ecf4;
-    /* Soft White - Readable */
-    --text-secondary: rgba(232, 236, 244, 0.65);
-    --glass-bg: rgba(20, 35, 60, 0.6);
-    --glass-border: rgba(0, 229, 192, 0.2);
-    /* Subtle neon border */
-    --sidebar-width: 280px;
-    --success: #00ff9d;
-    --warning: #ffc800;
-    --danger: #ff5a70;
-    /* Glow Effects */
-    /* Target Design Palette */
-    --bg-primary: #0b1120;
-    /* Very dark blue background */
-    --bg-secondary: #0f172a;
-    /* Slightly lighter sidebar/header */
-    --card-bg: #1e293b;
-    /* Card background */
+    /* Modern Enterprise SaaS - DARK MODE */
+    --primary-color: #2563eb;
+    /* Strong Blue */
+    --primary-glow: rgba(37, 99, 235, 0.4);
 
-    --primary-color: #3b82f6;
-    /* Bright Blue */
-    --primary-glow: rgba(59, 130, 246, 0.5);
-
-    --secondary-color: #6366f1;
+    --secondary-color: #4f46e5;
     /* Indigo */
 
-    --accent-success: #10b981;
-    /* Green for badges/positive */
-    --accent-warning: #f59e0b;
-    /* Orange/Yellow */
-    --accent-danger: #ef4444;
-    /* Red */
+    --accent-success: #059669;
+    /* Darker green */
+    --accent-warning: #d97706;
+    /* Darker orange */
+    --accent-danger: #dc2626;
+    /* Darker red */
+
+    --bg-primary: #0f172a;
+    /* Slate 900 */
+    --bg-secondary: #1e293b;
+    /* Slate 800 */
+    --card-bg: #1e293b;
+    /* Slate 800 */
 
     --text-primary: #f8fafc;
+    /* Slate 50 */
     --text-secondary: #94a3b8;
+    /* Slate 400 */
     --text-muted: #64748b;
+    /* Slate 500 */
 
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(30, 41, 59, 0.95);
 
     --sidebar-width: 260px;
-    --header-height: 70px;
+    --header-height: 64px;
+    /* Tighter header */
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    /* Tighter, more professional corners */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-
-    /* Clean Premium Background - Dark (Gradient Base) */
-    --bg-primary: #0b1120;
-    --bg-secondary: #0f172a;
-    --card-bg: #1e293b;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b, #020617);
+    --bg-gradient: none;
+    /* Flat colors for enterprise feel */
 }
 
 [data-theme='light'] {
-    --bg-primary: #f0f2f5;
-    --bg-secondary: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
-
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.05);
-
-    /* Sidebar specific light mode overrides */
-    --sidebar-bg: #ffffff;
-
-    /* Clean Premium Background - Light */
-    --bg-primary: #f1f5f9;
+    /* Modern Enterprise SaaS - LIGHT MODE */
+    --bg-primary: #f8fafc;
+    /* Lighter, cleaner background */
     --bg-secondary: #ffffff;
     --card-bg: #ffffff;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #cbd5e1, #f1f5f9);
+
+    --text-primary: #0f172a;
+    /* Slate 900 for high contrast reading */
+    --text-secondary: #475569;
+    /* Slate 600 */
+    --text-muted: #64748b;
+    /* Slate 500 */
+
+    --glass-bg: #ffffff;
+    /* Solid white for enterprise feel */
+    --glass-border: #e2e8f0;
+    /* Slate 200 border */
+
+    --sidebar-bg: #ffffff;
+    --bg-gradient: none;
+    /* Flat colors */
 }
 
 /* Mobile Responsive Styles */
@@ -850,7 +824,8 @@ select.form-input {
 }
 
 select.form-input option {
-    background-color: var(--darker-bg); /* Use darker bg for options */
+    background-color: var(--darker-bg);
+    /* Use darker bg for options */
     color: var(--text-primary);
     padding: 10px;
 }
