@@ -29,6 +29,7 @@ import PartnerList from './pages/Partners/PartnerList';
 import UserList from './pages/Company/UserList';
 import InvoicesPage from './pages/Finance/InvoicesPage';
 import ExcelImportWizard from './pages/Import/ExcelImportWizard';
+import SlotManagement from './pages/Slots/SlotManagement';
 
 // Components
 import SearchPanel from './components/Timocom/SearchPanel';
@@ -82,6 +83,7 @@ function App() {
             <Route path="shipments/planning" element={<DispatchBoard />} />
             <Route path="shipments/calendar" element={<DispatchCalendar />} />
             <Route path="shipments/tracking" element={<TrackingPage />} />
+            <Route path="shipments/slots" element={<SlotManagement />} />
             {/* Backwards-compat routes */}
             <Route path="orders" element={<Navigate to="/app/shipments/active" replace />} />
             <Route path="orders/new" element={<Navigate to="/app/shipments/active?new=1" replace />} />

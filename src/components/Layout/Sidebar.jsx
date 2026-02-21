@@ -132,6 +132,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                     <NavLink to="/app/shipments/planning" className="submenu-item">{t('sidebar.route_planning')}</NavLink>
                                     <NavLink to="/app/shipments/calendar" className="submenu-item">Dispatch Calendar</NavLink>
                                     <NavLink to="/app/shipments/tracking" className="submenu-item">{t('sidebar.tracking')}</NavLink>
+                                    <NavLink to="/app/shipments/slots" className="submenu-item">Időkapuk (Slots)</NavLink>
                                 </div>
                             </div>
 
