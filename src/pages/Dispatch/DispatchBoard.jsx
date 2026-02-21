@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/api';
+import { useTranslation } from 'react-i18next';
 
 const DispatchBoard = () => {
+    const { t, i18n } = useTranslation();
     const [loading, setLoading] = useState(true);
     const [timelineData, setTimelineData] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(new Date()); // Defaults to today, viewing current week
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [filterText, setFilterText] = useState('');
     const [now, setNow] = useState(new Date());
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -17,7 +19,6 @@ const DispatchBoard = () => {
         fetchTimeline();
     }, [selectedDate]);
 
-    // Update 'now' every minute
     useEffect(() => {
         const interval = setInterval(() => setNow(new Date()), 60000);
         return () => clearInterval(interval);
@@ -26,14 +27,12 @@ const DispatchBoard = () => {
     const fetchTimeline = async () => {
         setLoading(true);
         try {
-            // Calculate start/end of week based on selectedDate
             const current = new Date(selectedDate);
             const day = current.getDay();
-            const diff = current.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+            const diff = current.getDate() - day + (day === 0 ? -6 : 1);
             const monday = new Date(current.setDate(diff));
             const sunday = new Date(current.setDate(diff + 6));
 
-            // Format YYYY-MM-DD
             const startStr = monday.toISOString().split('T')[0];
             const endStr = sunday.toISOString().split('T')[0];
 
@@ -58,7 +57,6 @@ const DispatchBoard = () => {
         setSelectedDate(newDate);
     };
 
-    // Helper to calculate position
     const getEventStyle = (event, rangeStart, rangeEnd) => {
         const start = new Date(event.start).getTime();
         const end = new Date(event.end).getTime();
@@ -66,7 +64,6 @@ const DispatchBoard = () => {
         const max = new Date(rangeEnd).getTime();
         const totalDuration = max - min;
 
-        // Clip to range
         const effectiveStart = Math.max(start, min);
         const effectiveEnd = Math.min(end, max);
 
@@ -90,13 +87,12 @@ const DispatchBoard = () => {
         return ((current - min) / totalDuration) * 100;
     };
 
-    // Drag & Drop Handlers
     const handleDragStart = (evt) => {
         setDraggedEvent(evt);
     };
 
     const handleDragOver = (e) => {
-        e.preventDefault(); // Allow drop
+        e.preventDefault();
     };
 
     const handleDrop = async (targetResource) => {
@@ -109,7 +105,7 @@ const DispatchBoard = () => {
             setVerifyingDrop(true);
             try {
                 const res = await api.post('/api/dispatch/plan', {
-                    order_id: draggedEvent.id, // ID is standard hex ObjectId
+                    order_id: draggedEvent.id,
                     driver_id: targetResource.driver_id
                 });
 
@@ -120,7 +116,7 @@ const DispatchBoard = () => {
                         result: res.data
                     });
                     setVerifyingDrop(false);
-                    return; // Wait for modal action
+                    return;
                 }
             } catch (err) {
                 console.error("Compliance API failed, proceeding anyway", err);
@@ -158,7 +154,7 @@ const DispatchBoard = () => {
     if (loading && !timelineData) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-[#0f172a]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
             </div>
         );
     }
@@ -166,7 +162,6 @@ const DispatchBoard = () => {
     const start = new Date(timelineData?.range.start);
     const end = new Date(timelineData?.range.end);
 
-    // Generate headers (days)
     const headers = [];
     const temp = new Date(start);
     while (temp <= end) {
@@ -174,8 +169,6 @@ const DispatchBoard = () => {
         temp.setDate(temp.getDate() + 1);
     }
 
-    // Filter Logic
-    // Filter Logic safely
     const filteredResources = timelineData?.resources?.filter(res => {
         const p = res.plate || '';
         const d = res.driver || '';
@@ -190,10 +183,10 @@ const DispatchBoard = () => {
             <div className="max-w-[1600px] w-full mx-auto space-y-6 flex-1 flex flex-col">
 
                 {/* Header controls */}
-                <div className="flex flex-col md:flex-row justify-between items-center bg-white dark:bg-[#1e293b] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-center bg-white dark:bg-[#1e293b] p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Fuvartervezés</h1>
-                        <p className="text-sm text-gray-500">Heti nézet: {start.toLocaleDateString()} - {end.toLocaleDateString()}</p>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('dispatch_board.title')}</h1>
+                        <p className="text-sm text-gray-500">{t('common.week_view')}: {start.toLocaleDateString(i18n.language)} - {end.toLocaleDateString(i18n.language)}</p>
                     </div>
 
                     {/* Search */}
@@ -201,7 +194,7 @@ const DispatchBoard = () => {
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
                         <input
                             type="text"
-                            placeholder="Keresés rendszámra, sofőrre..."
+                            placeholder={t('dispatch_board.search_placeholder')}
                             className="pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={filterText}
                             onChange={(e) => setFilterText(e.target.value)}
@@ -213,7 +206,7 @@ const DispatchBoard = () => {
                             ◀
                         </button>
                         <button onClick={() => setSelectedDate(new Date())} className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium">
-                            Ma
+                            {t('common.today')}
                         </button>
                         <button onClick={handleNextWeek} className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
                             ▶
@@ -222,13 +215,13 @@ const DispatchBoard = () => {
                 </div>
 
                 {/* Timeline Container */}
-                <div className="flex-1 bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col relative">
+                <div className="flex-1 bg-white dark:bg-[#1e293b] rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col relative">
 
-                    {/* Absolute Current Time Line (Spanning Full Height) */}
+                    {/* Current Time Line */}
                     {nowPos !== null && (
                         <div
                             className="absolute top-12 bottom-0 w-0.5 bg-red-500 z-30 pointer-events-none"
-                            style={{ left: `calc(16rem + ${nowPos}%)` }} // 16rem is sidebar width
+                            style={{ left: `calc(16rem + ${nowPos}%)` }}
                         >
                             <div className="absolute -top-1 -left-1.5 w-3 h-3 bg-red-500 rounded-full"></div>
                         </div>
@@ -236,11 +229,9 @@ const DispatchBoard = () => {
 
                     {/* Header Row (Dates) */}
                     <div className="flex border-b border-gray-200 dark:border-gray-700">
-                        {/* Empty corner for Resources */}
                         <div className="w-64 flex-shrink-0 p-4 font-bold text-gray-400 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-200 dark:border-gray-700">
-                            Jármű / Sofőr
+                            {t('dispatch_board.vehicle_driver')}
                         </div>
-                        {/* Days */}
                         <div className="flex-1 grid grid-cols-7">
                             {headers.map((date, idx) => {
                                 const isWeekend = date.getDay() === 0 || date.getDay() === 6;
@@ -251,7 +242,7 @@ const DispatchBoard = () => {
                                         ${isToday ? 'bg-blue-50/50 dark:bg-blue-900/10' : ''}
                                     `}>
                                         <div className={`text-xs uppercase font-semibold ${isToday ? 'text-blue-600' : 'text-gray-500'}`}>
-                                            {date.toLocaleDateString('hu-HU', { weekday: 'short' })}
+                                            {date.toLocaleDateString(i18n.language, { weekday: 'short' })}
                                         </div>
                                         <div className={`text-lg font-bold ${isToday ? 'text-blue-700 dark:text-blue-400' : ''}`}>
                                             {date.getDate()}
@@ -299,7 +290,6 @@ const DispatchBoard = () => {
 
                                 {/* Timeline Track */}
                                 <div className="flex-1 relative grid grid-cols-7">
-                                    {/* Background Columns for Grid & Weekend Highlight */}
                                     {headers.map((date, idx) => {
                                         const isWeekend = date.getDay() === 0 || date.getDay() === 6;
                                         return (
@@ -309,7 +299,7 @@ const DispatchBoard = () => {
                                         );
                                     })}
 
-                                    {/* Events Layer (Absolute over grid) */}
+                                    {/* Events Layer */}
                                     <div className="absolute inset-0 top-2 bottom-2">
                                         {(timelineData.events || [])
                                             .filter(evt => evt.resourceId === res.id)
@@ -332,7 +322,7 @@ const DispatchBoard = () => {
                                                     <div className="font-bold text-[10px] leading-tight flex justify-between items-start">
                                                         <span>{evt.orderNumber}</span>
                                                         {evt.has_slot_warning && (
-                                                            <span title="Időkapu csúszás veszélye!" className="text-red-200 drop-shadow-md text-xs">⚠️</span>
+                                                            <span title={t('dispatch_board.slot_warning')} className="text-red-200 drop-shadow-md text-xs">⚠️</span>
                                                         )}
                                                     </div>
                                                     <div className="opacity-90 truncate text-[10px] mt-0.5">{evt.title}</div>
@@ -346,7 +336,7 @@ const DispatchBoard = () => {
 
                         {filteredResources.length === 0 && (
                             <div className="p-12 text-center text-gray-500">
-                                {filterText ? 'Nincs a keresésnek megfelelő jármű.' : 'Nincs megjeleníthető jármű.'}
+                                {filterText ? t('dispatch_board.no_vehicle_match') : t('dispatch_board.no_vehicle')}
                             </div>
                         )}
                     </div>
@@ -356,7 +346,7 @@ const DispatchBoard = () => {
             {/* Event Details Modal */}
             {selectedEvent && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedEvent(null)}>
-                    <div className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-2xl max-w-md w-full p-6 relative" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-2xl max-w-md w-full p-6 relative" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setSelectedEvent(null)}
                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"
@@ -377,17 +367,17 @@ const DispatchBoard = () => {
 
                         <div className="space-y-4 text-sm">
                             <div>
-                                <div className="text-gray-500 mb-1">Útvonal</div>
+                                <div className="text-gray-500 mb-1">{t('dispatch_board.route')}</div>
                                 <div className="font-medium text-gray-900 dark:text-white">{selectedEvent.title}</div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-gray-500 mb-1">Indulás</div>
-                                    <div className="font-medium text-gray-900 dark:text-white">{new Date(selectedEvent.start).toLocaleString('hu-HU')}</div>
+                                    <div className="text-gray-500 mb-1">{t('dispatch_board.departure')}</div>
+                                    <div className="font-medium text-gray-900 dark:text-white">{new Date(selectedEvent.start).toLocaleString(i18n.language)}</div>
                                 </div>
                                 <div>
-                                    <div className="text-gray-500 mb-1">Érkezés</div>
-                                    <div className="font-medium text-gray-900 dark:text-white">{new Date(selectedEvent.end).toLocaleString('hu-HU')}</div>
+                                    <div className="text-gray-500 mb-1">{t('dispatch_board.arrival')}</div>
+                                    <div className="font-medium text-gray-900 dark:text-white">{new Date(selectedEvent.end).toLocaleString(i18n.language)}</div>
                                 </div>
                             </div>
                         </div>
@@ -399,36 +389,36 @@ const DispatchBoard = () => {
             {/* Compliance Modal */}
             {complianceWarning && (
                 <div className="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => { setComplianceWarning(null); setDraggedEvent(null); }}>
-                    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full p-6 text-center" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-2xl max-w-lg w-full p-6 text-center" onClick={e => e.stopPropagation()}>
                         <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                             ⚠️
                         </div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">EU561 Konfliktus!</h2>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('dispatch_board.eu561_conflict')}</h2>
                         <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                            A kiválasztott sofőr (<span className="font-semibold text-gray-900 dark:text-gray-200">{complianceWarning.resource.driver}</span>) a rendszer adatai szerint <strong>kifut a vezetési időből</strong>, ha elvállalja ezt a fuvart!
+                            {t('dispatch_board.eu561_message')}
                         </p>
 
-                        <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-xl text-left text-sm font-semibold mb-6 flex flex-col gap-2 border border-red-100 dark:border-red-900/50">
+                        <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg text-left text-sm font-semibold mb-6 flex flex-col gap-2 border border-red-100 dark:border-red-900/50">
                             {complianceWarning.result?.issues?.map((issue, idx) => (
                                 <div key={idx} className="flex items-start gap-2">
                                     <span className="mt-0.5">•</span>
                                     <span>{issue}</span>
                                 </div>
-                            )) || "Nincs elég vezetési idő."}
+                            )) || t('dispatch_board.no_driving_time')}
                         </div>
 
                         <div className="flex gap-3 relative">
                             <button
                                 onClick={() => { setComplianceWarning(null); setDraggedEvent(null); }}
-                                className="flex-1 px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-xl font-medium transition-colors"
+                                className="flex-1 px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg font-medium transition-colors"
                             >
-                                Mégse (Visszavonás)
+                                {t('dispatch_board.cancel_btn')}
                             </button>
                             <button
                                 onClick={() => confirmAssignment(complianceWarning.event, complianceWarning.resource)}
-                                className="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors border border-transparent"
+                                className="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors border border-transparent"
                             >
-                                Kiosztás Mindenképp
+                                {t('dispatch_board.assign_anyway')}
                             </button>
                         </div>
                     </div>

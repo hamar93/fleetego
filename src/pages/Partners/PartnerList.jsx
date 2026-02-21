@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
+import { useTranslation } from 'react-i18next';
 
 const PartnerList = () => {
+    const { t } = useTranslation();
     const [partners, setPartners] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,32 +40,32 @@ const PartnerList = () => {
             setIsModalOpen(false);
             setFormData({ name: '', address: '', city: '', zip_code: '', contact_person: '', email: '', phone: '' });
         } catch (error) {
-            alert('Hiba a partner létrehozásakor!');
+            alert(t('partners_page.create_error'));
         }
     };
 
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Partnerek Kezelése</h1>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('partners_page.title')}</h1>
                 <button
                     onClick={() => setIsModalOpen(true)}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
                 >
-                    + Új Partner
+                    {t('partners_page.new_partner_btn')}
                 </button>
             </div>
 
             {loading ? (
-                <div className="text-center py-12 text-gray-500">Betöltés...</div>
+                <div className="text-center py-12 text-gray-500">{t('common.loading')}</div>
             ) : partners.length === 0 ? (
-                <div className="text-center py-12 bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700">
-                    <p className="text-gray-500 dark:text-gray-400">Nincsenek felvett partnerek.</p>
+                <div className="text-center py-12 bg-white dark:bg-[#1e293b] rounded-lg border border-gray-100 dark:border-gray-700">
+                    <p className="text-gray-500 dark:text-gray-400">{t('partners_page.no_partners')}</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {partners.map(partner => (
-                        <div key={partner.id} className="bg-white dark:bg-[#1e293b] p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div key={partner.id} className="bg-white dark:bg-[#1e293b] p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{partner.name}</h3>
                             <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                                 <p><i className="fas fa-map-marker-alt w-5"></i> {partner.zip_code} {partner.city}, {partner.address}</p>
@@ -79,11 +81,11 @@ const PartnerList = () => {
             {/* Create Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-xl w-full max-w-md">
-                        <h2 className="text-xl font-bold mb-4 dark:text-white">Új Partner Felvétele</h2>
+                    <div className="bg-white dark:bg-[#1e293b] p-6 rounded-lg w-full max-w-md">
+                        <h2 className="text-xl font-bold mb-4 dark:text-white">{t('partners_page.create_title')}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Cégnév</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('partners_page.company_name')}</label>
                                 <input
                                     type="text"
                                     required
@@ -94,7 +96,7 @@ const PartnerList = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Irszám</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('partners_page.zip_code')}</label>
                                     <input
                                         type="text"
                                         required
@@ -104,7 +106,7 @@ const PartnerList = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Város</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('partners_page.city')}</label>
                                     <input
                                         type="text"
                                         required
@@ -115,7 +117,7 @@ const PartnerList = () => {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Cím</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('partners_page.address')}</label>
                                 <input
                                     type="text"
                                     required
@@ -125,7 +127,7 @@ const PartnerList = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Kapcsolattartó</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('partners_page.contact_person')}</label>
                                 <input
                                     type="text"
                                     className="w-full mt-1 p-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -139,13 +141,13 @@ const PartnerList = () => {
                                     onClick={() => setIsModalOpen(false)}
                                     className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                                 >
-                                    Mégse
+                                    {t('common.cancel')}
                                 </button>
                                 <button
                                     type="submit"
                                     className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
                                 >
-                                    Létrehozás
+                                    {t('common.create')}
                                 </button>
                             </div>
                         </form>
