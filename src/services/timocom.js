@@ -69,15 +69,5 @@ export const timocomService = {
       console.error("Timocom Delete Template Error:", error);
       throw error;
     }
-  },
-
-  analyzeRisk: async (companyName) => {
-    try {
-      const response = await api.post('/api/ai/analyze-risk', { company_name: companyName });
-      return response.data;
-    } catch (error) {
-      console.error("Timocom Analyze Risk Error:", error);
-      return null;
-    }
   }
 };

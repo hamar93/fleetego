@@ -17,23 +17,14 @@ const FreightDetailsModal = ({ freight, onClose, onSendOffer }) => {
             setOfferPrice(freight.price?.amount || 0);
             fetchPrediction();
             fetchTemplates();
-            if (freight.company?.name) {
-                fetchRisk(freight.company.name);
+            // Backend now provides risk_score directly in the payload
+            if (freight.risk_score) {
+                setRiskScore(freight.risk_score);
+            } else {
+                setRiskScore(null);
             }
         }
     }, [freight]);
-
-    const fetchRisk = async (companyName) => {
-        setLoadingRisk(true);
-        try {
-            const data = await timocomService.analyzeRisk(companyName);
-            setRiskScore(data);
-        } catch (error) {
-            console.error("Failed to fetch risk score:", error);
-        } finally {
-            setLoadingRisk(false);
-        }
-    };
 
     const fetchTemplates = async () => {
         try {
